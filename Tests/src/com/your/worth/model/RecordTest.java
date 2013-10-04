@@ -20,9 +20,9 @@ public class RecordTest extends AndroidTestCase {
     public void testCreateRecord() {
 
         // create record
-        Record newRecord = new Record();
+        Record newRecord = new Record(5,"Loan");
 
-        assertNull("Description is not null", newRecord.getDescription());
-        assertEquals("Value is not 0", 0, newRecord.getValue());
+        assertEquals("The description does not match","Loan",newRecord.getDescription());
+        assertEquals("Value does not match", 5, newRecord.getValue());
     }
 }
