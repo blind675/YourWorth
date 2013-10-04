@@ -72,11 +72,25 @@ public class AppModel {
      * @return the value of the record
      */
     public int getIncomeRecordValue(int index) {
-       /* this method will never fail :D ( throw excepption ) */
+       /* this method will never fail :D ( throw exception )
+        * 0 values are not relevant therefore ignored  */
        if ( !incomeList.isEmpty() || index < incomeListSize) {
            return incomeList.get(index).getValue();
        }
        return 0;
+    }
+
+    /**
+     * Method that returns the description of an income record given by an index
+     * @param index the index of the record
+     * @return the description of the record
+     */
+    public String getIncomeRecordDescription(int index) {
+       /* this method will never fail :D ( throw exception ) */
+        if ( !incomeList.isEmpty() || index < incomeListSize) {
+            return incomeList.get(index).getDescription();
+        }
+        return null;
     }
 
     /**
