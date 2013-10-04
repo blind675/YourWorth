@@ -60,7 +60,7 @@ public class AppModel {
      * @param value value of the income
      * @param description description of the income
      */
-	public void setIncomeValueAndDescription( int value, String  description){
+	public void addIncomeRecordValueAndDescription( int value, String  description){
 		Record record = new Record(value,description);
         incomeList.add(record);
         incomeListSize++;
@@ -91,6 +91,14 @@ public class AppModel {
             return incomeList.get(index).getDescription();
         }
         return null;
+    }
+
+    /**
+     * Method that returns the number of income records
+     * @return number of income records
+     */
+    public int getIncomeListSize() {
+        return incomeListSize;
     }
 
     /**
