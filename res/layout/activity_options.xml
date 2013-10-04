@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:longClickable="true"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:background="#8095ad"
+        android:gravity="center"
+        android:text="Home"
+        android:textColor="#ffffff"
+        android:layout_marginTop="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:background="#8095ad"
+        android:gravity="center"
+        android:text="Input"
+        android:textColor="#ffffff"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:background="#8095ad"
+        android:gravity="center"
+        android:text="Output"
+        android:textColor="#ffffff"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="62dp"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="@string/about" />
+
+</RelativeLayout>
