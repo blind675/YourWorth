@@ -61,9 +61,11 @@ public class AppModel {
      * @param description description of the income
      */
 	public void addIncomeRecordValueAndDescription( int value, String  description){
-		Record record = new Record(value,description);
-        incomeList.add(record);
-        incomeListSize++;
+        if(value!=0){
+            Record record = new Record(value,description);
+            incomeList.add(record);
+            incomeListSize++;
+        }
 	}
 
     /**
@@ -74,7 +76,7 @@ public class AppModel {
     public int getIncomeRecordValue(int index) {
        /* this method will never fail :D ( throw exception )
         * 0 values are not relevant therefore ignored  */
-       if ( !incomeList.isEmpty() || index < incomeListSize) {
+       if ( !incomeList.isEmpty() && index < incomeListSize) {
            return incomeList.get(index).getValue();
        }
        return 0;
@@ -87,7 +89,7 @@ public class AppModel {
      */
     public String getIncomeRecordDescription(int index) {
        /* this method will never fail :D ( throw exception ) */
-        if ( !incomeList.isEmpty() || index < incomeListSize) {
+        if ( !incomeList.isEmpty() && index < incomeListSize) {
             return incomeList.get(index).getDescription();
         }
         return null;
@@ -101,17 +103,54 @@ public class AppModel {
         return incomeListSize;
     }
 
+
     /**
      * Method that adds an <B>Spending</B> record to the spending list of the model
      *
      * @param value value of the spending
      * @param description description of the spending
      */
-	public void setSpendingValueAndDescription( int value, String  description){
-		Record record = new Record(value,description);
-		spendingList.add(record);
-	}
+    public void addSpendingRecordValueAndDescription( int value, String  description){
+        if(value != 0) {
+            Record record = new Record(value,description);
+            spendingList.add(record);
+            spendingListSize++;
+        }
+    }
 
+    /**
+     * Method that returns the value of an spending record given by an index
+     * @param index the index of the record
+     * @return the value of the record
+     */
+    public int getSpendingRecordValue(int index) {
+       /* this method will never fail :D ( throw exception )
+        * 0 values are not relevant therefore ignored  */
+        if ( !spendingList.isEmpty() && index < spendingListSize) {
+            return spendingList.get(index).getValue();
+        }
+        return 0;
+    }
+
+    /**
+     * Method that returns the description of an spending record given by an index
+     * @param index the index of the record
+     * @return the description of the record
+     */
+    public String getSpendingRecordDescription(int index) {
+       /* this method will never fail :D ( throw exception ) */
+        if ( !spendingList.isEmpty() && index < spendingListSize) {
+            return spendingList.get(index).getDescription();
+        }
+        return null;
+    }
+
+    /**
+     * Method that returns the number of spending records
+     * @return number of spending records
+     */
+    public int getSpendingListSize() {
+        return spendingListSize;
+    }
 }
-	
 	
