@@ -9,7 +9,7 @@ import java.util.List;
  *	singleton class that holds the data of the application
  *	the singleton part can be argued is useless but it seemed a nice exercise 
  */
-//TODO: TDD - test driven development
+
 public class AppModel {
 
 	/**
@@ -52,17 +52,8 @@ public class AppModel {
      */
 	public void setIncomeValueAndDescription( int value, String  description){
 		Record record = new Record(value,description);
-		this.setIncomeValueAndDescription(record);
+        incomeList.add(record);
 	}
-
-    /**
-     * Method that adds an <B>Income</B> record to the income list of the model
-     * @param record a record of the income
-     */
-	public void setIncomeValueAndDescription(Record record){
-		incomeList.add(record);
-	}
-    //TODO: drop one of the methods above, figure out which.
 
     /**
      * Method that adds an <B>Spending</B> record to the spending list of the model
@@ -72,18 +63,9 @@ public class AppModel {
      */
 	public void setSpendingValueAndDescription( int value, String  description){
 		Record record = new Record(value,description);
-		this.setSpendingValueAndDescription(record);
-	}
-
-    /**
-     * Method that adds an <B>Spending</B> record to the spending list of the model
-     * @param record a record of the spending
-     */
-	public void setSpendingValueAndDescription(Record record){
 		spendingList.add(record);
 	}
 
-    //TODO: drop one of the methods above, figure out which.
 }
 	
 	
