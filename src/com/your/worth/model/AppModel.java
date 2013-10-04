@@ -9,7 +9,6 @@ import java.util.List;
  *	singleton class that holds the data of the application
  *	the singleton part can be argued is useless but it seemed a nice exercise 
  */
-//TODO: unit tests
 //TODO: TDD - test driven development
 public class AppModel {
 
@@ -42,27 +41,49 @@ public class AppModel {
         }
         return INSTANCE;
 	}
-	
-	//This feels like a duplicate :(
-	//TODO: add java doc
-	
+
+    // This feels like a duplicate :(. I don't like that there are 2 lists and both have similar methods.
+
+    /**
+     * Method that adds an <B>Income</B> record to the income list of the model
+     *
+     * @param value value of the income
+     * @param description description of the income
+     */
 	public void setIncomeValueAndDescription( int value, String  description){
 		Record record = new Record(value,description);
-		incomeList.add(record);
+		this.setIncomeValueAndDescription(record);
 	}
-	
+
+    /**
+     * Method that adds an <B>Income</B> record to the income list of the model
+     * @param record a record of the income
+     */
 	public void setIncomeValueAndDescription(Record record){
 		incomeList.add(record);
 	}
-	
+    //TODO: drop one of the methods above, figure out which.
+
+    /**
+     * Method that adds an <B>Spending</B> record to the spending list of the model
+     *
+     * @param value value of the spending
+     * @param description description of the spending
+     */
 	public void setSpendingValueAndDescription( int value, String  description){
 		Record record = new Record(value,description);
-		spendingList.add(record);
+		this.setSpendingValueAndDescription(record);
 	}
-	
+
+    /**
+     * Method that adds an <B>Spending</B> record to the spending list of the model
+     * @param record a record of the spending
+     */
 	public void setSpendingValueAndDescription(Record record){
 		spendingList.add(record);
 	}
+
+    //TODO: drop one of the methods above, figure out which.
 }
 	
 	
