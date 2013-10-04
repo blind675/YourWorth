@@ -5,8 +5,6 @@ package com.your.worth.model;
  *
  * This is like a DTO .. i could probably be generated
  */
-//TODO: unit tests
-//TODO: TDD - test driven development
 public class Record {
 	
 	private int mValue;
