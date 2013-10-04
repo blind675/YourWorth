@@ -16,8 +16,11 @@ public class AppModelTest extends AndroidTestCase {
 
     public void testIncomePartOfModel() {
 
-        //get an empty income first record
-        //TODO: create getIncomeRecordValue() method
-        assertEquals("The value of the returned empty record value is not 0", AppModel.getInstance().getIncomeRecordValue(1));
+        //get an empty income first record value
+        assertEquals("The value of the returned empty record value is not 0",0, AppModel.getInstance().getIncomeRecordValue(0));
+
+        //get an empty income first record description
+        //TODO: create getIncomeRecordDescription() method
+        assertEquals("The value of the returned empty record value is not 0",0, AppModel.getInstance().getIncomeRecordDescription(0));
     }
 }

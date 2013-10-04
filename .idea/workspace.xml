@@ -36,10 +36,10 @@
     <file path="/fragment.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380874153898" ignored="false" />
     <file path="/AndroidManifest.xml" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380875120389" ignored="false" />
     <file path="/RecordTest.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380877368918" ignored="false" />
-    <file path="/Dummy.txt" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380879345295" ignored="false" />
-    <file path="/AppModelTest.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380879484091" ignored="false" />
+    <file path="/Dummy.txt" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380880114884" ignored="false" />
+    <file path="/AppModelTest.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380881411921" ignored="false" />
     <file path="/MainActivityTest.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380876663108" ignored="false" />
-    <file path="/AppModel.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380879867987" ignored="false" />
+    <file path="/AppModel.java" changelist="d7142e72-f369-4493-a025-7578ade93c40" time="1380880639020" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +104,7 @@
       <file leaf-file-name="AppModelTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/src/com/your/worth/model/AppModelTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="75" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
+            <state line="23" column="129" selection-start="905" selection-end="905" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -113,16 +113,7 @@
       <file leaf-file-name="AppModel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/your/worth/model/AppModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="0" selection-start="1289" selection-end="1289" vertical-scroll-proportion="0.3939394">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RecordTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tests/src/com/your/worth/model/RecordTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="49" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0">
+            <state line="74" column="59" selection-start="1759" selection-end="1769" vertical-scroll-proportion="0.741533">
               <folding />
             </state>
           </provider>
@@ -153,8 +144,8 @@
         <option value="$PROJECT_DIR$/Tests/src/com/your/worth/controller/MainActivityTest.java" />
         <option value="$PROJECT_DIR$/Tests/src/com/your/worth/model/RecordTest.java" />
         <option value="$PROJECT_DIR$/src/com/your/worth/model/Record.java" />
-        <option value="$PROJECT_DIR$/Tests/src/com/your/worth/model/AppModelTest.java" />
         <option value="$PROJECT_DIR$/src/com/your/worth/model/AppModel.java" />
+        <option value="$PROJECT_DIR$/Tests/src/com/your/worth/model/AppModelTest.java" />
       </list>
     </option>
   </component>
@@ -605,11 +596,12 @@
       <item index="5" class="java.lang.String" itemvalue="Android Tests.AppModelTest.testIncomePartOfModel" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Android Tests.AppModelTest.testIncomePartOfModel" />
-        <item index="1" class="java.lang.String" itemvalue="Android Tests.AppModelTest.testAppModelSingleton" />
-        <item index="2" class="java.lang.String" itemvalue="Android Tests.RecordTest.testCreateRecord" />
-        <item index="3" class="java.lang.String" itemvalue="Android Tests.RecordTest" />
+        <item index="1" class="java.lang.String" itemvalue="Android Tests.AppModelTest.testIncomePartOfModel" />
+        <item index="2" class="java.lang.String" itemvalue="Android Tests.AppModelTest.testIncomePartOfModel" />
+        <item index="3" class="java.lang.String" itemvalue="Android Tests.AppModelTest.testAppModelSingleton" />
+        <item index="4" class="java.lang.String" itemvalue="Android Tests.RecordTest.testCreateRecord" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -657,7 +649,11 @@
       <created>1380879354743</created>
       <updated>1380879354743</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Decided on the model functionality. Changed the first method to be created in the TTD process.">
+      <created>1380880127474</created>
+      <updated>1380880127474</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -732,7 +728,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting TTD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Decided on the model functionality. Changed the first method to be created in the TTD process." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -750,6 +746,7 @@
     <MESSAGE value="Finished the RecordTest. All ok." />
     <MESSAGE value="Removed TODOs." />
     <MESSAGE value="Starting TTD" />
+    <MESSAGE value="Decided on the model functionality. Changed the first method to be created in the TTD process." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -847,23 +844,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/src/com/your/worth/model/RecordTest.java">
+    <entry file="file://$PROJECT_DIR$/Tests/src/com/your/worth/model/AppModelTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="49" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0">
+        <state line="23" column="129" selection-start="905" selection-end="905" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/src/com/your/worth/model/AppModelTest.java">
+    <entry file="file://$PROJECT_DIR$/Tests/src/com/your/worth/model/RecordTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="75" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
+        <state line="10" column="49" selection-start="209" selection-end="209" vertical-scroll-proportion="0.27272728">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/your/worth/model/AppModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="0" selection-start="1289" selection-end="1289" vertical-scroll-proportion="0.3939394">
+        <state line="74" column="59" selection-start="1759" selection-end="1769" vertical-scroll-proportion="0.741533">
           <folding />
         </state>
       </provider>

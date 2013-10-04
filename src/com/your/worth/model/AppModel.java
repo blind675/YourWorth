@@ -21,12 +21,22 @@ public class AppModel {
 	 * list of the income records
 	 */
 	private List<Record> incomeList = null;
-	
+
+    /**
+     * size of the income list
+     */
+    private int incomeListSize = 0;
+
 	/**
 	 * list of the spending records
 	 */
 	private List<Record> spendingList = null;
-	
+
+    /**
+     *  size of the spending list
+     */
+    private int spendingListSize = 0;
+
 	/**
 	 * just initialize the 2 lists
 	 */
@@ -53,7 +63,21 @@ public class AppModel {
 	public void setIncomeValueAndDescription( int value, String  description){
 		Record record = new Record(value,description);
         incomeList.add(record);
+        incomeListSize++;
 	}
+
+    /**
+     * Method that returns the value of an income record given by an index
+     * @param index the index of the record
+     * @return the value of the record
+     */
+    public int getIncomeRecordValue(int index) {
+       /* this method will never fail :D ( throw excepption ) */
+       if ( !incomeList.isEmpty() || index < incomeListSize) {
+           return incomeList.get(index).getValue();
+       }
+       return 0;
+    }
 
     /**
      * Method that adds an <B>Spending</B> record to the spending list of the model
