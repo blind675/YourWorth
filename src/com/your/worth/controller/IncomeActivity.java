@@ -1,10 +1,11 @@
 package com.your.worth.controller;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import com.your.worth.R;
+import com.your.worth.model.AppModel;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +23,34 @@ public class IncomeActivity extends Activity {
     /** Called when the user clicks the Add button*/
     public void executeAdd(View view) {
 
-        //TODO: create test
-        //TODO: get the values form input fields
-        //TODO: create an external method that can be tested
+        int value;
+        String description;
+
+        // get the values from the fields
+        EditText valueTextField   = (EditText)findViewById(R.id.value);
+        EditText descriptionTextField   = (EditText)findViewById(R.id.description);
+
+        // convert the values
+        description = descriptionTextField.getText().toString();
+        value = Integer.parseInt(valueTextField.getText().toString());
+
+        // externalize this code so it can be tested automatically
+        addIncomeRecord(value,description);
+
+        // clear the fields
+        valueTextField.getText().clear();
+        descriptionTextField.getText().clear();
+    }
+
+    /**
+     * Method that adds an income record to the AppModel and updates the ListView
+     * @param value the value from the Amount field
+     * @param description the description from the Description field
+     */
+    public void addIncomeRecord(int value, String description) {
+
+        AppModel.getInstance().addIncomeRecordValueAndDescription(value,description);
+
+        //TODO update the List View
     }
 }
