@@ -12,6 +12,8 @@
         android:background="#8095ad"
         android:gravity="center"
         android:text="Home"
+        android:clickable="true"
+        android:onClick="openHome"
         android:textColor="#ffffff"
         android:layout_marginTop="60dp"
         android:layout_alignParentTop="true"
@@ -23,7 +25,9 @@
         android:layout_height="60dp"
         android:background="#8095ad"
         android:gravity="center"
-        android:text="Input"
+        android:text="Incomes"
+        android:clickable="true"
+        android:onClick="openIncome"
         android:textColor="#ffffff"
         android:layout_marginTop="35dp"
         android:layout_below="@+id/textView1"
@@ -35,7 +39,9 @@
         android:layout_height="60dp"
         android:background="#8095ad"
         android:gravity="center"
-        android:text="Output"
+        android:text="Expenses"
+        android:clickable="true"
+        android:onClick="openSpending"
         android:textColor="#ffffff"
         android:layout_marginTop="35dp"
         android:layout_below="@+id/textView2"
@@ -49,6 +55,8 @@
         android:layout_marginLeft="14dp"
         android:layout_marginTop="62dp"
         android:layout_toRightOf="@+id/textView3"
-        android:text="@string/about" />
+        android:text="@string/about"
+        android:clickable="true"
+        android:onClick="openAbout"/>
 
 </RelativeLayout>

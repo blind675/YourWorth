@@ -47,11 +47,20 @@ public class AppModelTest extends AndroidTestCase {
 
 
         // create an income record so there are 2
+        // 400 and 200
         AppModel.getInstance().addIncomeRecordValueAndDescription(200,"Free coding");
         // delete the last one
         AppModel.getInstance().removeIncomeRecord(AppModel.getInstance().getIncomeListSize()-1);
         // see if it still exists
-        assertEquals("Wrong value of record",200,AppModel.getInstance().getIncomeRecordValue(AppModel.getInstance().getIncomeListSize()-1));
+        // it should me 400 not 200
+        assertEquals("Wrong value of record",400,AppModel.getInstance().getIncomeRecordValue(AppModel.getInstance().getIncomeListSize()-1));
+        // remove another one
+        AppModel.getInstance().removeIncomeRecord(AppModel.getInstance().getIncomeListSize()-1);
+        // read the list again
+        // should be 0
+        assertEquals("Wrong value of record",0,AppModel.getInstance().getIncomeRecordValue(AppModel.getInstance().getIncomeListSize()-1));
+        // remove again to see it doesn't fail
+        AppModel.getInstance().removeIncomeRecord(AppModel.getInstance().getIncomeListSize()-1);
 
     }
 
@@ -85,6 +94,23 @@ public class AppModelTest extends AndroidTestCase {
         // should give 0 as value and not throw out of bound exception.
         assertEquals("The value of the wrong record is not 0",0, AppModel.getInstance().getSpendingRecordValue(
                 AppModel.getInstance().getSpendingListSize()));
+
+        // create an spending record so there are 2
+        // 300 and 500
+        AppModel.getInstance().addSpendingRecordValueAndDescription(500,"Rent");
+        // delete the last one
+        AppModel.getInstance().removeSpendingRecord(AppModel.getInstance().getSpendingListSize()-1);
+        // see if it still exists
+        // it should me 400 not 200
+        assertEquals("Wrong value of record",300,AppModel.getInstance().getSpendingRecordValue(AppModel.getInstance().getSpendingListSize()-1));
+        // remove another one
+        AppModel.getInstance().removeSpendingRecord(AppModel.getInstance().getSpendingListSize()-1);
+        // read the list again
+        // should be 0
+        assertEquals("Wrong value of record",0,AppModel.getInstance().getSpendingRecordValue(AppModel.getInstance().getSpendingListSize()-1));
+        // remove again to see it doesn't fail
+        AppModel.getInstance().removeSpendingRecord(AppModel.getInstance().getSpendingListSize()-1);
+
 
     }
 }

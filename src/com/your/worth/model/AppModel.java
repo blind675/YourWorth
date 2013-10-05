@@ -67,7 +67,17 @@ public class AppModel {
             incomeListSize++;
         }
 	}
-
+    /**
+     * Method that removes an <B>Income</B> record of the income list of the model
+     * @param index the index of the record to be removed
+     */
+    public void removeIncomeRecord(int index) {
+        /* this method will not fail */
+        if ( !incomeList.isEmpty() && index < incomeListSize) {
+            incomeList.remove(index);
+            incomeListSize--;
+        }
+    }
     /**
      * Method that returns the value of an income record given by an index
      * @param index the index of the record
@@ -81,7 +91,6 @@ public class AppModel {
        }
        return 0;
     }
-
     /**
      * Method that returns the description of an income record given by an index
      * @param index the index of the record
@@ -94,7 +103,6 @@ public class AppModel {
         }
         return null;
     }
-
     /**
      * Method that returns the number of income records
      * @return number of income records
@@ -117,7 +125,17 @@ public class AppModel {
             spendingListSize++;
         }
     }
-
+    /**
+     * Method that removes an <B>Spending</B> record of the spending list of the model
+     * @param index the index of the record to be removed
+     */
+    public void removeSpendingRecord(int index) {
+        /* this method will not fail */
+        if ( !spendingList.isEmpty() && index < spendingListSize) {
+            spendingList.remove(index);
+            spendingListSize--;
+        }
+    }
     /**
      * Method that returns the value of an spending record given by an index
      * @param index the index of the record
@@ -131,7 +149,6 @@ public class AppModel {
         }
         return 0;
     }
-
     /**
      * Method that returns the description of an spending record given by an index
      * @param index the index of the record
@@ -144,7 +161,6 @@ public class AppModel {
         }
         return null;
     }
-
     /**
      * Method that returns the number of spending records
      * @return number of spending records

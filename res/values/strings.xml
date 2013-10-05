@@ -3,4 +3,13 @@
     <string name="app_name">YourWorth</string>
 
     <string name="about"><u><b><i>About</i></b></u></string>
+    <string name="you_make">You make:</string>
+    <string name="currency">$</string>
+    <string name="per_hour">per hour</string>
+    <string name="that_is">That is:</string>
+    <string name="per_minute">/ minute</string>
+    <string name="per_day">/ day</string>
+    <string name="per_month">/ month</string>
+    <string name="homeButtonText">Home</string>
+    <string name="optionsButtonText">Options</string>
 </resources>
