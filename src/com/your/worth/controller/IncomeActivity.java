@@ -1,7 +1,9 @@
 package com.your.worth.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import com.your.worth.R;
 
 /**
@@ -15,5 +17,13 @@ public class IncomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
+    }
+
+    /** Called when the user clicks the Add button*/
+    public void executeAdd(View view) {
+
+        //TODO: create test
+        //TODO: get the values form input fields
+        //TODO: create an external method that can be tested
     }
 }

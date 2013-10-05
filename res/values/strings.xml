@@ -12,4 +12,10 @@
     <string name="per_month">/ month</string>
     <string name="homeButtonText">Home</string>
     <string name="optionsButtonText">Options</string>
+    <string name="incomeButtonText">Incomes</string>
+    <string name="spendingButtonText">Expenses</string>
+    <string name="income">Income:</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="add">Add</string>
 </resources>
