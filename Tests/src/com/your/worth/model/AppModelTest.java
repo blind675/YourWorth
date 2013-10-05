@@ -45,6 +45,14 @@ public class AppModelTest extends AndroidTestCase {
         assertEquals("The value of the wrong record is not 0",0, AppModel.getInstance().getIncomeRecordValue(
                 AppModel.getInstance().getIncomeListSize()));
 
+
+        // create an income record so there are 2
+        AppModel.getInstance().addIncomeRecordValueAndDescription(200,"Free coding");
+        // delete the last one
+        AppModel.getInstance().removeIncomeRecord(AppModel.getInstance().getIncomeListSize()-1);
+        // see if it still exists
+        assertEquals("Wrong value of record",200,AppModel.getInstance().getIncomeRecordValue(AppModel.getInstance().getIncomeListSize()-1));
+
     }
 
     public void testSpendingPartOfModel() {

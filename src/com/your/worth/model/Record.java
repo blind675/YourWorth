@@ -7,8 +7,8 @@ package com.your.worth.model;
  */
 public class Record {
 	
-	private int mValue;
-	private String mDescription;
+	private final int mValue;
+	private final String mDescription;
 
     /**
      * Constructor for the Record.
