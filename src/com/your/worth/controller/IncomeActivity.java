@@ -3,9 +3,11 @@ package com.your.worth.controller;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.*;
 import com.your.worth.R;
 import com.your.worth.model.AppModel;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,15 +17,51 @@ import com.your.worth.model.AppModel;
  */
 public class IncomeActivity extends Activity {
 
+    ListView mListView = null;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
+
+        // Get ListView object from xml
+        mListView = (ListView) findViewById(R.id.listView1);
+
+        // load or reload the listView
+        reloadListView();
+
+    }
+
+    /**
+     * Method that loads or reloads the LisView from data from the AppModel
+     */
+    public void reloadListView() {
+
+        // get the values from the AppModel
+        // exclude 0 value
+        final ArrayList<String> list = new ArrayList<String>();
+
+        for (int i=0; i<AppModel.getInstance().getIncomeListSize(); i++) {
+            if (AppModel.getInstance().getIncomeRecordValue(i) != 0 ) {
+               list.add(
+                    AppModel.getInstance().getIncomeRecordValue(i)+" - "+
+                    AppModel.getInstance().getIncomeRecordDescription(i));
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, list);
+
+        // do i need to erase the content of the List View first
+        //TODO: needs more research
+
+        // Assign adapter to ListView
+        mListView.setAdapter(adapter);
+
     }
 
     /** Called when the user clicks the Add button*/
     public void executeAdd(View view) {
 
-        int value;
+        int value=0;
         String description;
 
         // get the values from the fields
@@ -32,7 +70,9 @@ public class IncomeActivity extends Activity {
 
         // convert the values
         description = descriptionTextField.getText().toString();
-        value = Integer.parseInt(valueTextField.getText().toString());
+        if (!valueTextField.getText().toString().isEmpty()) {
+            value = Integer.parseInt(valueTextField.getText().toString());
+        }
 
         // externalize this code so it can be tested automatically
         addIncomeRecord(value,description);
@@ -40,6 +80,9 @@ public class IncomeActivity extends Activity {
         // clear the fields
         valueTextField.getText().clear();
         descriptionTextField.getText().clear();
+
+        // reload the List View
+        reloadListView();
     }
 
     /**
@@ -51,6 +94,5 @@ public class IncomeActivity extends Activity {
 
         AppModel.getInstance().addIncomeRecordValueAndDescription(value,description);
 
-        //TODO update the List View
     }
 }
