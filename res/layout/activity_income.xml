@@ -68,6 +68,8 @@
         android:background="#8095ad"
         android:gravity="center"
         android:text="@string/homeButtonText"
+        android:clickable="true"
+        android:onClick="openHome"
         android:textColor="#ffffff" />
     
     <TextView
@@ -82,8 +84,10 @@
         android:layout_toRightOf="@+id/TextView4"
         android:background="#8095ad"
         android:gravity="center"
+        android:textColor="#ffffff"
         android:text="@string/optionsButtonText"
-        android:textColor="#ffffff" />
+        android:clickable="true"
+        android:onClick="openOptions"/>
 
     <TextView
         android:id="@+id/textView3"

@@ -1,6 +1,7 @@
 package com.your.worth.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -29,6 +30,20 @@ public class IncomeActivity extends Activity {
         // load or reload the listView
         reloadListView();
 
+    }
+
+    /** Called when the user clicks the Options tab */
+    public void openOptions(View view) {
+
+        Intent intent = new Intent(this, OprionsActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Home tab */
+    public void openHome(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**

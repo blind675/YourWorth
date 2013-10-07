@@ -66,9 +66,21 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
         assertTrue("The value field was not cleared",valueTextField.getText().toString().isEmpty());
         assertTrue("The description field was not cleared",descriptionTextField.getText().toString().isEmpty());
 
-        //TODO press the Add button not setting the fields values
         // just press the Add button not setting field values first
         // nothing should have happened last recording still 200 - Salary
+
+        // press the Add button
+        TouchUtils.clickView(this,addButton);
+
+        // check if the data was inserted correctly in the list
+        ListView listView2 = (ListView) activity.findViewById(R.id.listView1);
+        assertEquals("The display list contains something else",
+                "200 - Salary",
+                listView2.getItemAtPosition(listView2.getLastVisiblePosition()));
+        // check if the fields were cleared
+        assertTrue("The value field was not cleared",valueTextField.getText().toString().isEmpty());
+        assertTrue("The description field was not cleared",descriptionTextField.getText().toString().isEmpty());
+
     }
 
     public IncomeActivityTest() {
