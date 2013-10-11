@@ -3,9 +3,10 @@ package com.your.worth.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import com.your.worth.R;
 import com.your.worth.model.AppModel;
 
@@ -64,7 +65,10 @@ public class IncomeActivity extends Activity {
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row, android.R.id.text1, list);
+
+
+
+        ArrayAdapter<String> adapter = new IncomeAdapter(this,list);
 
         // do i need to erase the content of the List View first ?
         // Nop.. this seams to be the default way to work with adapters ListView
@@ -99,10 +103,6 @@ public class IncomeActivity extends Activity {
 
         // reload the List View
         reloadListView();
-    }
-
-    public void deleteRow(View view){
-      Log.d("IMG CLICKED", "" + view.getId());
     }
 
     /**
