@@ -27,7 +27,6 @@
                android:minHeight="?android:attr/listPreferredItemHeightSmall"
                android:src="@drawable/trash"
                android:clickable="true"
-               android:onClick="deleteRow"
                android:layout_gravity="center_horizontal|top"
                />
 
