@@ -22,21 +22,25 @@ public class IncomeAdapter extends ArrayAdapter<String> {
 
     private final Context mContext;
     private final ArrayList<String> mValues;
+    private final LayoutInflater mInflater;
     
     // create a constructor for my custom adapter
     public IncomeAdapter(Context context, ArrayList<String> values) {
         super(context, R.layout.row, values);
         mContext = context;
         mValues = values;
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     
     // override the method that gets the view of one row
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        // inflate the layout XML.. default behavior
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.row, parent, false);
-
+        // inflate the layout XML only if the convertView is null
+        // the version sugested by google
+        if(convertView == null ) {
+            convertView = inflater.inflate(R.layout.row, parent, false);
+        }
+        
         TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imgIcon);
         textView.setText(mValues.get(position).toString());
@@ -53,6 +57,6 @@ public class IncomeAdapter extends ArrayAdapter<String> {
             }
         });
 
-        return rowView;
+        return convertView;
     }
 }
