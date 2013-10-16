@@ -22,14 +22,14 @@ public class IncomeAdapter extends ArrayAdapter<String> {
 
     private final Context mContext;
     private final ArrayList<String> mValues;
-    private final LayoutInflater mInflater;
+    private final LayoutInflater mInflated;
     
     // create a constructor for my custom adapter
     public IncomeAdapter(Context context, ArrayList<String> values) {
         super(context, R.layout.row, values);
         mContext = context;
         mValues = values;
-        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflated = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     
     // override the method that gets the view of one row
@@ -38,11 +38,11 @@ public class IncomeAdapter extends ArrayAdapter<String> {
         // inflate the layout XML only if the convertView is null
         // the version sugested by google
         if(convertView == null ) {
-            convertView = inflater.inflate(R.layout.row, parent, false);
+            convertView = mInflated.inflate(R.layout.row, parent, false);
         }
         
-        TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.imgIcon);
+        TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.imgIcon);
         textView.setText(mValues.get(position).toString());
         
         // remove the row if the x icon was clicked
