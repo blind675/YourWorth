@@ -168,5 +168,7 @@ public class AppModel {
     public int getSpendingListSize() {
         return spendingListSize;
     }
+
+    //TODO clear method for tests
 }
 	

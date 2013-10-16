@@ -65,15 +65,12 @@ public class IncomeActivity extends Activity {
             }
         }
 
-        ArrayAdapter<String> adapter = new IncomeAdapter(this,list);
-
-        //TODO: examine
+        ArrayAdapter<String> adapter = new CustomAdapter(this,list);
         // do i need to erase the content of the List View first ?
         // Nop.. this seams to be the default way to work with adapters ListView
 
         // Assign adapter to ListView
         mListView.setAdapter(adapter);
-
     }
 
     /** Called when the user clicks the Add button*/

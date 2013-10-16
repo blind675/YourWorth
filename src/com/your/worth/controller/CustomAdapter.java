@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Date: 10/11/13
  * Time: 4:43 PM
  */
-public class IncomeAdapter extends ArrayAdapter<String> {
+public class CustomAdapter extends ArrayAdapter<String> {
 
     private final Context mContext;
     private final ArrayList<String> mValues;
@@ -27,7 +27,7 @@ public class IncomeAdapter extends ArrayAdapter<String> {
     private TextView mTextView;
 
     // create a constructor for my custom adapter
-    public IncomeAdapter(Context context, ArrayList<String> values) {
+    public CustomAdapter(Context context, ArrayList<String> values) {
         super(context, R.layout.row, values);
         mContext = context;
         mValues = values;
@@ -53,7 +53,8 @@ public class IncomeAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 mValues.remove(position);
                 AppModel.getInstance().removeIncomeRecord(position);
-                
+
+                // reset the views
                 notifyDataSetChanged();
             }
         });

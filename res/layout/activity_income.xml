@@ -35,7 +35,8 @@
         android:width="170dp"
         android:layout_toRightOf="@+id/value"
         android:layout_alignTop="@+id/value"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/textView2"

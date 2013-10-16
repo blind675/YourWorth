@@ -27,7 +27,6 @@
                android:minHeight="?android:attr/listPreferredItemHeightSmall"
                android:src="@drawable/trash"
                android:clickable="true"
-               android:layout_gravity="center_horizontal|top"
-               />
+               android:layout_gravity="center_horizontal|top"/>
 
 </LinearLayout>

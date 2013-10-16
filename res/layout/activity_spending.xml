@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
-        android:text="Spending:"
+        android:text="@string/spending"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -32,15 +32,16 @@
     </ListView>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignBaseline="@+id/value"
+        android:layout_alignBottom="@+id/value"
         android:layout_alignLeft="@+id/textView3"
         android:layout_margin="1dp"
         android:layout_toLeftOf="@+id/button1"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -48,16 +49,17 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/listView1"
         android:layout_below="@+id/listView1"
-        android:text="Amount" />
+        android:text="@string/amount" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_margin="1dp"
-        android:layout_toLeftOf="@+id/editText2"
-        android:ems="10" >
+        android:layout_toLeftOf="@+id/description"
+        android:ems="10"
+        android:inputType="number">
 
     </EditText>
 
@@ -71,7 +73,9 @@
         android:layout_marginRight="1dp"
         android:background="#8095ad"
         android:gravity="center"
-        android:text="Home"
+        android:text="@string/homeButtonText"
+        android:clickable="true"
+        android:onClick="openHome"
         android:textColor="#ffffff" />
 
     <TextView
@@ -86,7 +90,9 @@
         android:layout_toRightOf="@+id/TextView4"
         android:background="#8095ad"
         android:gravity="center"
-        android:text="Options"
+        android:text="@string/optionsButtonText"
+        android:clickable="true"
+        android:onClick="openOptions"
         android:textColor="#ffffff" />
 
     <TextView
@@ -96,16 +102,18 @@
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:text="Description" />
+        android:text="@string/description" />
 
     <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignBaseline="@+id/description"
+        android:layout_alignBottom="@+id/description"
         android:layout_alignParentRight="true"
-        android:text="OK" />
+        android:text="@string/add"
+        android:gravity="center"
+        android:onClick="executeAdd" />
 
 </RelativeLayout>
