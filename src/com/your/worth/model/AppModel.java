@@ -20,29 +20,29 @@ public class AppModel {
 	/**
 	 * list of the income records
 	 */
-	private List<Record> incomeList = null;
+	private List<Record> mIncomeList = null;
 
     /**
      * size of the income list
      */
-    private int incomeListSize = 0;
+    private int mIncomeListSize = 0;
 
 	/**
 	 * list of the spending records
 	 */
-	private List<Record> spendingList = null;
+	private List<Record> mSpendingList = null;
 
     /**
      *  size of the spending list
      */
-    private int spendingListSize = 0;
+    private int mSpendingListSize = 0;
 
 	/**
 	 * just initialize the 2 lists
 	 */
 	private AppModel() {
-		incomeList = new ArrayList<Record>();
-		spendingList = new ArrayList<Record>();
+		mIncomeList = new ArrayList<Record>();
+		mSpendingList = new ArrayList<Record>();
 	}
 	
 	public static AppModel getInstance() {
@@ -63,8 +63,8 @@ public class AppModel {
 	public void addIncomeRecordValueAndDescription( int value, String  description){
         if(value!=0){
             Record record = new Record(value,description);
-            incomeList.add(record);
-            incomeListSize++;
+            mIncomeList.add(record);
+            mIncomeListSize++;
         }
 	}
     /**
@@ -73,9 +73,9 @@ public class AppModel {
      */
     public void removeIncomeRecord(int index) {
         /* this method will not fail */
-        if ( !incomeList.isEmpty() && index < incomeListSize) {
-            incomeList.remove(index);
-            incomeListSize--;
+        if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
+            mIncomeList.remove(index);
+            mIncomeListSize--;
         }
     }
     /**
@@ -86,8 +86,8 @@ public class AppModel {
     public int getIncomeRecordValue(int index) {
        /* this method will never fail :D ( throw exception )
         * 0 values are not relevant therefore ignored  */
-       if ( !incomeList.isEmpty() && index < incomeListSize) {
-           return incomeList.get(index).getValue();
+       if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
+           return mIncomeList.get(index).getValue();
        }
        return 0;
     }
@@ -98,8 +98,8 @@ public class AppModel {
      */
     public String getIncomeRecordDescription(int index) {
        /* this method will never fail :D ( throw exception ) */
-        if ( !incomeList.isEmpty() && index < incomeListSize) {
-            return incomeList.get(index).getDescription();
+        if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
+            return mIncomeList.get(index).getDescription();
         }
         return null;
     }
@@ -108,7 +108,7 @@ public class AppModel {
      * @return number of income records
      */
     public int getIncomeListSize() {
-        return incomeListSize;
+        return mIncomeListSize;
     }
 
 
@@ -121,8 +121,8 @@ public class AppModel {
     public void addSpendingRecordValueAndDescription( int value, String  description){
         if(value != 0) {
             Record record = new Record(value,description);
-            spendingList.add(record);
-            spendingListSize++;
+            mSpendingList.add(record);
+            mSpendingListSize++;
         }
     }
     /**
@@ -131,9 +131,9 @@ public class AppModel {
      */
     public void removeSpendingRecord(int index) {
         /* this method will not fail */
-        if ( !spendingList.isEmpty() && index < spendingListSize) {
-            spendingList.remove(index);
-            spendingListSize--;
+        if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
+            mSpendingList.remove(index);
+            mSpendingListSize--;
         }
     }
     /**
@@ -144,8 +144,8 @@ public class AppModel {
     public int getSpendingRecordValue(int index) {
        /* this method will never fail :D ( throw exception )
         * 0 values are not relevant therefore ignored  */
-        if ( !spendingList.isEmpty() && index < spendingListSize) {
-            return spendingList.get(index).getValue();
+        if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
+            return mSpendingList.get(index).getValue();
         }
         return 0;
     }
@@ -156,8 +156,8 @@ public class AppModel {
      */
     public String getSpendingRecordDescription(int index) {
        /* this method will never fail :D ( throw exception ) */
-        if ( !spendingList.isEmpty() && index < spendingListSize) {
-            return spendingList.get(index).getDescription();
+        if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
+            return mSpendingList.get(index).getDescription();
         }
         return null;
     }
@@ -166,9 +166,18 @@ public class AppModel {
      * @return number of spending records
      */
     public int getSpendingListSize() {
-        return spendingListSize;
+        return mSpendingListSize;
     }
-
-    //TODO clear method for tests
+    /**
+     * Method that erases the lists (used for test, for now needed because it's a singleton)
+     */
+     public void clearLists() {
+         //make the list sizes o
+         mIncomeListSize = 0;
+         mSpendingListSize = 0;
+         //reset the lists
+         mIncomeList = new ArrayList<Record>();
+         mSpendingList = new ArrayList<Record>();
+     }
 }
 	

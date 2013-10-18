@@ -16,6 +16,9 @@ public class AppModelTest extends AndroidTestCase {
 
     public void testIncomePartOfModel() {
 
+        // clear all data
+        AppModel.getInstance().clearLists();
+
         //get an empty income first record value
         assertEquals("The value of the returned empty record is not 0",0, AppModel.getInstance().getIncomeRecordValue(0));
         //get an empty income first record description
@@ -66,6 +69,9 @@ public class AppModelTest extends AndroidTestCase {
 
     public void testSpendingPartOfModel() {
 
+        // clear all data
+        AppModel.getInstance().clearLists();
+
         //get an empty spending first record value
         assertEquals("The value of the returned empty record is not 0",0, AppModel.getInstance().getSpendingRecordValue(0));
         //get an empty spending first record description
@@ -110,7 +116,49 @@ public class AppModelTest extends AndroidTestCase {
         assertEquals("Wrong value of record",0,AppModel.getInstance().getSpendingRecordValue(AppModel.getInstance().getSpendingListSize()-1));
         // remove again to see it doesn't fail
         AppModel.getInstance().removeSpendingRecord(AppModel.getInstance().getSpendingListSize()-1);
+    }
 
+    public void testClearLists() {
 
+        // clear all data  ( ironic :) )
+        AppModel.getInstance().clearLists();
+
+        // add some data
+        AppModel.getInstance().addIncomeRecordValueAndDescription(400,"Salary");
+        // test if ok
+        assertEquals("Wrong value of record",400,AppModel.getInstance().getIncomeRecordValue(0));
+        assertEquals("Wrong description of record","Salary",AppModel.getInstance().getIncomeRecordDescription(0));
+        // size of list should increment
+        assertEquals("Wrong list size",1,AppModel.getInstance().getIncomeListSize());
+        // test if it's ok
+
+        // add an spending recording
+        AppModel.getInstance().addSpendingRecordValueAndDescription(300,"Loan");
+        // test if ok
+        assertEquals("Wrong value of record",300,AppModel.getInstance().getSpendingRecordValue(0));
+        assertEquals("Wrong description of record","Loan",AppModel.getInstance().getSpendingRecordDescription(0));
+        // size of list should increment
+        assertEquals("Wrong list size",1,AppModel.getInstance().getSpendingListSize());
+
+        // clear all data
+        AppModel.getInstance().clearLists();
+
+        // test if it worked
+
+        //get an empty income first record value
+        assertEquals("The value of the returned empty record is not 0",0, AppModel.getInstance().getIncomeRecordValue(0));
+        //get an empty income first record description
+        assertNull("The description of the returned empty record is not null",AppModel.getInstance().getIncomeRecordDescription(0));
+        // get the size of the income list
+        // should be 0 (empty)
+        assertEquals("The size of the income list is not 0",0 ,AppModel.getInstance().getIncomeListSize());
+
+        //get an empty spending first record value
+        assertEquals("The value of the returned empty record is not 0",0, AppModel.getInstance().getSpendingRecordValue(0));
+        //get an empty spending first record description
+        assertNull("The description of the returned empty record is not null",AppModel.getInstance().getSpendingRecordDescription(0));
+        // get the size of the spending list
+        // should be 0 (empty)
+        assertEquals("The size of the income list is not 0",0 ,AppModel.getInstance().getSpendingListSize());
     }
 }

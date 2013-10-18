@@ -22,6 +22,8 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
 
     // method that test the add of an income record
     public void testAddIncomeRecording() throws Exception {
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists();
 
         IncomeActivity activity = getActivity();
         activity.addIncomeRecord(200,"Salary");
@@ -36,6 +38,8 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
 
     // method that test the UI functionality of the Add mechanics
     public void testExecuteAdd(){
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists();
 
         IncomeActivity activity = getActivity();
 
@@ -85,6 +89,8 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
 
     // method that tries to test a removal of a income record and all it's implications
     public void testRemoveRecord() {
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists();
 
         IncomeActivity activity = getActivity();
 
@@ -108,7 +114,7 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
         //get the listView
         ListView listView = (ListView) activity.findViewById(R.id.listView1);
 
-        //TODO: find a way to finish the test
+        // find a way to finish the test
 
     }
 

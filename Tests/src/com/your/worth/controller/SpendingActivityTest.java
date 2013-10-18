@@ -22,6 +22,8 @@ public class SpendingActivityTest extends ActivityInstrumentationTestCase2<Spend
 
     // method that test the add of an spending record
     public void testAddSpendingRecording() throws Exception {
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists();
 
         SpendingActivity activity = getActivity();
         activity.addSpendingRecord(400, "Rent");
@@ -35,6 +37,8 @@ public class SpendingActivityTest extends ActivityInstrumentationTestCase2<Spend
 
     // method that test the UI functionality of the Add mechanics
     public void testExecuteAdd(){
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists();
 
         SpendingActivity activity = getActivity();
 
