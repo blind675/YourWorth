@@ -1,5 +1,9 @@
 package com.your.worth.model;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,27 +20,26 @@ public class AppModel {
 	 * singleton instance
 	 */
 	private static AppModel INSTANCE = null;
-	
-	/**
-	 * list of the income records
-	 */
-	private List<Record> mIncomeList = null;
 
-    /**
-     * size of the income list
-     */
+	// list of the income records
+	private List<Record> mIncomeList = null;
+    // size of the income list
     private int mIncomeListSize = 0;
 
-	/**
-	 * list of the spending records
-	 */
+	// list of the spending records
 	private List<Record> mSpendingList = null;
-
-    /**
-     *  size of the spending list
-     */
+    // size of the spending list
     private int mSpendingListSize = 0;
 
+    // Database fields
+    private SQLiteDatabase mDatabase;
+    private SQLiteHelper mDbHelper;
+    /*
+    private String[] allColumns = {
+        SQLiteHelper.COLUMN_ID,
+        SQLiteHelper.COLUMN_VALUE,
+        SQLiteHelper.COLUMN_DESCRIPTION };
+    */
     /**
      *   public constants for income and spending
      *   should be an enum
@@ -59,6 +62,13 @@ public class AppModel {
         return INSTANCE;
 	}
 
+    public void openDB(Context context) {
+        if (mDbHelper == null) {
+            mDbHelper = new SQLiteHelper(context);
+            mDatabase = mDbHelper.getWritableDatabase();
+        }
+    }
+
     /**
      * Method that adds a record to the list. It determines the list type based on the tag property.
      * @param value the value
@@ -72,6 +82,14 @@ public class AppModel {
                 Record record = new Record(value,description);
                 mIncomeList.add(record);
                 mIncomeListSize++;
+                // now add the values to the DB
+                if(mDatabase != null) {
+                    ContentValues values = new ContentValues();
+                    values.put(SQLiteHelper.COLUMN_ID,mIncomeListSize);
+                    values.put(SQLiteHelper.COLUMN_VALUE,value);
+                    values.put(SQLiteHelper.COLUMN_DESCRIPTION,description);
+                    mDatabase.insert(SQLiteHelper.TABLE_WORTH, null, values);
+                }
             }
         } else if(tag == SPENDING) {
              //Add an <B>Spending</B> record to the spending list of the model
@@ -79,6 +97,14 @@ public class AppModel {
                 Record record = new Record(value,description);
                 mSpendingList.add(record);
                 mSpendingListSize++;
+                // now add the values to the DB
+                if(mDatabase != null) {
+                    ContentValues values = new ContentValues();
+                    values.put(SQLiteHelper.COLUMN_ID,mSpendingListSize + 20 );
+                    values.put(SQLiteHelper.COLUMN_VALUE,value);
+                    values.put(SQLiteHelper.COLUMN_DESCRIPTION,description);
+                    mDatabase.insert(SQLiteHelper.TABLE_WORTH, null, values);
+                }
             }
         }
     }
@@ -94,6 +120,11 @@ public class AppModel {
             /* this method will not fail */
             if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
                 mIncomeList.remove(index);
+                // now add the values to the DB
+                if(mDatabase != null) {
+                    mDatabase.delete(SQLiteHelper.TABLE_WORTH,
+                            SQLiteHelper.COLUMN_ID + " = " + mIncomeListSize, null);
+                }
                 mIncomeListSize--;
             }
         } else if(tag == SPENDING) {
@@ -101,6 +132,11 @@ public class AppModel {
             /* this method will not fail */
             if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
                 mSpendingList.remove(index);
+                // now add the values to the DB
+                if(mDatabase != null) {
+                    mDatabase.delete(SQLiteHelper.TABLE_WORTH,
+                            SQLiteHelper.COLUMN_ID + " = " + mSpendingListSize + 10, null);
+                }
                 mSpendingListSize--;
             }
         }

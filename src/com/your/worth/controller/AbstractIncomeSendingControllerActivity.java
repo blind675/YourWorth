@@ -45,6 +45,10 @@ public abstract class AbstractIncomeSendingControllerActivity extends Activity {
      */
     public void reloadListView() {
 
+        // load the data of the DB in the AppModel first
+        // the AppModel works like a cache (I overcomplicated a little)
+        AppModel.getInstance().openDB(this);
+
         // get the values from the AppModel
         // exclude 0 value
         final ArrayList<String> list = new ArrayList<String>();
