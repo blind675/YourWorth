@@ -29,10 +29,10 @@ public class SpendingActivityTest extends ActivityInstrumentationTestCase2<Spend
         activity.addRecord(400, "Rent");
 
         /* Check if it got in the AppModel */
-        assertEquals("The value of the income record is wrong",400, AppModel.getInstance().getSpendingRecordValue(
-                AppModel.getInstance().getSpendingListSize()-1));
-        assertEquals("The description of the income record is wrong","Rent", AppModel.getInstance().getSpendingRecordDescription(
-                AppModel.getInstance().getSpendingListSize()-1));
+        assertEquals("The value of the income record is wrong",400, AppModel.getInstance().getRecordValue(
+                AppModel.getInstance().getRecordSize(AppModel.SPENDING)-1,AppModel.SPENDING));
+        assertEquals("The description of the income record is wrong","Rent", AppModel.getInstance().getRecordDescription(
+                AppModel.getInstance().getRecordSize(AppModel.SPENDING)-1,AppModel.SPENDING));
     }
 
     // method that test the UI functionality of the Add mechanics
