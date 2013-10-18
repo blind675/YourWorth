@@ -49,7 +49,7 @@ public abstract class AbstractIncomeSendingControllerActivity extends Activity {
         // exclude 0 value
         final ArrayList<String> list = new ArrayList<String>();
 
-        for (int i=0; i< AppModel.getInstance().getIncomeListSize(); i++) {
+        for (int i=0; i< AppModel.getInstance().getRecordSize(mTag); i++) {
             if (AppModel.getInstance().getRecordValue(i,mTag) != 0 ) {
                 list.add(
                         AppModel.getInstance().getRecordValue(i,mTag)+" - "+
