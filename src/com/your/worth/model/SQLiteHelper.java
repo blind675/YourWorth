@@ -17,6 +17,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_VALUE = "value";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_TYPE = "type";
     public static final String TABLE_WORTH = "worth";
 
     private static final String DATABASE_NAME = "worth.db";
@@ -24,9 +25,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table "
             + TABLE_WORTH + "(" +
-            COLUMN_ID + " integer primary key not null , " +
+            COLUMN_ID + " text primary key not null , " +
             COLUMN_VALUE + " integer not null ," +
-            COLUMN_DESCRIPTION + " text );";
+            COLUMN_DESCRIPTION + " text ,"+
+            COLUMN_TYPE + " text not null );";
 
     private static final int DATABASE_VERSION = 1;
 

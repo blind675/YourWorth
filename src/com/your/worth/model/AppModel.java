@@ -85,9 +85,10 @@ public class AppModel {
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
-                    values.put(SQLiteHelper.COLUMN_ID,mIncomeListSize);
+                    values.put(SQLiteHelper.COLUMN_ID,value+description+"IN");
                     values.put(SQLiteHelper.COLUMN_VALUE,value);
                     values.put(SQLiteHelper.COLUMN_DESCRIPTION,description);
+                    values.put(SQLiteHelper.COLUMN_TYPE,"IN");
                     mDatabase.insert(SQLiteHelper.TABLE_WORTH, null, values);
                 }
             }
@@ -100,9 +101,10 @@ public class AppModel {
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
-                    values.put(SQLiteHelper.COLUMN_ID,mSpendingListSize + 20 );
+                    values.put(SQLiteHelper.COLUMN_ID,value+description+"SP" );
                     values.put(SQLiteHelper.COLUMN_VALUE,value);
                     values.put(SQLiteHelper.COLUMN_DESCRIPTION,description);
+                    values.put(SQLiteHelper.COLUMN_TYPE,"SP");
                     mDatabase.insert(SQLiteHelper.TABLE_WORTH, null, values);
                 }
             }
@@ -119,24 +121,30 @@ public class AppModel {
             //Remove an <B>Income</B> record of the income list of the model
             /* this method will not fail */
             if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
-                mIncomeList.remove(index);
-                // now add the values to the DB
+                // first add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
-                            SQLiteHelper.COLUMN_ID + " = " + mIncomeListSize, null);
+                        SQLiteHelper.COLUMN_ID + " = " +
+                            mIncomeList.get(index).getValue()+
+                            mIncomeList.get(index).getDescription()+
+                            "IN", null);
                 }
+                mIncomeList.remove(index);
                 mIncomeListSize--;
             }
         } else if(tag == SPENDING) {
             //Remove an <B>Spending</B> record of the spending list of the model
             /* this method will not fail */
             if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
-                mSpendingList.remove(index);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
-                            SQLiteHelper.COLUMN_ID + " = " + mSpendingListSize + 10, null);
+                            SQLiteHelper.COLUMN_ID + " = " +
+                                    mIncomeList.get(index).getValue()+
+                                    mIncomeList.get(index).getDescription()+
+                                    "SP", null);
                 }
+                mSpendingList.remove(index);
                 mSpendingListSize--;
             }
         }
