@@ -26,7 +26,7 @@ public class SpendingActivityTest extends ActivityInstrumentationTestCase2<Spend
         AppModel.getInstance().clearLists();
 
         SpendingActivity activity = getActivity();
-        activity.addSpendingRecord(400, "Rent");
+        activity.addRecord(400, "Rent");
 
         /* Check if it got in the AppModel */
         assertEquals("The value of the income record is wrong",400, AppModel.getInstance().getSpendingRecordValue(

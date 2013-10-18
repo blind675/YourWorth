@@ -26,7 +26,7 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
         AppModel.getInstance().clearLists();
 
         IncomeActivity activity = getActivity();
-        activity.addIncomeRecord(200,"Salary");
+        activity.addRecord(200,"Salary");
 
         /* Check if it got in the AppModel */
         assertEquals("The value of the income record is wrong",200, AppModel.getInstance().getIncomeRecordValue(

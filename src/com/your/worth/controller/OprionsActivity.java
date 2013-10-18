@@ -28,7 +28,7 @@ public class OprionsActivity extends Activity {
     }
 
     /** Called when the user clicks the Expenses tab */
-    public void openExpenses(View view) {
+    public void openSpending(View view) {
         Intent intent = new Intent(this, SpendingActivity.class);
         startActivity(intent);
     }

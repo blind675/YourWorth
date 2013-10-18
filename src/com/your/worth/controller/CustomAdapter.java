@@ -25,13 +25,15 @@ public class CustomAdapter extends ArrayAdapter<String> {
     private final LayoutInflater mInflated;
     private ImageView mImageView;
     private TextView mTextView;
+    private final int mTag;
 
     // create a constructor for my custom adapter
-    public CustomAdapter(Context context, ArrayList<String> values) {
+    public CustomAdapter(Context context, ArrayList<String> values,int tag) {
         super(context, R.layout.row, values);
         mContext = context;
         mValues = values;
         mInflated = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mTag = tag;
     }
     
     // override the method that gets the view of one row
@@ -52,7 +54,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
             public void onClick(View v) {
                 mValues.remove(position);
-                AppModel.getInstance().removeIncomeRecord(position);
+                AppModel.getInstance().removeRecordByTag(position,mTag);
 
                 // reset the views
                 notifyDataSetChanged();

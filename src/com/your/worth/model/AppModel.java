@@ -37,6 +37,13 @@ public class AppModel {
      */
     private int mSpendingListSize = 0;
 
+    /**
+     *   public constants for income and spending
+     *   should be an enum
+     */
+    public static final int INCOME = 1;
+    public static final int SPENDING = 2;
+
 	/**
 	 * just initialize the 2 lists
 	 */
@@ -51,6 +58,79 @@ public class AppModel {
         }
         return INSTANCE;
 	}
+
+    // TODO: way to many methods.. i'm refactoring so it's temporary
+
+    /**
+     * Method that units the 2 add methods into one.
+     * @param value the value
+     * @param description the description
+     * @param tag 1=INCOME or 2=SPENDING
+     */
+    public void addRecordValueAndDescriptionByTag(int value, String description, int tag){
+        if(tag == INCOME){
+            addIncomeRecordValueAndDescription(value, description);
+        } else if(tag == SPENDING) {
+            addSpendingRecordValueAndDescription(value, description);
+        }
+    }
+
+    /**
+     * Method that units the 2 remove methods into one.
+     * @param index index of the record to be removed
+     * @param tag 1=INCOME or 2=SPENDING
+     */
+    public void removeRecordByTag(int index, int tag){
+        if(tag == INCOME){
+            removeIncomeRecord(index);
+        } else if(tag == SPENDING) {
+            removeSpendingRecord(index);
+        }
+    }
+
+    /**
+     * Method that units the 2 get value methods into one.
+     * @param index index of the record to be removed
+     * @param tag 1=INCOME or 2=SPENDING
+     * @return the value of the record
+     */
+    public int getRecordValue(int index, int tag){
+        if(tag == INCOME){
+            return getIncomeRecordValue(index);
+        } else if(tag == SPENDING) {
+            return getSpendingRecordValue(index);
+        }
+        return 0;
+    }
+
+    /**
+     * Method that units the 2 get description methods into one.
+     * @param index index of the record to be removed
+     * @param tag 1=INCOME or 2=SPENDING
+     * @return the description of the record
+     */
+    public String getRecordDescription(int index, int tag) {
+        if(tag == INCOME){
+            return getIncomeRecordDescription(index);
+        } else if(tag == SPENDING) {
+            return getSpendingRecordDescription(index);
+        }
+        return null;
+    }
+
+    /**
+     * Method that units the 2 get size of the list methods into one.
+     * @param tag 1=INCOME or 2=SPENDING
+     * @return the size the list
+     */
+    public int getRecordSize(int tag){
+        if(tag == INCOME){
+            return getIncomeListSize();
+        } else if(tag == SPENDING) {
+            return getSpendingListSize();
+        }
+        return 0;
+    }
 
     // This feels like a duplicate :(. I don't like that there are 2 lists and both have similar methods.
 
