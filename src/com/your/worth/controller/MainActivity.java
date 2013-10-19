@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.your.worth.R;
+import com.your.worth.model.AppModel;
 
 public class MainActivity extends Activity {
     /**
@@ -14,6 +15,12 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // load the data of the DB in the AppModel first
+        // the AppModel works like a cache (I overcomplicated a little)
+        AppModel.getInstance().loadDataBase(this);
+
+        refreshTheDisplay();
     }
 
     /** Called when the user clicks the Options tab */
@@ -21,6 +28,13 @@ public class MainActivity extends Activity {
 
         Intent intent = new Intent(this, OprionsActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Method that refreshes the values of the displayed fields based on values from the AppModel
+     */
+    private void refreshTheDisplay(){
+    //TODO implement;
     }
 
 }

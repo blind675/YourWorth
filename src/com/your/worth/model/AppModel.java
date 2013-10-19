@@ -2,6 +2,7 @@ package com.your.worth.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -19,33 +20,32 @@ public class AppModel {
 	/**
 	 * singleton instance
 	 */
-	private static AppModel INSTANCE = null;
+	private static final AppModel INSTANCE = new AppModel();
 
 	// list of the income records
 	private List<Record> mIncomeList = null;
-    // size of the income list
-    private int mIncomeListSize = 0;
 
 	// list of the spending records
 	private List<Record> mSpendingList = null;
-    // size of the spending list
-    private int mSpendingListSize = 0;
 
     // Database fields
     private SQLiteDatabase mDatabase;
     private SQLiteHelper mDbHelper;
-    /*
-    private String[] allColumns = {
+
+    private String[] mAllColumns = {
         SQLiteHelper.COLUMN_ID,
         SQLiteHelper.COLUMN_VALUE,
-        SQLiteHelper.COLUMN_DESCRIPTION };
-    */
+        SQLiteHelper.COLUMN_DESCRIPTION,
+        SQLiteHelper.COLUMN_TYPE};
+
     /**
      *   public constants for income and spending
      *   should be an enum
      */
     public static final int INCOME = 1;
     public static final int SPENDING = 2;
+
+    public enum Granularity{HOUR,MINUTE,DAY,MONTH,YEAR};
 
 	/**
 	 * just initialize the 2 lists
@@ -56,17 +56,49 @@ public class AppModel {
 	}
 	
 	public static AppModel getInstance() {
-        if (INSTANCE == null) {
-        	INSTANCE = new AppModel();
-        }
         return INSTANCE;
 	}
 
-    public void openDB(Context context) {
+    /**
+     * Method that initializes the database and loads all its records in the AppModel internal arrays.
+     * @param context the context of the caller
+     */
+    public void loadDataBase(Context context) {
         if (mDbHelper == null) {
             mDbHelper = new SQLiteHelper(context);
             mDatabase = mDbHelper.getWritableDatabase();
         }
+
+        // TODO this fails .. fix it priority 1
+        Cursor cursor = mDatabase.query(SQLiteHelper.TABLE_WORTH,
+                mAllColumns, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+
+            // get the description of the record
+            String description = cursor.getString(2);
+            // get the value of the record
+            int value = cursor.getInt(1);
+            // get the type of the record
+            String type = cursor.getString(3);
+            // get the ID of the record ( don't need here .. or do i)
+            cursor.getString(0);
+            // create a record
+            Record record = new Record(value,description);
+
+            // test the type of the record and store it accordingly
+            if(type.equals("IN")) {
+                // add the to the income array since type is IN
+                mIncomeList.add(record);
+            } else if(type.equals("SP")) {
+                // add the to the income array since type is SP
+                mSpendingList.add(record);
+            }
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
     }
 
     /**
@@ -81,7 +113,6 @@ public class AppModel {
             if(value!=0){
                 Record record = new Record(value,description);
                 mIncomeList.add(record);
-                mIncomeListSize++;
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
@@ -97,7 +128,6 @@ public class AppModel {
             if(value != 0) {
                 Record record = new Record(value,description);
                 mSpendingList.add(record);
-                mSpendingListSize++;
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
@@ -120,22 +150,21 @@ public class AppModel {
         if(tag == INCOME){
             //Remove an <B>Income</B> record of the income list of the model
             /* this method will not fail */
-            if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
+            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
                 // first add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
-                        SQLiteHelper.COLUMN_ID + " = " +
+                        SQLiteHelper.COLUMN_ID + " = \'" +
                             mIncomeList.get(index).getValue()+
                             mIncomeList.get(index).getDescription()+
-                            "IN", null);
+                            "IN\'", null);
                 }
                 mIncomeList.remove(index);
-                mIncomeListSize--;
             }
         } else if(tag == SPENDING) {
             //Remove an <B>Spending</B> record of the spending list of the model
             /* this method will not fail */
-            if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
+            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
                 // now add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
@@ -145,7 +174,6 @@ public class AppModel {
                                     "SP", null);
                 }
                 mSpendingList.remove(index);
-                mSpendingListSize--;
             }
         }
     }
@@ -161,7 +189,7 @@ public class AppModel {
             // Returns the value of an income record given by an index
             /* this method will never fail :D ( throw exception )
             * 0 values are not relevant therefore ignored  */
-            if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
+            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
                 return mIncomeList.get(index).getValue();
             }
             return 0;
@@ -169,7 +197,7 @@ public class AppModel {
             // Returns the value of an spending record given by an index
             /* this method will never fail :D ( throw exception )
             * 0 values are not relevant therefore ignored  */
-            if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
+            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
                 return mSpendingList.get(index).getValue();
             }
             return 0;
@@ -187,14 +215,14 @@ public class AppModel {
         if(tag == INCOME){
             // Returns the description of an income record given by an index
             /* this method will never fail :D ( throw exception ) */
-            if ( !mIncomeList.isEmpty() && index < mIncomeListSize) {
+            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
                 return mIncomeList.get(index).getDescription();
             }
             return null;
         } else if(tag == SPENDING) {
             // Returns the description of an spending record given by an index
             /* this method will never fail :D ( throw exception ) */
-            if ( !mSpendingList.isEmpty() && index < mSpendingListSize) {
+            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
                 return mSpendingList.get(index).getDescription();
             }
             return null;
@@ -210,10 +238,10 @@ public class AppModel {
     public int getRecordSize(int tag){
         if(tag == INCOME){
             // Returns the number of income records
-            return mIncomeListSize;
+            return mIncomeList.size();
         } else if(tag == SPENDING) {
             // Returns the number of spending records
-            return mSpendingListSize;
+            return mSpendingList.size();
         }
         return 0;
     }
@@ -222,12 +250,14 @@ public class AppModel {
      * Method that erases the lists (used for test, for now needed because it's a singleton)
      */
      public void clearLists() {
-         //make the list sizes o
-         mIncomeListSize = 0;
-         mSpendingListSize = 0;
          //reset the lists
          mIncomeList = new ArrayList<Record>();
          mSpendingList = new ArrayList<Record>();
+     }
+
+     // TODO: Javadoc and implementation but first create test
+     public float getTheWorthBasedOn(Granularity granularity){
+         return 0;
      }
 }
 	

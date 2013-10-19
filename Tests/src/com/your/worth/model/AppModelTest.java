@@ -15,6 +15,8 @@ public class AppModelTest extends AndroidTestCase {
         assertNotNull("The value of the AppModel instance is null", AppModel.getInstance());
         AppModel firstModel = AppModel.getInstance();
         assertSame("Singleton failed",firstModel,AppModel.getInstance());
+
+        AppModel.getInstance().loadDataBase(mContext);
     }
 
     public void testIncomePartOfModel() {
@@ -164,4 +166,10 @@ public class AppModelTest extends AndroidTestCase {
         // should be 0 (empty)
         assertEquals("The size of the income list is not 0",0 ,AppModel.getInstance().getRecordSize(spendingTag));
     }
+
+    //TODO: create test first
+    public void testGetTheWorthBasedOn() {
+
+    }
+
 }
