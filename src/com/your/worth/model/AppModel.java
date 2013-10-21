@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class AppModel {
     public static final int INCOME = 1;
     public static final int SPENDING = 2;
 
-    public enum Granularity{HOUR,MINUTE,DAY,MONTH,YEAR};
+    public enum Granularity{HOUR,MINUTE,DAY,MONTH,YEAR}
 
 	/**
 	 * just initialize the 2 lists
@@ -246,17 +247,54 @@ public class AppModel {
     }
 
     /**
-     * Method that erases the lists (used for test, for now needed because it's a singleton)
-     */
-     public void clearLists() {
-         //reset the lists
-         mIncomeList = new ArrayList<Record>();
-         mSpendingList = new ArrayList<Record>();
-     }
+    * Method that erases the lists (used for test, for now needed because it's a singleton)
+    */
+    public void clearLists() {
+        //reset the lists
+        mIncomeList = new ArrayList<Record>();
+        mSpendingList = new ArrayList<Record>();
+    }
 
-     // TODO: Javadoc and implementation but first create test
-     public float getTheWorthBasedOn(Granularity granularity){
-         return 0;
-     }
+    /**
+     * Method that returns the amount of money you make in the granularity period of time.
+     * @param granularity the granularity (YEAR,MONTH,DAY,HOUR)
+     * @return value of the worth with 2 decimal place
+     */
+    public float getTheWorthBasedOn(Granularity granularity){
+        int monthWorth = 0;
+        BigDecimal bigDecimal;
+        float returnValue;
+
+        // add the all the incomes
+        for (Record income : mIncomeList){
+            monthWorth += income.getValue();
+        }
+
+        // subtract all the spending
+        for (Record income : mSpendingList){
+            monthWorth -= income.getValue();
+        }
+
+        switch (granularity){
+            case YEAR:  returnValue = monthWorth * 12;
+                        break;
+            case MONTH: returnValue = monthWorth;
+                        break;
+            case DAY:   bigDecimal = new BigDecimal(Float.toString((float)monthWorth/30));
+                        // for simplicity there are 30 days in a month
+                        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                        // round down so it motivates users, a little
+                        returnValue = bigDecimal.floatValue();
+                        break;
+            case HOUR:  bigDecimal = new BigDecimal(Float.toString(((float)monthWorth/30)/24));
+                        // for simplicity there are 30 days in a month and 24 hours in a day
+                        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                        // round down so it motivates users, a little
+                        returnValue = bigDecimal.floatValue();
+                        break;
+            default:    returnValue =  0;
+        }
+        return returnValue;
+    }
 }
 	

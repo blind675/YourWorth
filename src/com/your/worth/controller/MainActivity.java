@@ -33,8 +33,10 @@ public class MainActivity extends Activity {
     /**
      * Method that refreshes the values of the displayed fields based on values from the AppModel
      */
-    private void refreshTheDisplay(){
-    //TODO implement;
+    void refreshTheDisplay(){
+    //TODO implement (prio 3);
+    // get the display labels and update them one by one
+
     }
 
 }

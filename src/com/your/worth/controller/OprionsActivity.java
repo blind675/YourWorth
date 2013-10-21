@@ -36,7 +36,7 @@ public class OprionsActivity extends Activity {
     /** Called when the user clicks the Expenses tab */
     public void openAbout(View view) {
 
-       // TODO: open a web page (find how)
+       // TODO: open a web page (find how) (prio 4)
     }
 
 
