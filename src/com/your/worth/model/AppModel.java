@@ -69,7 +69,6 @@ public class AppModel {
             mDatabase = mDbHelper.getWritableDatabase();
         }
 
-        // TODO this fails .. fix it priority 1
         Cursor cursor = mDatabase.query(SQLiteHelper.TABLE_WORTH,
                 mAllColumns, null, null, null, null, null);
 

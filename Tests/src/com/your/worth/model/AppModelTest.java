@@ -167,8 +167,31 @@ public class AppModelTest extends AndroidTestCase {
         assertEquals("The size of the income list is not 0",0 ,AppModel.getInstance().getRecordSize(spendingTag));
     }
 
-    //TODO: create test first
     public void testGetTheWorthBasedOn() {
+        // clear all data
+        AppModel.getInstance().clearLists();
+
+        // test if it returns 0 for everything
+        assertEquals("The value of the year is nor 0",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.YEAR));
+        assertEquals("The value of the month is not 0",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.MONTH));
+        assertEquals("The value of the day is not 0",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.DAY));
+        assertEquals("The value of the hour is not 0",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.HOUR));
+
+        // add 2 income and 1 spending record
+        AppModel.getInstance().addRecordValueAndDescriptionByTag(1000,"Salary",incomeTag);
+        AppModel.getInstance().addRecordValueAndDescriptionByTag(400,"Rent",incomeTag);
+        AppModel.getInstance().addRecordValueAndDescriptionByTag(600,"Credit",spendingTag);
+
+        // 1000 + 400 - 600 = 800 / month
+        assertEquals("The value of the month is not 800",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.MONTH));
+        // 800 * 12 = 9600 / year
+        assertEquals("The value of the year is not 9600",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.YEAR));
+        // 800 / 30 = 26.66 / day
+        assertEquals("The value of the year is not 26.66",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.DAY));
+        // 26.67 / 24 = 1.11 / hour
+        assertEquals("The value of the year is not 1.11",0,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.HOUR));
+
+
 
     }
 
