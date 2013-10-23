@@ -30,8 +30,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         TextView hourTextView = (TextView) activity.findViewById(R.id.hourWorth);
         TextView dayTextView = (TextView) activity.findViewById(R.id.dayWorth);
         TextView monthTextView = (TextView) activity.findViewById(R.id.monthWorth);
-        //TODO: put an extra label for year (prio 2)
-        //TextView yearTextView = (TextView) activity.findViewById(R.id.yearWorth);
+        TextView yearTextView = (TextView) activity.findViewById(R.id.yearWorth);
         // check if they all are 0, as it should
 
         //assertEquals("The value of the year is nor 0","0",yearTextView.);
@@ -51,7 +50,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         // check if the values got set correctly
 
         // 800 * 12 = 9600 / year
-        //assertEquals("The value of the year is nor 9600","9600",yearTextView.getText().toString());
+        assertEquals("The value of the year is nor 9600","9600",yearTextView.getText().toString());
         // 1000 + 400 - 600 = 800 / month
         assertEquals("The value of the month is not 800","800",monthTextView.getText().toString());
         // 800 / 30 = 26.66 / day
@@ -60,6 +59,5 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertEquals("The value of the hour is not 1.11","1.11",hourTextView.getText().toString());
         // 1.11 / 60 = 0.01 / minute
         assertEquals("The value of the minute is not 0.01","0.01",minuteTextView.getText().toString());
-        //TODO: implement minute functionality ( prio 1)
     }
 }

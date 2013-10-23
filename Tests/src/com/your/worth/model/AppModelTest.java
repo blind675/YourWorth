@@ -194,7 +194,6 @@ public class AppModelTest extends AndroidTestCase {
         // 1.11 / 60 = 0.01 / minute
         assertEquals("The value of the minute is not 0.01",0.01f,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.MINUTE));
 
-
     }
 
 }

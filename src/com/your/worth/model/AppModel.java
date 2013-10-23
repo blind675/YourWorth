@@ -276,23 +276,29 @@ public class AppModel {
         }
 
         switch (granularity){
-            case YEAR:  returnValue = monthWorth * 12;
-                        break;
-            case MONTH: returnValue = monthWorth;
-                        break;
-            case DAY:   bigDecimal = new BigDecimal(Float.toString((float)monthWorth/30));
-                        // for simplicity there are 30 days in a month
-                        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
-                        // round down so it motivates users, a little
-                        returnValue = bigDecimal.floatValue();
-                        break;
-            case HOUR:  bigDecimal = new BigDecimal(Float.toString(((float)monthWorth/30)/24));
-                        // for simplicity there are 30 days in a month and 24 hours in a day
-                        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
-                        // round down so it motivates users, a little
-                        returnValue = bigDecimal.floatValue();
-                        break;
-            default:    returnValue =  0;
+            case YEAR:      returnValue = monthWorth * 12;
+                            break;
+            case MONTH:     returnValue = monthWorth;
+                            break;
+            case DAY:       bigDecimal = new BigDecimal(Float.toString((float)monthWorth/30));
+                            // for simplicity there are 30 days in a month
+                            bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                            // round down so it motivates users, a little
+                            returnValue = bigDecimal.floatValue();
+                            break;
+            case HOUR:      bigDecimal = new BigDecimal(Float.toString(((float)monthWorth/30)/24));
+                            // for simplicity there are 30 days in a month and 24 hours in a day
+                            bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                            // round down so it motivates users, a little
+                            returnValue = bigDecimal.floatValue();
+                            break;
+            case MINUTE:    bigDecimal = new BigDecimal(Float.toString((((float)monthWorth/30)/24)/60));
+                            // for simplicity there are 30 days in a month , 24 hours in a day and 60 minutes in an hour
+                            bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                            // round down so it motivates users, a little
+                            returnValue = bigDecimal.floatValue();
+                            break;
+            default:        returnValue =  0;
         }
         return returnValue;
     }
