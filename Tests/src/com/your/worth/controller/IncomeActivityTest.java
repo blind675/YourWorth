@@ -17,15 +17,17 @@ import com.your.worth.model.AppModel;
 public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeActivity> {
 
     // externalize for the Android UI thread.
-    EditText valueTextField = null;
-    EditText descriptionTextField = null;
+    private EditText valueTextField = null;
+    private EditText descriptionTextField = null;
 
     // method that test the add of an income record
     public void testAddIncomeRecording() throws Exception {
-        // clear the singleton data, generally done by JUnit, now done explicitly
-        AppModel.getInstance().clearLists();
-
+        // Get the activity first
         IncomeActivity activity = getActivity();
+
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
+
         activity.addRecord(200,"Salary");
 
         /* Check if it got in the AppModel */
@@ -34,14 +36,18 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
         assertEquals("The description of the income record is wrong","Salary", AppModel.getInstance().getRecordDescription(
                 AppModel.getInstance().getRecordSize(AppModel.INCOME)-1,AppModel.INCOME));
 
+        // cleanup
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
+
     }
 
     // method that test the UI functionality of the Add mechanics
     public void testExecuteAdd(){
-        // clear the singleton data, generally done by JUnit, now done explicitly
-        AppModel.getInstance().clearLists();
-
+        // Get the activity first
         IncomeActivity activity = getActivity();
+
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
 
         // get the textViews and the Add button
         valueTextField   = (EditText)activity.findViewById(R.id.value);
@@ -85,14 +91,18 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
         assertTrue("The value field was not cleared",valueTextField.getText().toString().isEmpty());
         assertTrue("The description field was not cleared",descriptionTextField.getText().toString().isEmpty());
 
+        // cleanup
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
+
     }
 
     // method that tries to test a removal of a income record and all it's implications
     public void testRemoveRecord() {
-        // clear the singleton data, generally done by JUnit, now done explicitly
-        AppModel.getInstance().clearLists();
-
+        // Get the activity first
         IncomeActivity activity = getActivity();
+
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
 
         // get the textViews and the Add button
         valueTextField   = (EditText)activity.findViewById(R.id.value);
@@ -112,14 +122,17 @@ public class IncomeActivityTest extends ActivityInstrumentationTestCase2<IncomeA
         TouchUtils.clickView(this,addButton);
 
         //get the listView
-        ListView listView = (ListView) activity.findViewById(R.id.listView1);
+        //ListView listView = (ListView) activity.findViewById(R.id.listView1);
 
         // find a way to finish the test
+
+        // cleanup
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
 
     }
 
 
     public IncomeActivityTest() {
-        super("com.your.worth.controller",IncomeActivity.class);
+        super(IncomeActivity.class);
     }
 }

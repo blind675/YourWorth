@@ -7,8 +7,8 @@ import android.test.AndroidTestCase;
  */
 public class AppModelTest extends AndroidTestCase {
 
-    private int incomeTag = AppModel.INCOME;
-    private int spendingTag = AppModel.SPENDING;
+    private final int incomeTag = AppModel.INCOME;
+    private final int spendingTag = AppModel.SPENDING;
 
     public void testAppModelSingleton() {
 
@@ -70,6 +70,9 @@ public class AppModelTest extends AndroidTestCase {
         // remove again to see it doesn't fail
         AppModel.getInstance().removeRecordByTag(AppModel.getInstance().getRecordSize(incomeTag)-1,incomeTag);
 
+        // clear all data
+        AppModel.getInstance().clearLists();
+
     }
 
     public void testSpendingPartOfModel() {
@@ -112,7 +115,7 @@ public class AppModelTest extends AndroidTestCase {
         // delete the last one
         AppModel.getInstance().removeRecordByTag(AppModel.getInstance().getRecordSize(spendingTag)-1,spendingTag);
         // see if it still exists
-        // it should me 400 not 200
+        // it should be 300 not 500
         assertEquals("Wrong value of record",300,AppModel.getInstance().getRecordValue(AppModel.getInstance().getRecordSize(spendingTag)-1,spendingTag));
         // remove another one
         AppModel.getInstance().removeRecordByTag(AppModel.getInstance().getRecordSize(spendingTag)-1,spendingTag);
@@ -121,6 +124,9 @@ public class AppModelTest extends AndroidTestCase {
         assertEquals("Wrong value of record",0,AppModel.getInstance().getRecordValue(AppModel.getInstance().getRecordSize(spendingTag)-1,spendingTag));
         // remove again to see it doesn't fail
         AppModel.getInstance().removeRecordByTag(AppModel.getInstance().getRecordSize(spendingTag)-1,spendingTag);
+
+        // clear all data
+        AppModel.getInstance().clearLists();
     }
 
     public void testClearLists() {
@@ -165,6 +171,9 @@ public class AppModelTest extends AndroidTestCase {
         // get the size of the spending list
         // should be 0 (empty)
         assertEquals("The size of the income list is not 0",0 ,AppModel.getInstance().getRecordSize(spendingTag));
+
+        // clear all data
+        AppModel.getInstance().clearLists();
     }
 
     public void testGetTheWorthBasedOn() {
@@ -193,6 +202,9 @@ public class AppModelTest extends AndroidTestCase {
         assertEquals("The value of the hour is not 1.11",1.11f,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.HOUR));
         // 1.11 / 60 = 0.01 / minute
         assertEquals("The value of the minute is not 0.01",0.01f,AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.MINUTE));
+
+        // clear all data
+        AppModel.getInstance().clearLists(getContext());
 
     }
 

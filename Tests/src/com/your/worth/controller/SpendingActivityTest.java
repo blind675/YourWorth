@@ -17,15 +17,17 @@ import com.your.worth.model.AppModel;
 public class SpendingActivityTest extends ActivityInstrumentationTestCase2<SpendingActivity> {
 
     // externalize for the Android UI thread.
-    EditText valueTextField = null;
-    EditText descriptionTextField = null;
+    private EditText valueTextField = null;
+    private EditText descriptionTextField = null;
 
     // method that test the add of an spending record
     public void testAddSpendingRecording() throws Exception {
-        // clear the singleton data, generally done by JUnit, now done explicitly
-        AppModel.getInstance().clearLists();
-
+        // Get the activity first
         SpendingActivity activity = getActivity();
+
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
+
         activity.addRecord(400, "Rent");
 
         /* Check if it got in the AppModel */
@@ -33,14 +35,18 @@ public class SpendingActivityTest extends ActivityInstrumentationTestCase2<Spend
                 AppModel.getInstance().getRecordSize(AppModel.SPENDING)-1,AppModel.SPENDING));
         assertEquals("The description of the income record is wrong","Rent", AppModel.getInstance().getRecordDescription(
                 AppModel.getInstance().getRecordSize(AppModel.SPENDING)-1,AppModel.SPENDING));
+
+        // cleanup
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
     }
 
     // method that test the UI functionality of the Add mechanics
     public void testExecuteAdd(){
-        // clear the singleton data, generally done by JUnit, now done explicitly
-        AppModel.getInstance().clearLists();
-
+        // Get the activity first
         SpendingActivity activity = getActivity();
+
+        // clear the singleton data, generally done by JUnit, now done explicitly
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
 
         // get the textViews and the Add button
         valueTextField   = (EditText)activity.findViewById(R.id.value);
@@ -83,10 +89,11 @@ public class SpendingActivityTest extends ActivityInstrumentationTestCase2<Spend
         assertTrue("The value field was not cleared",valueTextField.getText().toString().isEmpty());
         assertTrue("The description field was not cleared",descriptionTextField.getText().toString().isEmpty());
 
+        // cleanup
+        AppModel.getInstance().clearLists(activity.getApplicationContext());
     }
 
-
     public SpendingActivityTest() {
-        super("com.your.worth.controller",SpendingActivity.class);
+        super(SpendingActivity.class);
     }
 }

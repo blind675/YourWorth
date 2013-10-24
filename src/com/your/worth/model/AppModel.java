@@ -33,7 +33,7 @@ public class AppModel {
     private SQLiteDatabase mDatabase;
     private SQLiteHelper mDbHelper;
 
-    private String[] mAllColumns = {
+    private final String[] mAllColumns = {
         SQLiteHelper.COLUMN_ID,
         SQLiteHelper.COLUMN_VALUE,
         SQLiteHelper.COLUMN_DESCRIPTION,
@@ -168,10 +168,10 @@ public class AppModel {
                 // now add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
-                            SQLiteHelper.COLUMN_ID + " = " +
-                                    mIncomeList.get(index).getValue()+
-                                    mIncomeList.get(index).getDescription()+
-                                    "SP", null);
+                        SQLiteHelper.COLUMN_ID + " = \'" +
+                            mSpendingList.get(index).getValue()+
+                            mSpendingList.get(index).getDescription()+
+                            "SP\'", null);
                 }
                 mSpendingList.remove(index);
             }
@@ -248,9 +248,26 @@ public class AppModel {
 
     /**
     * Method that erases the lists (used for test, for now needed because it's a singleton)
-    */
+     *@param context the context of the caller
+     */
+    public void clearLists(Context context) {
+        // reset the lists
+        mIncomeList = new ArrayList<Record>();
+        mSpendingList = new ArrayList<Record>();
+
+        // delete all data from the DB
+        if (mDbHelper == null) {
+            mDbHelper = new SQLiteHelper(context);
+            mDatabase = mDbHelper.getWritableDatabase();
+        }
+        mDatabase.delete(SQLiteHelper.TABLE_WORTH, null, null);
+    }
+
+    /**
+     * Method that erases the lists (used for test, for now needed because it's a singleton)
+     */
     public void clearLists() {
-        //reset the lists
+        // reset the lists
         mIncomeList = new ArrayList<Record>();
         mSpendingList = new ArrayList<Record>();
     }
@@ -303,4 +320,3 @@ public class AppModel {
         return returnValue;
     }
 }
-	

@@ -13,7 +13,6 @@
               android:id="@android:id/text1"
               android:layout_width="250dp"
               android:layout_height="30dp"
-              android:layout_toRightOf="@+id/imgIcon"
               android:textAppearance="?android:attr/textAppearanceListItemSmall"
               android:gravity="left"
               android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -27,6 +26,7 @@
                android:minHeight="?android:attr/listPreferredItemHeightSmall"
                android:src="@drawable/trash"
                android:clickable="true"
-               android:layout_gravity="center_horizontal|top"/>
+               android:layout_gravity="center_horizontal|top"
+               android:contentDescription="@string/remove"/>
 
 </LinearLayout>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.your.worth.R;
 
-public class OprionsActivity extends Activity {
+public class OptionsActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

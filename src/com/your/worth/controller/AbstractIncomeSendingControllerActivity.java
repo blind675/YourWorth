@@ -18,18 +18,18 @@ import java.util.ArrayList;
  * Time: 10:35 AM
  * An abstract class that holds the general methods for the income and spending activities.
  */
-public abstract class AbstractIncomeSendingControllerActivity extends Activity {
+abstract class AbstractIncomeSendingControllerActivity extends Activity {
 
     // The ListView
-    protected ListView mListView = null;
+    ListView mListView = null;
 
     // The tag to determent if it's income or spending window
-    protected int mTag = 0;
+    int mTag = 0;
 
     /** Called when the user clicks the Options tab */
     public void openOptions(View view) {
 
-        Intent intent = new Intent(this, OprionsActivity.class);
+        Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractIncomeSendingControllerActivity extends Activity {
     /**
      * Method that loads or reloads the LisView from data from the AppModel
      */
-    public void reloadListView() {
+    void reloadListView() {
 
         // get the values from the AppModel
         // exclude 0 value

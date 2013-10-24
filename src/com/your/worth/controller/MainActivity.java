@@ -35,27 +35,28 @@ public class MainActivity extends Activity {
         // the AppModel works like a cache (I overcomplicated a little)
         AppModel.getInstance().loadDataBase(this);
 
-        refreshTheDisplay();
+        // i already have the labels, now just update them.
+        mMinuteTextView.setText(refreshTheDisplay(AppModel.Granularity.MINUTE));
+        mHourTextView.setText(refreshTheDisplay(AppModel.Granularity.HOUR));
+        mDayTextView.setText(refreshTheDisplay(AppModel.Granularity.DAY));
+        mMonthTextView.setText(refreshTheDisplay(AppModel.Granularity.MONTH));
+        mYearTextView.setText(refreshTheDisplay(AppModel.Granularity.YEAR));
     }
 
     /** Called when the user clicks the Options tab */
     public void openOptions(View view) {
 
-        Intent intent = new Intent(this, OprionsActivity.class);
+        Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
     }
 
     /**
-     * Method that refreshes the values of the displayed fields based on values from the AppModel
+     * Method that returns the values of the displayed fields based on values from the AppModel
+     * @param granularity the label to display
+     * @return value to display as string
      */
-    void refreshTheDisplay(){
-
-    // i already have the labels, now just update them.
-    mMinuteTextView.setText(""+AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.MINUTE));
-    mHourTextView.setText(""+AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.HOUR));
-    mDayTextView.setText(""+AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.DAY));
-    mMonthTextView.setText(""+AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.MONTH));
-    mYearTextView.setText(""+AppModel.getInstance().getTheWorthBasedOn(AppModel.Granularity.YEAR));
+    String refreshTheDisplay(AppModel.Granularity granularity){
+        return ""+AppModel.getInstance().getTheWorthBasedOn(granularity);
     }
 
 }

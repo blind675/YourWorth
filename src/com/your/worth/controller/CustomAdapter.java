@@ -18,21 +18,17 @@ import java.util.ArrayList;
  * Date: 10/11/13
  * Time: 4:43 PM
  */
-public class CustomAdapter extends ArrayAdapter<String> {
+class CustomAdapter extends ArrayAdapter<String> {
 
-    private final Context mContext;
     private final ArrayList<String> mValues;
     private final LayoutInflater mInflated;
-    private ImageView mImageView;
-    private TextView mTextView;
     private final int mTag;
 
     // create a constructor for my custom adapter
     public CustomAdapter(Context context, ArrayList<String> values,int tag) {
         super(context, R.layout.row, values);
-        mContext = context;
         mValues = values;
-        mInflated = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflated = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mTag = tag;
     }
     
@@ -45,8 +41,8 @@ public class CustomAdapter extends ArrayAdapter<String> {
             convertView = mInflated.inflate(R.layout.row, parent, false);
         }
 
-        mTextView = (TextView) convertView.findViewById(android.R.id.text1);
-        mImageView = (ImageView) convertView.findViewById(R.id.imgIcon);
+        TextView mTextView = (TextView) convertView.findViewById(android.R.id.text1);
+        ImageView mImageView = (ImageView) convertView.findViewById(R.id.imgIcon);
         mTextView.setText(mValues.get(position));
 
         // remove the row if the x icon was clicked

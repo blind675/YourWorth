@@ -11,7 +11,7 @@ import android.util.Log;
  * Date: 10/18/13
  * Time: 2:48 PM
  */
-public class SQLiteHelper extends SQLiteOpenHelper {
+class SQLiteHelper extends SQLiteOpenHelper {
 
     // The fields
     public static final String COLUMN_ID = "id";

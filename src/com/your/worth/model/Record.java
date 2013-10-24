@@ -5,7 +5,7 @@ package com.your.worth.model;
  *
  * This is like a DTO .. i could probably be generated
  */
-public class Record {
+class Record {
 	
 	private final int mValue;
 	private final String mDescription;
