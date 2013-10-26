@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">YourWorth</string>
+    <string name="app_name">Your Worth</string>
 
     <string name="about"><u><b><i>About</i></b></u></string>
     <string name="you_make">You make:</string>

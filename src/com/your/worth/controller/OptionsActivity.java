@@ -2,6 +2,7 @@ package com.your.worth.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import com.your.worth.R;
@@ -17,6 +18,7 @@ public class OptionsActivity extends Activity {
     public void openHome(View view) {
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
@@ -24,20 +26,24 @@ public class OptionsActivity extends Activity {
     public void openIncome(View view) {
 
         Intent intent = new Intent(this, IncomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
     /** Called when the user clicks the Expenses tab */
     public void openSpending(View view) {
         Intent intent = new Intent(this, SpendingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
     /** Called when the user clicks the Expenses tab */
     public void openAbout(View view) {
+        // TODO: change URL
+        String aboutURL = "http://www.google.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(aboutURL));
 
-       // TODO: open a web page (find how) (prio 4)
+        // Start the activity
+        startActivity(intent);
     }
-
-
 }
