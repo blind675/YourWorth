@@ -39,8 +39,8 @@ public class OptionsActivity extends Activity {
 
     /** Called when the user clicks the Expenses tab */
     public void openAbout(View view) {
-        // TODO: change URL
-        String aboutURL = "http://www.google.com";
+        // the url for the web page of the application
+        String aboutURL = "http://yourworth.herokuapp.com/";
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(aboutURL));
 
         // Start the activity
