@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onResume() {
+        super.onResume();
         refreshDisplay();
     }
 
@@ -47,7 +48,6 @@ public class MainActivity extends Activity {
     public void openOptions(View view) {
 
         Intent intent = new Intent(this, OptionsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
