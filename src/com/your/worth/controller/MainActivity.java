@@ -35,20 +35,33 @@ public class MainActivity extends Activity {
         // the AppModel works like a cache (I overcomplicated a little)
         AppModel.getInstance().loadDataBase(this);
 
-        // i already have the labels, now just update them.
-        mMinuteTextView.setText(refreshTheDisplay(AppModel.Granularity.MINUTE));
-        mHourTextView.setText(refreshTheDisplay(AppModel.Granularity.HOUR));
-        mDayTextView.setText(refreshTheDisplay(AppModel.Granularity.DAY));
-        mMonthTextView.setText(refreshTheDisplay(AppModel.Granularity.MONTH));
-        mYearTextView.setText(refreshTheDisplay(AppModel.Granularity.YEAR));
+        refreshDisplay();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshDisplay();
     }
 
     /** Called when the user clicks the Options tab */
     public void openOptions(View view) {
 
         Intent intent = new Intent(this, OptionsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+    /**
+     * Private method that refreshes the display values
+     */
+    private void refreshDisplay() {
+
+        // i already have the labels, now just update them.
+        mMinuteTextView.setText(refreshTheDisplay(AppModel.Granularity.MINUTE));
+        mHourTextView.setText(refreshTheDisplay(AppModel.Granularity.HOUR));
+        mDayTextView.setText(refreshTheDisplay(AppModel.Granularity.DAY));
+        mMonthTextView.setText(refreshTheDisplay(AppModel.Granularity.MONTH));
+        mYearTextView.setText(refreshTheDisplay(AppModel.Granularity.YEAR));
     }
 
     /**

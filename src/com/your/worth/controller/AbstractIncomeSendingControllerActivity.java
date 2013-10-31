@@ -30,7 +30,7 @@ abstract class AbstractIncomeSendingControllerActivity extends Activity {
     public void openOptions(View view) {
 
         Intent intent = new Intent(this, OptionsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -38,7 +38,7 @@ abstract class AbstractIncomeSendingControllerActivity extends Activity {
     public void openHome(View view) {
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
