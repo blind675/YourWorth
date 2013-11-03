@@ -1,7 +1,6 @@
 package com.your.worth.controller;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -25,22 +24,6 @@ abstract class AbstractIncomeSendingControllerActivity extends Activity {
 
     // The tag to determent if it's income or spending window
     int mTag = 0;
-
-    /** Called when the user clicks the Options tab */
-    public void openOptions(View view) {
-
-        Intent intent = new Intent(this, OptionsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
-    /** Called when the user clicks the Home tab */
-    public void openHome(View view) {
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
 
     /**
      * Method that loads or reloads the LisView from data from the AppModel
