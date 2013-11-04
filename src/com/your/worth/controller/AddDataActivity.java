@@ -1,6 +1,8 @@
 package com.your.worth.controller;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -17,13 +19,41 @@ import java.util.ArrayList;
  * Time: 10:35 AM
  * An abstract class that holds the general methods for the income and spending activities.
  */
-abstract class AbstractIncomeSendingControllerActivity extends Activity {
+public class AddDataActivity extends Activity {
 
     // The ListView
-    ListView mListView = null;
+    private ListView mListView = null;
 
     // The tag to determent if it's income or spending window
-    int mTag = 0;
+    private int mTag = 0;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        mTag = intent.getIntExtra(Constants.EXTRA_TYPE,0);
+
+        if(mTag == AppModel.INCOME){
+            //set the income tag
+            mTag = AppModel.INCOME;
+
+            // get the income layout
+            setContentView(R.layout.activity_income);
+        } else if(mTag == AppModel.SPENDING){
+            //set the spending tag
+            mTag = AppModel.SPENDING;
+
+            // get the spending layout
+            setContentView(R.layout.activity_spending);
+        }
+
+        // Get ListView object from xml
+        mListView = (ListView) findViewById(R.id.listView1);
+
+        // load or reload the listView
+        reloadListView();
+
+    }
 
     /**
      * Method that loads or reloads the LisView from data from the AppModel
@@ -87,4 +117,8 @@ abstract class AbstractIncomeSendingControllerActivity extends Activity {
         AppModel.getInstance().addRecordValueAndDescriptionByTag(value,description,mTag);
 
     }
+
+    //TODO: Add menu to this windows (prio 1)
+    //TODO: Add popup to this window (prio 2)
+    //TODO: Finish FaceLift menu (prio 3)
 }

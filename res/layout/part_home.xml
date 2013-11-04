@@ -6,14 +6,21 @@
         android:background="#ffffff">
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:orientation="horizontal">
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="toggleMenu"
-            android:text="M" />
+
+        <ImageView
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:id="@+id/imageView"
+                android:layout_gravity="center"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="3dp"
+                android:clickable="true"
+                android:onClick="toggleMenu"
+                android:src="@drawable/menu"
+                android:contentDescription="@string/homeButtonText"/>
     </LinearLayout>
 
     <LinearLayout

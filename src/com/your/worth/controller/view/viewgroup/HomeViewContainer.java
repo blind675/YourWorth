@@ -1,9 +1,12 @@
 package com.your.worth.controller.view.viewgroup;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+import android.widget.Scroller;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,12 +26,22 @@ public class HomeViewContainer extends LinearLayout {
     protected static final int mMenuMargin = 175;
 
     public enum MenuState {
-        CLOSED, OPEN
+        CLOSED, OPEN, CLOSING, OPENING
     }
+
+    // Animation objects
+    protected Scroller mMenuAnimationScroller = new Scroller(this.getContext(),new SmoothInterpolator());
+
+    protected Runnable mMenuAnimationRunnable = new AnimationRunnable();
+    protected Handler mMenuAnimationHandler = new Handler();
+
+    // Animation constants
+    private static final int mMenuAnimationDuration = 1000;
+    private static final int mMenuAnimationPollingInterval = 16;
 
     // Position information attributes
     protected int mCurrentContentOffset = 0;
-    protected MenuState mMmenuCurrentState = MenuState.CLOSED;
+    protected MenuState mMenuCurrentState = MenuState.CLOSED;
 
     public HomeViewContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,8 +58,7 @@ public class HomeViewContainer extends LinearLayout {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right,
-                            int bottom) {
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         if (changed)
             this.calculateChildDimensions();
 
@@ -54,30 +66,30 @@ public class HomeViewContainer extends LinearLayout {
 
         this.mContent.layout(left + this.mCurrentContentOffset, top, right
                 + this.mCurrentContentOffset, bottom);
-
     }
 
-    //TODO: add animation to the toggle
     /**
      * Method that toggles the menu off and on
      */
     public void toggleMenu() {
-        switch (this.mMmenuCurrentState) {
+        switch (mMenuCurrentState) {
+
             case CLOSED:
-                this.mMenu.setVisibility(View.VISIBLE);
-                this.mCurrentContentOffset = this.getMenuWidth();
-                this.mContent.offsetLeftAndRight(mCurrentContentOffset);
-                this.mMmenuCurrentState = MenuState.OPEN;
+                mMenuCurrentState = MenuState.OPENING;
+                mMenu.setVisibility(View.VISIBLE);
+                mMenuAnimationScroller.startScroll(0, 0, this.getMenuWidth(), 0, mMenuAnimationDuration);
                 break;
             case OPEN:
-                this.mContent.offsetLeftAndRight(-mCurrentContentOffset);
-                this.mCurrentContentOffset = 0;
-                this.mMmenuCurrentState = MenuState.CLOSED;
-                this.mMenu.setVisibility(View.GONE);
+                mMenuCurrentState = MenuState.CLOSING;
+                mMenuAnimationScroller.startScroll(mCurrentContentOffset,
+                        0, -mCurrentContentOffset, 0, mMenuAnimationDuration);
                 break;
+            default:
+                return;
         }
 
-        this.invalidate();
+        mMenuAnimationHandler.postDelayed(mMenuAnimationRunnable, mMenuAnimationPollingInterval);
+
     }
 
     /**
@@ -85,7 +97,7 @@ public class HomeViewContainer extends LinearLayout {
      * @return the menu state OPEN/CLOSE
      */
     public MenuState getMenuState() {
-        return mMmenuCurrentState;
+        return mMenuCurrentState;
     }
 
     private int getMenuWidth() {
@@ -100,4 +112,49 @@ public class HomeViewContainer extends LinearLayout {
         this.mMenu.getLayoutParams().height = this.getHeight();
     }
 
+    private void adjustContentPosition(boolean isAnimationOngoing) {
+        int scrollerOffset = this.mMenuAnimationScroller.getCurrX();
+
+        mContent.offsetLeftAndRight(scrollerOffset - mCurrentContentOffset);
+
+        mCurrentContentOffset = scrollerOffset;
+
+        invalidate();
+
+        if (isAnimationOngoing)
+            mMenuAnimationHandler.postDelayed(mMenuAnimationRunnable,mMenuAnimationPollingInterval);
+        else
+            onMenuTransitionComplete();
+    }
+
+    private void onMenuTransitionComplete() {
+        switch (mMenuCurrentState) {
+            case OPENING:
+                mMenuCurrentState = MenuState.OPEN;
+                break;
+            case CLOSING:
+                mMenuCurrentState = MenuState.CLOSED;
+                mMenu.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    protected class SmoothInterpolator implements Interpolator {
+
+        @Override
+        public float getInterpolation(float t) {
+            return (float)Math.pow(t-1, 5) + 1;
+        }
+
+    }
+
+    protected class AnimationRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            HomeViewContainer.this.adjustContentPosition(
+                    HomeViewContainer.this.mMenuAnimationScroller.computeScrollOffset());
+        }
+
+    }
 }

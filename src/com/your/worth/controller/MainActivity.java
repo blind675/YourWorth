@@ -55,27 +55,29 @@ public class MainActivity extends Activity {
         mRoot.toggleMenu();
     }
 
-    //TODO: find out how to send information in an intent
-
     /** Called when the user clicks the Incomes tab */
     public void openIncome(View view) {
         //close the menu before you leave
-        if(mRoot.getMenuState()== HomeViewContainer.MenuState.OPEN)  {
+        if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN)  {
             mRoot.toggleMenu();
         }
-        Intent intent = new Intent(this, IncomeActivity.class);
+        Intent intent = new Intent(this, AddDataActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //set the income tag
+        intent.putExtra(Constants.EXTRA_TYPE,AppModel.INCOME);
         startActivity(intent);
     }
 
     /** Called when the user clicks the Expenses tab */
     public void openSpending(View view) {
         //close the menu before you leave
-        if(mRoot.getMenuState()== HomeViewContainer.MenuState.OPEN)  {
+        if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN)  {
             mRoot.toggleMenu();
         }
-        Intent intent = new Intent(this, SpendingActivity.class);
+        Intent intent = new Intent(this, AddDataActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //set the spending tag
+        intent.putExtra(Constants.EXTRA_TYPE,AppModel.SPENDING);
         startActivity(intent);
     }
 
