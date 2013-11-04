@@ -2,10 +2,12 @@ package com.your.worth.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import com.your.worth.R;
+import com.your.worth.controller.view.viewgroup.HomeViewContainer;
 import com.your.worth.model.AppModel;
 
 public class MainActivity extends Activity {
@@ -19,10 +21,14 @@ public class MainActivity extends Activity {
     private TextView mMonthTextView = null;
     private TextView mYearTextView = null;
 
+    private HomeViewContainer mRoot = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        mRoot = (HomeViewContainer) this.getLayoutInflater().inflate(R.layout.activity_home, null);
+        this.setContentView(mRoot);
+        setContentView(mRoot);
 
         //first get all the textView labels of the main activity
         mMinuteTextView = (TextView) findViewById(R.id.minuteWorth);
@@ -44,10 +50,48 @@ public class MainActivity extends Activity {
         refreshDisplay();
     }
 
-    /** Called when the user clicks the Options tab */
-    public void openOptions(View view) {
+    /** Called when the user pushes the show menu picture */
+    public void toggleMenu(View view){
+        mRoot.toggleMenu();
+    }
 
-        Intent intent = new Intent(this, OptionsActivity.class);
+    /** Called when the user clicks the Incomes tab */
+    public void openIncome(View view) {
+        //close the menu before you leave
+        if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN)  {
+            mRoot.toggleMenu();
+        }
+        Intent intent = new Intent(this, AddDataActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //set the income tag
+        intent.putExtra(Constants.EXTRA_TYPE,AppModel.INCOME);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Expenses tab */
+    public void openSpending(View view) {
+        //close the menu before you leave
+        if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN)  {
+            mRoot.toggleMenu();
+        }
+        Intent intent = new Intent(this, AddDataActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //set the spending tag
+        intent.putExtra(Constants.EXTRA_TYPE,AppModel.SPENDING);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Expenses tab */
+    public void openAbout(View view) {
+        //close the menu before you leave
+        if(mRoot.getMenuState()== HomeViewContainer.MenuState.OPEN)  {
+            mRoot.toggleMenu();
+        }
+        // the url for the web page of the application
+        String aboutURL = "http://yourworth.herokuapp.com/";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(aboutURL));
+
+        // Start the activity
         startActivity(intent);
     }
 

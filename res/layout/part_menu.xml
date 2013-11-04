@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#404040"
+        android:orientation="vertical" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:id="@+id/textView1"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textColor="#A6A6A6"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#A6A6A6"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="#243243"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General"
+                android:id="@+id/textView2"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="#A6A6A6"
+                android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#A6A6A6"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="40dp"
+            android:background="@color/select_blue"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="0dp"
+            android:id="@+id/HomeColor"/>
+
+        <View
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@color/select_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/HomePicture"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="@string/homeButtonText"
+            android:id="@+id/HomeText"
+            android:clickable="true"
+            android:onClick="openHome"
+            android:background="@color/select_gray"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="0dp"
+            android:gravity="left"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <View
+                android:layout_width="10dp"
+                android:layout_height="40dp"
+                android:background="@color/normal_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/IncomeColor"/>
+
+        <View
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@color/normal_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/IncomePicture"/>
+
+        <TextView
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:text="@string/incomeButtonText"
+                android:id="@+id/IncomeText"
+                android:clickable="true"
+                android:onClick="openIncome"
+                android:background="@color/normal_gray"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="0dp"
+                android:gravity="left"
+                android:textColor="#FFFFFF"
+                android:textSize="27sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <View
+                android:layout_width="10dp"
+                android:layout_height="40dp"
+                android:background="@color/normal_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/SpendingColor"/>
+        <View
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@color/normal_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/SpendingPicture"/>
+
+        <TextView
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:text="@string/spendingButtonText"
+                android:id="@+id/SpendingText"
+                android:clickable="true"
+                android:onClick="openSpending"
+                android:background="@color/normal_gray"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="0dp"
+                android:gravity="left"
+                android:textColor="#FFFFFF"
+                android:textSize="27sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Extra"
+                android:id="@+id/textView3"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="#A6A6A6"
+                android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#A6A6A6"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        <View
+                android:layout_width="10dp"
+                android:layout_height="40dp"
+                android:background="@color/normal_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/AboutColor"/>
+        <View
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@color/normal_gray"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/AboutPicture"/>
+        <TextView
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:text="@string/about"
+                android:id="@+id/AboutText"
+                android:clickable="true"
+                android:onClick="openAbout"
+                android:background="@color/normal_gray"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="0dp"
+                android:gravity="left"
+                android:textColor="#FFFFFF"
+                android:textSize="27sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
