@@ -1,4 +1,4 @@
-package com.your.worth.controller;
+package com.your.worth.controller.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Date: 10/11/13
  * Time: 4:43 PM
  */
-class CustomAdapter extends ArrayAdapter<String> {
+public class CustomAdapter extends ArrayAdapter<String> {
 
     private final ArrayList<String> mValues;
     private final LayoutInflater mInflated;

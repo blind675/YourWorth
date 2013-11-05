@@ -22,4 +22,14 @@
     <string name="zero">0</string>
     <string name="per_year">/ year</string>
     <string name="remove">Remove</string>
+
+    <string-array name="menu_items">
+        <item>Home</item>
+        <item>Income</item>
+        <item>Expenses</item>
+        <item>About</item>
+    </string-array>
+
+    <string name="drawer_open">Open menu</string>
+    <string name="drawer_close">Close menu</string>
 </resources>

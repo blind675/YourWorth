@@ -1,157 +1,181 @@
 package com.your.worth.controller;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import com.your.worth.R;
-import com.your.worth.controller.view.viewgroup.HomeViewContainer;
-import com.your.worth.model.AppModel;
+import com.your.worth.controller.fragments.AbstractIncmSpndFragment;
+import com.your.worth.controller.fragments.HomeFragment;
+import com.your.worth.controller.fragments.IncomeFragment;
+import com.your.worth.controller.fragments.SpendingFragment;
 
-public class MainActivity extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
-    // all the labels on the first view (main activity)
-    private TextView mMinuteTextView = null;
-    private TextView mHourTextView = null;
-    private TextView mDayTextView = null;
-    private TextView mMonthTextView = null;
-    private TextView mYearTextView = null;
 
-    private HomeViewContainer mRoot = null;
+public class MainActivity extends FragmentActivity {
 
-    private ActionBar mActionBar = null;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private String[] mMenuItems;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
 
-        mRoot = (HomeViewContainer) this.getLayoutInflater().inflate(R.layout.activity_home, null);
-        this.setContentView(mRoot);
-        setContentView(mRoot);
+        //TODO: change the style of the action bar - maybe in a style file
+        // create a blue gradient
+//        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+//                new int[] { 0xFF4F4F4F, 0xFF0051AE });
+//        // set the gradient
+//        gd.setCornerRadius(0f);
+//
+//        mActionBar.setBackgroundDrawable(gd);
+
+        mTitle = mDrawerTitle = getTitle();
+        mMenuItems = getResources().getStringArray(R.array.menu_items);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // set a custom shadow that overlays the main content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // set up the drawer's list view with items and click listener
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.menu_row, mMenuItems));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        mActionBar = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
-        mActionBar.setDisplayHomeAsUpEnabled(false);
-        mActionBar.setHomeButtonEnabled(true);
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.indicator,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
 
-        // create a blue gradient
-        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                                     new int[] { 0xFF4F4F4F, 0xFF0051AE });
-        // set the gradient
-        gd.setCornerRadius(0f);
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        mActionBar.setBackgroundDrawable(gd);
-
-        // set the title of the action bar using the given title
-        mActionBar.setTitle(R.string.homeButtonText);
-
-        //first get all the textView labels of the main activity
-        mMinuteTextView = (TextView) findViewById(R.id.minuteWorth);
-        mHourTextView = (TextView) findViewById(R.id.hourWorth);
-        mDayTextView = (TextView) findViewById(R.id.dayWorth);
-        mMonthTextView = (TextView) findViewById(R.id.monthWorth);
-        mYearTextView = (TextView) findViewById(R.id.yearWorth);
-
-        // load the data of the DB in the AppModel first
-        // the AppModel works like a cache (I overcomplicated a little)
-        AppModel.getInstance().loadDataBase(this);
-
-        refreshDisplay();
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        /** Called when the user pushes the show menu picture */
-
-        if(mRoot.getMenuState() == HomeViewContainer.MenuState.CLOSED ) {
-            // set the title of the action bar to app name
-            mActionBar.setTitle(R.string.app_name);
-        } else if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN) {
-            // set the title of the action bar using the given title
-            mActionBar.setTitle(R.string.homeButtonText);
+        // The action bar home/up action should open or close the drawer.
+        // ActionBarDrawerToggle will take care of this.
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
-        mRoot.toggleMenu();
 
-        return false;
+        // Handle action buttons
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void selectItem(int position) {
+        // get the frame manager
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = null;
+
+        switch(position){
+            case 1: /** Called when the user clicks the Incomes tab */
+                    setTitle(R.string.incomeButtonText);
+                    // get the fragment for the home
+                    fragment = new IncomeFragment();
+                    break;
+            case 2: /** Called when the user clicks the Expenses tab */
+                    setTitle(R.string.spendingButtonText);
+                    // get the fragment for the home
+                    fragment = new SpendingFragment();
+                    break;
+            case 3: /** Called when the user clicks the About tab */
+                    // the url for the web page of the application
+                    String aboutURL = "http://yourworth.herokuapp.com/";
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(aboutURL));
+
+                    // Start the activity
+                    startActivity(intent);
+                    break;
+
+            default: // the default is home fragment
+                    setTitle(R.string.homeButtonText);
+                    // get the fragment for the home
+                    fragment = new HomeFragment();
+                    break;
+        }
+
+        if(fragment != null){
+
+            // update the main content by replacing fragments
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.content_frame, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+        // update selected item and title, then close the drawer
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        refreshDisplay();
-    }
-
-    /** Called when the user clicks the Incomes tab */
-    public void openIncome(View view) {
-        //close the menu before you leave
-        if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN)  {
-            mRoot.toggleMenu();
-        }
-        Intent intent = new Intent(this, AddDataActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //set the income tag
-        intent.putExtra(Constants.EXTRA_TYPE,AppModel.INCOME);
-        startActivity(intent);
-    }
-
-    /** Called when the user clicks the Expenses tab */
-    public void openSpending(View view) {
-        //close the menu before you leave
-        if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN)  {
-            mRoot.toggleMenu();
-        }
-        Intent intent = new Intent(this, AddDataActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //set the spending tag
-        intent.putExtra(Constants.EXTRA_TYPE,AppModel.SPENDING);
-        startActivity(intent);
-    }
-
-    /** Called when the user clicks the Expenses tab */
-    public void openAbout(View view) {
-        //close the menu before you leave
-        if(mRoot.getMenuState()== HomeViewContainer.MenuState.OPEN)  {
-            mRoot.toggleMenu();
-        }
-        // the url for the web page of the application
-        String aboutURL = "http://yourworth.herokuapp.com/";
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(aboutURL));
-
-        // Start the activity
-        startActivity(intent);
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
     }
 
     /**
-     * Private method that refreshes the display values
+     * When using the ActionBarDrawerToggle, you must call it during
+     * onPostCreate() and onConfigurationChanged()...
      */
-    private void refreshDisplay() {
-
-        // i already have the labels, now just update them.
-        mMinuteTextView.setText(refreshTheDisplay(AppModel.Granularity.MINUTE));
-        mHourTextView.setText(refreshTheDisplay(AppModel.Granularity.HOUR));
-        mDayTextView.setText(refreshTheDisplay(AppModel.Granularity.DAY));
-        mMonthTextView.setText(refreshTheDisplay(AppModel.Granularity.MONTH));
-        mYearTextView.setText(refreshTheDisplay(AppModel.Granularity.YEAR));
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggle
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Method that returns the values of the displayed fields based on values from the AppModel
-     * @param granularity the label to display
-     * @return value to display as string
-     */
-    String refreshTheDisplay(AppModel.Granularity granularity){
-        return ""+AppModel.getInstance().getTheWorthBasedOn(granularity);
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
     }
-
 }

@@ -98,8 +98,7 @@
             android:layout_height="wrap_content"
             android:text="@string/add"
             android:layout_marginTop="2dp"
-            android:layout_marginLeft="1dp"
-            android:onClick="executeAdd"/>
+            android:layout_marginLeft="1dp"/>
 </LinearLayout>
 
 </LinearLayout>

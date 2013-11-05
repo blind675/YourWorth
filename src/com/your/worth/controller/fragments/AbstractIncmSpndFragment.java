@@ -1,13 +1,13 @@
-package com.your.worth.controller;
+package com.your.worth.controller.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.*;
 import com.your.worth.R;
+import com.your.worth.controller.adapters.CustomAdapter;
 import com.your.worth.model.AppModel;
 
 import java.util.ArrayList;
@@ -15,44 +15,47 @@ import java.util.ArrayList;
 /**
  * Created with IntelliJ IDEA.
  * User: Catalin BORA
- * Date: 10/18/13
- * Time: 10:35 AM
- * An abstract class that holds the general methods for the income and spending activities.
+ * Date: 11/5/13
+ * Time: 10:51 PM
  */
-public class AddDataActivity extends Activity {
+public abstract class AbstractIncmSpndFragment extends Fragment {
 
     // The ListView
     private ListView mListView = null;
+    // The tag to determent if it's income or spending fragment
+    protected int mTag = 0;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    // The tag to determent if it's income or spending window
-    private int mTag = 0;
+        // Inflate the layout for this fragment
+        View incomeView = inflater.inflate(R.layout.part_adddata, container, false);
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Intent intent = getIntent();
-        mTag = intent.getIntExtra(Constants.EXTRA_TYPE,0);
-
-        if(mTag == AppModel.INCOME){
-            //set the income tag
-            mTag = AppModel.INCOME;
-
-            // get the income layout
-            setContentView(R.layout.activity_income);
-        } else if(mTag == AppModel.SPENDING){
-            //set the spending tag
-            mTag = AppModel.SPENDING;
-
-            // get the spending layout
-            setContentView(R.layout.activity_spending);
+        // Change the title displayed on the fragment
+        TextView titleTextView = (TextView) incomeView.findViewById(R.id.textView1);
+        if (mTag == AppModel.INCOME){
+            titleTextView.setText(R.string.income);
+        } else if(mTag == AppModel.SPENDING) {
+            titleTextView.setText(R.string.spending);
         }
 
         // Get ListView object from xml
-        mListView = (ListView) findViewById(R.id.listView1);
+        mListView = (ListView) incomeView.findViewById(R.id.listView1);
 
         // load or reload the listView
         reloadListView();
 
+        // Get the add button and set an action listener
+        Button addGoalButton = (Button) incomeView.findViewById(R.id.button1);
+        addGoalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                // Call the executeAdd with the view parameter
+                executeAdd(view);
+            }
+        });
+
+        return incomeView;
     }
 
     /**
@@ -72,7 +75,7 @@ public class AddDataActivity extends Activity {
             }
         }
 
-        ArrayAdapter<String> adapter = new CustomAdapter(this,list,mTag);
+        ArrayAdapter<String> adapter = new CustomAdapter(getActivity().getApplicationContext(),list,mTag);
         // do i need to erase the content of the List View first ?
         // Nop.. this seams to be the default way to work with adapters ListView
 
@@ -87,8 +90,8 @@ public class AddDataActivity extends Activity {
         String description;
 
         // get the values from the fields
-        EditText valueTextField   = (EditText)findViewById(R.id.value);
-        EditText descriptionTextField   = (EditText)findViewById(R.id.description);
+        EditText valueTextField   = (EditText) getView().findViewById(R.id.value);
+        EditText descriptionTextField   = (EditText) getView().findViewById(R.id.description);
 
         // convert the values
         description = descriptionTextField.getText().toString();
@@ -117,8 +120,4 @@ public class AddDataActivity extends Activity {
         AppModel.getInstance().addRecordValueAndDescriptionByTag(value,description,mTag);
 
     }
-
-    //TODO: Add menu to this windows (prio 1)
-    //TODO: Add popup to this window (prio 2)
-    //TODO: Finish FaceLift menu (prio 3)
 }
