@@ -23,7 +23,7 @@ public class HomeViewContainer extends LinearLayout {
     private View mContent;
 
     // Constants
-    protected static final int mMenuMargin = 175;
+    protected static final int mMenuMargin = 100;
 
     public enum MenuState {
         CLOSED, OPEN, CLOSING, OPENING

@@ -103,7 +103,7 @@
 
             <View
                     android:layout_width="10dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/select_blue"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
@@ -111,7 +111,7 @@
 
             <View
                     android:layout_width="60dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/select_gray"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
@@ -119,7 +119,7 @@
 
             <TextView
                     android:layout_width="300dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:text="@string/homeButtonText"
                     android:id="@+id/HomeText"
                     android:clickable="true"
@@ -131,7 +131,7 @@
                     android:layout_marginLeft="0dp"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textSize="27sp"/>
+                    android:textSize="22sp"/>
 
         </LinearLayout>
 
@@ -143,7 +143,7 @@
 
             <View
                     android:layout_width="10dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/normal_gray"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
@@ -151,7 +151,7 @@
 
             <View
                     android:layout_width="60dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/normal_gray"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
@@ -159,7 +159,7 @@
 
             <TextView
                     android:layout_width="300dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:text="@string/incomeButtonText"
                     android:id="@+id/IncomeText"
                     android:clickable="true"
@@ -171,7 +171,7 @@
                     android:layout_marginLeft="0dp"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textSize="27sp"/>
+                    android:textSize="22sp"/>
 
         </LinearLayout>
 
@@ -183,14 +183,14 @@
 
             <View
                     android:layout_width="10dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/normal_gray"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
                     android:id="@+id/SpendingColor"/>
             <View
                     android:layout_width="60dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/normal_gray"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
@@ -198,7 +198,7 @@
 
             <TextView
                     android:layout_width="300dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:text="@string/spendingButtonText"
                     android:id="@+id/SpendingText"
                     android:clickable="true"
@@ -210,7 +210,7 @@
                     android:layout_marginLeft="0dp"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textSize="27sp"/>
+                    android:textSize="22sp"/>
 
         </LinearLayout>
 
@@ -257,21 +257,23 @@
 
             <View
                     android:layout_width="10dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/normal_gray"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
                     android:id="@+id/AboutColor"/>
-            <View
+            <ImageView
                     android:layout_width="60dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/normal_gray"
+                    android:src="@drawable/about"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="0dp"
-                    android:id="@+id/AboutPicture"/>
+                    android:id="@+id/AboutPicture"
+                    android:contentDescription="@string/about"/>
             <TextView
                     android:layout_width="300dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:text="@string/about"
                     android:id="@+id/AboutText"
                     android:clickable="true"
@@ -283,7 +285,7 @@
                     android:layout_marginLeft="0dp"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textSize="27sp"/>
+                    android:textSize="22sp"/>
 
         </LinearLayout>
 
@@ -295,24 +297,6 @@
             android:orientation="vertical"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:background="#ffffff">
-
-        <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:orientation="horizontal">
-
-            <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:id="@+id/imageView"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp"
-                    android:clickable="true"
-                    android:onClick="toggleMenu"
-                    android:src="@drawable/menu"
-                    android:contentDescription="@string/homeButtonText"/>
-        </LinearLayout>
 
         <LinearLayout
                 android:layout_width="wrap_content"

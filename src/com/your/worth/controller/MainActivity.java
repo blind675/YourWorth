@@ -1,9 +1,14 @@
 package com.your.worth.controller;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.your.worth.R;
@@ -22,6 +27,9 @@ public class MainActivity extends Activity {
     private TextView mYearTextView = null;
 
     private HomeViewContainer mRoot = null;
+
+    private ActionBar mActionBar = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +37,23 @@ public class MainActivity extends Activity {
         mRoot = (HomeViewContainer) this.getLayoutInflater().inflate(R.layout.activity_home, null);
         this.setContentView(mRoot);
         setContentView(mRoot);
+
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        mActionBar = getActionBar();
+
+        mActionBar.setDisplayHomeAsUpEnabled(false);
+        mActionBar.setHomeButtonEnabled(true);
+
+        // create a blue gradient
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                                     new int[] { 0xFF4F4F4F, 0xFF0051AE });
+        // set the gradient
+        gd.setCornerRadius(0f);
+
+        mActionBar.setBackgroundDrawable(gd);
+
+        // set the title of the action bar using the given title
+        mActionBar.setTitle(R.string.homeButtonText);
 
         //first get all the textView labels of the main activity
         mMinuteTextView = (TextView) findViewById(R.id.minuteWorth);
@@ -45,14 +70,26 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        /** Called when the user pushes the show menu picture */
+
+        if(mRoot.getMenuState() == HomeViewContainer.MenuState.CLOSED ) {
+            // set the title of the action bar to app name
+            mActionBar.setTitle(R.string.app_name);
+        } else if(mRoot.getMenuState() == HomeViewContainer.MenuState.OPEN) {
+            // set the title of the action bar using the given title
+            mActionBar.setTitle(R.string.homeButtonText);
+        }
+        mRoot.toggleMenu();
+
+        return false;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         refreshDisplay();
-    }
-
-    /** Called when the user pushes the show menu picture */
-    public void toggleMenu(View view){
-        mRoot.toggleMenu();
     }
 
     /** Called when the user clicks the Incomes tab */
