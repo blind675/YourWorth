@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -17,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.your.worth.R;
-import com.your.worth.controller.fragments.AbstractIncmSpndFragment;
+import com.your.worth.controller.adapters.MenuAdapter;
 import com.your.worth.controller.fragments.HomeFragment;
 import com.your.worth.controller.fragments.IncomeFragment;
 import com.your.worth.controller.fragments.SpendingFragment;
@@ -31,32 +32,22 @@ public class MainActivity extends FragmentActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String[] mMenuItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //TODO: change the style of the action bar - maybe in a style file
-        // create a blue gradient
-//        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-//                new int[] { 0xFF4F4F4F, 0xFF0051AE });
-//        // set the gradient
-//        gd.setCornerRadius(0f);
-//
-//        mActionBar.setBackgroundDrawable(gd);
-
+        String[] menuItems = getResources().getStringArray(R.array.menu_items);
+        TypedArray menuIcons =  getResources().obtainTypedArray(R.array.menu_images);
         mTitle = mDrawerTitle = getTitle();
-        mMenuItems = getResources().getStringArray(R.array.menu_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.menu_row, mMenuItems));
+        mDrawerList.setAdapter(new MenuAdapter(this,menuItems,menuIcons));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -171,7 +162,7 @@ public class MainActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /* The click listner for ListView in the navigation drawer */
+    /* The click listener for ListView in the navigation drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

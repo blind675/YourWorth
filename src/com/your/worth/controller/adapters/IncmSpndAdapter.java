@@ -18,14 +18,14 @@ import java.util.ArrayList;
  * Date: 10/11/13
  * Time: 4:43 PM
  */
-public class CustomAdapter extends ArrayAdapter<String> {
+public class IncmSpndAdapter extends ArrayAdapter<String> {
 
     private final ArrayList<String> mValues;
     private final LayoutInflater mInflated;
     private final int mTag;
 
     // create a constructor for my custom adapter
-    public CustomAdapter(Context context, ArrayList<String> values,int tag) {
+    public IncmSpndAdapter(Context context, ArrayList<String> values, int tag) {
         super(context, R.layout.row, values);
         mValues = values;
         mInflated = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -1,11 +1,41 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@android:id/text1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceListItemSmall"
-          android:gravity="center_vertical"
-          android:paddingLeft="16dp"
-          android:paddingRight="16dp"
-          android:textColor="#fff"
-          android:background="?android:attr/activatedBackgroundIndicator"
-          android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:background="?android:attr/activatedBackgroundIndicator">
+
+    <!-- row based on simple_list_item_1 from Android -->
+    <ImageView android:id="@+id/menuIcon"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_gravity="center"
+               android:padding="3dp"
+               android:minHeight="?android:attr/listPreferredItemHeightSmall"
+               android:src="@drawable/about"
+               android:contentDescription="@string/menuIcon"/>
+
+    <TextView
+              android:id="@android:id/title"
+              android:layout_width="150dp"
+              android:layout_height="40dp"
+              android:layout_gravity="center_vertical"
+              android:textAppearance="?android:attr/textAppearanceListItemSmall"
+              android:paddingLeft="16dp"
+              android:gravity="center_vertical|left"
+              android:paddingRight="16dp"
+              android:textColor="#fff"
+              android:minHeight="14dp"/>
+    <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="false"
+            android:textOn="On"
+            android:textOff="Off"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+</LinearLayout>
+

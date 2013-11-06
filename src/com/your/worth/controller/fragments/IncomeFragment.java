@@ -1,6 +1,5 @@
 package com.your.worth.controller.fragments;
 
-import com.your.worth.R;
 import com.your.worth.model.AppModel;
 
 /**

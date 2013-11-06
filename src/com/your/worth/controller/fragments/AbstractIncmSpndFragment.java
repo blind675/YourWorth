@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.your.worth.R;
-import com.your.worth.controller.adapters.CustomAdapter;
+import com.your.worth.controller.adapters.IncmSpndAdapter;
 import com.your.worth.model.AppModel;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
             @Override
             public void onClick(final View view) {
                 // Call the executeAdd with the view parameter
-                executeAdd(view);
+                executeAdd();
             }
         });
 
@@ -75,7 +75,7 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
             }
         }
 
-        ArrayAdapter<String> adapter = new CustomAdapter(getActivity().getApplicationContext(),list,mTag);
+        ArrayAdapter<String> adapter = new IncmSpndAdapter(getActivity().getApplicationContext(),list,mTag);
         // do i need to erase the content of the List View first ?
         // Nop.. this seams to be the default way to work with adapters ListView
 
@@ -84,7 +84,7 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
     }
 
     /** Called when the user clicks the Add button*/
-    public void executeAdd(View view) {
+    public void executeAdd() {
 
         int value=0;
         String description;
