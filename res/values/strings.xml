@@ -23,14 +23,13 @@
     <string name="per_year">/ year</string>
     <string name="remove">Remove</string>
 
-    <string-array name="menu_items">
-        <item>Home</item>
-        <item>Income</item>
-        <item>Expenses</item>
-        <item>About</item>
-    </string-array>
 
     <string name="drawer_open">Open menu</string>
     <string name="drawer_close">Close menu</string>
     <string name="menuIcon">icon</string>
+
+    <string name="add_income">Add your Income</string>
+    <string name="add_expense">Add your Expense</string>
+    <string name="pin_off">PIN protection is deactivated</string>
+    <string name="pin_on">Change your PIN</string>
 </resources>
