@@ -30,6 +30,6 @@
 
     <string name="add_income">Add your Income</string>
     <string name="add_expense">Add your Expense</string>
-    <string name="pin_off">PIN protection is deactivated</string>
+    <string name="pin_off">PIN protection is inactive</string>
     <string name="pin_on">Change your PIN</string>
 </resources>

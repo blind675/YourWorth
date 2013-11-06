@@ -15,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.your.worth.R;
 import com.your.worth.controller.adapters.MenuAdapter;
@@ -38,8 +37,11 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        String[] menuItems = getResources().getStringArray(R.array.menu_items);
+        String[] menuItemsTitles = getResources().getStringArray(R.array.menu_items);
+        String[] menuItemsDescriptions = getResources().getStringArray(R.array.menu_description);
+        int[] menuItemType = getResources().getIntArray(R.array.menu_row_type);
         TypedArray menuIcons =  getResources().obtainTypedArray(R.array.menu_images);
+        int switchPosition = 7;
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -47,7 +49,7 @@ public class MainActivity extends FragmentActivity {
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new MenuAdapter(this,menuItems,menuIcons));
+        mDrawerList.setAdapter(new MenuAdapter(this,menuItemsTitles,menuItemsDescriptions,menuIcons,menuItemType,switchPosition));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -76,7 +78,7 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
-            selectItem(0);
+            selectItem(3);
         }
     }
 
@@ -99,17 +101,21 @@ public class MainActivity extends FragmentActivity {
         Fragment fragment = null;
 
         switch(position){
-            case 1: /** Called when the user clicks the Incomes tab */
+            case 1: /** Called when the user clicks the Sign Out tab */
+                    break;
+            case 4: /** Called when the user clicks the Incomes tab */
                     setTitle(R.string.incomeButtonText);
                     // get the fragment for the home
                     fragment = new IncomeFragment();
                     break;
-            case 2: /** Called when the user clicks the Expenses tab */
+            case 5: /** Called when the user clicks the Expenses tab */
                     setTitle(R.string.spendingButtonText);
                     // get the fragment for the home
                     fragment = new SpendingFragment();
                     break;
-            case 3: /** Called when the user clicks the About tab */
+            case 7: /** Called when the user clicks the PIN tab */
+                    break;
+            case 8: /** Called when the user clicks the About tab */
                     // the url for the web page of the application
                     String aboutURL = "http://yourworth.herokuapp.com/";
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(aboutURL));
@@ -118,7 +124,8 @@ public class MainActivity extends FragmentActivity {
                     startActivity(intent);
                     break;
 
-            default: // the default is home fragment
+            default:/* Called when the user clicks the Home tab
+                       the default is home fragment also the same as case 3 */
                     setTitle(R.string.homeButtonText);
                     // get the fragment for the home
                     fragment = new HomeFragment();

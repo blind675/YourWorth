@@ -2,31 +2,52 @@
 <resources>
 
     <string-array name="menu_items">
+        <item>User</item>
+        <item>Sign Out</item>
+        <item>General</item>
         <item>Home</item>
         <item>Income</item>
         <item>Expenses</item>
+        <item>Extra</item>
+        <item>PIN</item>
         <item>About</item>
     </string-array>
 
     <string-array name="menu_images">
+        <item/>
+        <item/>
+        <item/>
         <item>@drawable/home</item>
         <item>@drawable/income</item>
         <item>@drawable/expense</item>
+        <item/>
+        <item>@drawable/pin</item>
         <item>@drawable/about</item>
     </string-array>
 
-    <string-array name="description_of">
+    <string-array name="menu_description">
+        <item/>
+        <item/>
+        <item/>
         <item/>
         <item>@string/add_income</item>
         <item>@string/add_expense</item>
+        <item/>
         <item>@string/pin_off</item>
+        <item/>
     </string-array>
 
-    <string-array name="description_on">
-        <item/>
-        <item>@string/add_income</item>
-        <item>@string/add_expense</item>
-        <item>@string/pin_on</item>
-    </string-array>
+    <!-- 1 = header 0 = normal -->
+    <integer-array name="menu_row_type">
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
 
 </resources>
