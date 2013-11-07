@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Your Worth</string>
+    <string name="app_name">You\'re Worth It</string>
 
     <string name="about">About</string>
     <string name="you_make">You make:</string>
-    <string name="currency">$</string>
     <string name="per_hour">per hour</string>
     <string name="that_is">That is:</string>
     <string name="per_minute">/ minute</string>
@@ -32,4 +31,6 @@
     <string name="add_expense">Add your Expense</string>
     <string name="pin_off">PIN protection is inactive</string>
     <string name="pin_on">Change your PIN</string>
+    <string name="added_on">Added on:</string>
+    <string name="pin_status">PIN status</string>
 </resources>

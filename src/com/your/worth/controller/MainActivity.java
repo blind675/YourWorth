@@ -21,6 +21,7 @@ import com.your.worth.controller.adapters.MenuAdapter;
 import com.your.worth.controller.fragments.HomeFragment;
 import com.your.worth.controller.fragments.IncomeFragment;
 import com.your.worth.controller.fragments.SpendingFragment;
+import com.your.worth.model.AppModel;
 
 
 public class MainActivity extends FragmentActivity {
@@ -45,6 +46,10 @@ public class MainActivity extends FragmentActivity {
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // load the data of the DB in the AppModel first
+        // the AppModel works like a cache (I overcomplicated a little)
+        AppModel.getInstance().loadDataBase(this);
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

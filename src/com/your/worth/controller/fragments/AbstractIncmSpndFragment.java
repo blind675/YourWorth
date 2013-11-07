@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.your.worth.R;
-import com.your.worth.controller.adapters.IncmSpndAdapter;
+import com.your.worth.controller.adapters.IncSpdAdapter;
 import com.your.worth.model.AppModel;
+import com.your.worth.controller.listeners.SwipeDismissListViewTouchListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,13 +23,15 @@ import java.util.ArrayList;
  */
 public abstract class AbstractIncmSpndFragment extends Fragment {
 
-    // The ListView
-    private ListView mListView = null;
+    private ArrayAdapter<String> mAdapter = null;
     // The tag to determent if it's income or spending fragment
     protected int mTag = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // The ListView
+        ListView mListView = null;
 
         // Inflate the layout for this fragment
         View incomeView = inflater.inflate(R.layout.part_adddata, container, false);
@@ -41,6 +46,39 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
 
         // Get ListView object from xml
         mListView = (ListView) incomeView.findViewById(R.id.listView1);
+
+        // I used the SwipeDismissListViewTouchListener from Roman Nurik
+        // Gist: https://github.com/romannurik/android-swipetodismiss
+        // Google+: https://plus.google.com/113735310430199015092/posts/Fgo1p5uWZLu
+        mAdapter = new IncSpdAdapter(getActivity().getApplicationContext(),getDataFromModel(),null);
+        mListView.setAdapter(mAdapter);
+
+        // Create a ListView-specific touch listener. ListViews are given special treatment because
+        // by default they handle touches for their list items... i.e. they're in charge of drawing
+        // the pressed state (the list selector), handling list item clicks, etc.
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        mListView,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    mAdapter.remove(mAdapter.getItem(position));
+                                    AppModel.getInstance().removeRecordByTag(position,mTag);
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+        mListView.setOnTouchListener(touchListener);
+        // Setting this scroll listener is required to ensure that during ListView scrolling,
+        // we don't look for swipes.
+        mListView.setOnScrollListener(touchListener.makeScrollListener());
+
 
         // load or reload the listView
         reloadListView();
@@ -59,9 +97,10 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
     }
 
     /**
-     * Method that loads or reloads the LisView from data from the AppModel
+     * Get the list of string 'value - description' from te model
+     * @return the list of strings
      */
-    void reloadListView() {
+    List<String> getDataFromModel(){
 
         // get the values from the AppModel
         // exclude 0 value
@@ -75,12 +114,21 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
             }
         }
 
-        ArrayAdapter<String> adapter = new IncmSpndAdapter(getActivity().getApplicationContext(),list,mTag);
-        // do i need to erase the content of the List View first ?
-        // Nop.. this seams to be the default way to work with adapters ListView
+        return list;
+    }
 
-        // Assign adapter to ListView
-        mListView.setAdapter(adapter);
+    /**
+     * Method that loads or reloads the LisView from data from the AppModel
+     */
+    void reloadListView() {
+
+
+
+        // clear the adapter
+        // set the list and call the adapter to update
+        mAdapter.clear();
+        mAdapter.addAll(getDataFromModel());
+        mAdapter.notifyDataSetChanged();
     }
 
     /** Called when the user clicks the Add button*/

@@ -11,7 +11,7 @@ import com.your.worth.model.PIN;
 
 /**
  * Created with IntelliJ IDEA.
- * User: blind675
+ * User: Catalin BORA
  * Date: 11/6/13
  * Time: 12:52 AM
  */

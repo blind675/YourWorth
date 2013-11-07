@@ -32,10 +32,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // load the data of the DB in the AppModel first
-        // the AppModel works like a cache (I overcomplicated a little)
-        AppModel.getInstance().loadDataBase(getActivity().getApplicationContext());
-
         // Inflate the layout for this fragment
         View theHomeView = inflater.inflate(R.layout.part_home, container, false);
 
