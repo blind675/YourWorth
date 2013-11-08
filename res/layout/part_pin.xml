@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#FFF">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:layout_marginTop="100dp">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+        <TextView
+                android:id="@+id/oldPINLable"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="@string/old_pin"
+                android:textColor="#000"
+                android:layout_marginRight="33dp"
+                android:gravity="center"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="132dp"
+                android:layout_height="25dp">
+
+            <EditText
+                    android:id="@+id/digit_one"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/back"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"/>
+
+            <EditText
+                    android:id="@+id/digit_two"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/back"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"/>
+
+            <EditText
+                    android:id="@+id/digit_tree"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/back"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"/>
+
+            <EditText
+                    android:id="@+id/digit_four"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/back"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"/>
+
+            <ImageView
+                    android:id="@+id/approve_icon_old"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/pin_bad"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:contentDescription="@string/pin_status"
+                    android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/new_pin"
+                    android:textColor="#000"
+                    android:layout_marginRight="26dp"
+                    android:gravity="center"/>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="132dp"
+                    android:layout_height="25dp">
+
+                <EditText
+                        android:id="@+id/digit_one_new"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"/>
+
+                <EditText
+                        android:id="@+id/digit_two_new"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"/>
+
+                <EditText
+                        android:id="@+id/digit_tree_new"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"/>
+
+                <EditText
+                        android:id="@+id/digit_four_new"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"/>
+
+                <ImageView
+                        android:id="@+id/approve_icon_new"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/pin_bad"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="10dp"
+                        android:contentDescription="@string/pin_status"
+                        android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/confirm_pin"
+                    android:textColor="#000"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"/>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="132dp"
+                    android:layout_height="25dp">
+
+                <EditText
+                        android:id="@+id/digit_one_conf"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"/>
+
+                <EditText
+                        android:id="@+id/digit_two_conf"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"/>
+
+                <EditText
+                        android:id="@+id/digit_tree_conf"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"/>
+
+                <EditText
+                        android:id="@+id/digit_four_conf"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/back"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"/>
+
+                <ImageView
+                        android:id="@+id/approve_icon_conf"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/pin_bad"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="10dp"
+                        android:contentDescription="@string/pin_status"
+                        android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/loginButton"
+                android:layout_width="60dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/change"
+                android:textSize="12sp"
+                android:enabled="false"/>
+
+</LinearLayout>
+
+</RelativeLayout>

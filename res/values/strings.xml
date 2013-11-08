@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Your Worth</string>
+    <string name="app_name">You\'re Worth It</string>
 
-    <string name="about"><u><b><i>About</i></b></u></string>
+    <string name="about">About</string>
     <string name="you_make">You make:</string>
-    <string name="currency">$</string>
     <string name="per_hour">per hour</string>
     <string name="that_is">That is:</string>
     <string name="per_minute">/ minute</string>
     <string name="per_day">/ day</string>
     <string name="per_month">/ month</string>
     <string name="homeButtonText">Home</string>
-    <string name="optionsButtonText">Options</string>
     <string name="incomeButtonText">Incomes</string>
     <string name="spendingButtonText">Expenses</string>
     <string name="income">Income:</string>
@@ -22,4 +20,22 @@
     <string name="zero">0</string>
     <string name="per_year">/ year</string>
     <string name="remove">Remove</string>
+    <string name="pin">PIN</string>
+    <string name="change">Change</string>
+
+    <string name="drawer_open">Open menu</string>
+    <string name="drawer_close">Close menu</string>
+    <string name="menuIcon">icon</string>
+
+    <string name="add_income">Add your Income</string>
+    <string name="add_expense">Add your Expense</string>
+    <string name="pin_off">PIN protection is inactive</string>
+    <string name="pin_on">Change your PIN</string>
+    <string name="added_on">Added on:</string>
+    <string name="pin_status">PIN status</string>
+    <string name="sign_in">Sign In</string>
+    <string name="old_pin">Old PIN:</string>
+    <string name="new_pin">New PIN:</string>
+    <string name="confirm_pin">Confirm PIN:</string>
+    <string name="pin_changed">The PIN has changed.</string>
 </resources>
