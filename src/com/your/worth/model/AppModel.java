@@ -2,6 +2,7 @@ package com.your.worth.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -22,6 +23,8 @@ public class AppModel {
 	 * singleton instance
 	 */
 	private static final AppModel INSTANCE = new AppModel();
+    // preferences identifiers
+    private static SharedPreferences mSettings;
 
 	// list of the income records
 	private List<Record> mIncomeList = null;
@@ -62,6 +65,7 @@ public class AppModel {
 
     /**
      * Method that initializes the database and loads all its records in the AppModel internal arrays.
+     * It also looks for the PIN and loads it if it exists.
      * @param context the context of the caller
      */
     public void loadDataBase(Context context) {
@@ -99,6 +103,67 @@ public class AppModel {
         }
         // make sure to close the cursor
         cursor.close();
+
+        // now get the PIN
+        // Restore preferences
+        int digit;
+        mSettings  = context.getSharedPreferences("preference", Context.MODE_PRIVATE);
+
+        Character[] pin = new Character[4];
+        for (int i=0;i<4;i++) {
+           digit = mSettings.getInt("digit"+(i+1), -1);
+           if(digit != -1){
+               pin[i] = Character.forDigit(digit, 10);
+           }
+        }
+
+        if(PIN.isPINComplete(pin)){
+            PIN.setPIN(pin);
+            PIN.setPINActive(true);
+        }
+    }
+
+    /**
+     * Write the PIN to the property file
+     * @param pin the PIN
+     */
+    public void setPIN(Character[] pin){
+
+        if(PIN.isPINComplete(pin)) {
+            // We need an Editor object to make preference changes.
+            SharedPreferences.Editor editor = mSettings.edit();
+
+            // Write the digits
+            editor.putInt("digit1",Character.getNumericValue(pin[0]));
+            editor.putInt("digit2",Character.getNumericValue(pin[1]));
+            editor.putInt("digit3",Character.getNumericValue(pin[2]));
+            editor.putInt("digit4",Character.getNumericValue(pin[3]));
+
+            // Commit the edits!
+            editor.commit();
+
+            // Set the value of the pin in the static PIN class
+            PIN.setPIN(pin);
+        }
+    }
+
+    /**
+     * It deactivates the PIN. Sets the PIN active flag to false and erases it from the property file
+     */
+    public void deactivatePIN(){
+        // We need an Editor object to make preference changes.
+        SharedPreferences.Editor editor = mSettings.edit();
+
+        // Remove the values
+        editor.remove("digit1");
+        editor.remove("digit2");
+        editor.remove("digit3");
+        editor.remove("digit4");
+
+        // Commit the edits!
+        editor.commit();
+
+        PIN.setPINActive(false);
     }
 
     /**

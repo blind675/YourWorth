@@ -9,16 +9,6 @@ package com.your.worth.model;
 public class PIN {
     private static Character[] mPIN = new Character[4];
     private static boolean mPINActive = false;
-    private static boolean mPINSet = false;
-
-    public static boolean isPINSet(){
-        return mPINSet;
-    }
-
-    public static void setPINSet(boolean on){
-        mPINSet = on;
-        mPINActive = on;
-    }
 
     public static boolean isPINActive() {
         return mPINActive;
@@ -26,6 +16,30 @@ public class PIN {
 
     public static void setPINActive(boolean state) {
         mPINActive = state;
+        // IF YOU DEACTIVATE THE PIN IT ALSO GETS RESET
+        if(state == false){
+            mPIN[0] = null;
+            mPIN[1] = null;
+            mPIN[2] = null;
+            mPIN[3] = null;
+        }
+    }
+
+    public static void setPIN(Character[] pin) {
+        // because it's a static
+        mPIN[0] = pin[0];
+        mPIN[1] = pin[1];
+        mPIN[2] = pin[2];
+        mPIN[3] = pin[3];
+    }
+
+    public static boolean isInternalPINValid(){
+        for (int i=0; i<4; i++) {
+            if(mPIN[i] == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean isPINOk(Character[] PIN){
@@ -35,7 +49,6 @@ public class PIN {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -45,7 +58,6 @@ public class PIN {
                 return false;
             }
         }
-
         return true;
     }
 }

@@ -31,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private MenuAdapter mAdapter;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -57,7 +58,8 @@ public class MainActivity extends FragmentActivity {
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new MenuAdapter(this,menuItemsTitles,menuItemsDescriptions,menuIcons,menuItemType,switchPosition));
+        mAdapter = new MenuAdapter(this,menuItemsTitles,menuItemsDescriptions,menuIcons,menuItemType,switchPosition);
+        mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -80,6 +82,7 @@ public class MainActivity extends FragmentActivity {
 
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
+                mAdapter.notifyDataSetChanged(); // forced refresh
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -117,8 +120,10 @@ public class MainActivity extends FragmentActivity {
 
         switch(position){
             case 1: /** Called when the user clicks the Sign Out tab */
-                    intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
+                    if(PIN.isInternalPINValid()){
+                        intent = new Intent(this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                     break;
             case 4: /** Called when the user clicks the Incomes tab */
                     setTitle(R.string.incomeButtonText);

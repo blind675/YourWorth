@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.your.worth.R;
 import com.your.worth.controller.listeners.TextChangeListener;
+import com.your.worth.model.AppModel;
 import com.your.worth.model.PIN;
 
 /**
@@ -224,35 +225,22 @@ public class PINFragmant extends Fragment {
             }
         });
 
-        if(!PIN.isPINSet()) {
-            mOldPIN.setTextColor(R.color.gray);
-
-            mPINold1.setEnabled(false);
-            mPINold2.setEnabled(false);
-            mPINold3.setEnabled(false);
-            mPINold4.setEnabled(false);
-
-            mOldPINOk = true;
-        }
-
         return thePINView;
     }
 
     private void changePin() {
 
         if(mOldPINOk && mNewPINOk) {
-            //TODO: change PIN
+            AppModel.getInstance().setPIN(mPINnew);
             Toast.makeText(getActivity().getApplicationContext(),getString(R.string.pin_changed),
                     Toast.LENGTH_LONG).show();
         }
-
-        mOldPIN.setTextColor(R.color.black);
+        // just setTexColor don't work (bug or lack of documentation)
+        mOldPIN.setTextColor(getResources().getColor(R.color.black));
         mPINold1.setEnabled(true);
         mPINold2.setEnabled(true);
         mPINold3.setEnabled(true);
         mPINold4.setEnabled(true);
-
-        PIN.setPINSet(true);
 
         clearFields();
     }
@@ -357,8 +345,8 @@ public class PINFragmant extends Fragment {
 
         mChange.setEnabled(false);
 
-        if(!PIN.isPINSet()) {
-            mOldPIN.setTextColor(R.color.gray);
+        if(!PIN.isInternalPINValid()) {
+            mOldPIN.setTextColor(getResources().getColor(R.color.gray));
 
             mPINold1.setEnabled(false);
             mPINold2.setEnabled(false);

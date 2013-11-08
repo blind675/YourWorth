@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.your.worth.R;
+import com.your.worth.model.AppModel;
 import com.your.worth.model.PIN;
 
 /**
@@ -25,6 +26,7 @@ public class MenuAdapter extends ArrayAdapter<String> {
     private final int mSwitchPosition;
     private ToggleButton mToggleButton = null;
     private TextView mDescriptionView = null;
+    private int mSignoutResource = R.color.white;
 
     // create a constructor for my menu adapter
     public MenuAdapter(Context context, String[] titles, String[] descriptions, TypedArray iconNames ,int[] rowType,int switchPosition) {
@@ -88,14 +90,17 @@ public class MenuAdapter extends ArrayAdapter<String> {
                         PIN.setPINActive(true);
                         mDescriptionView.setText(R.string.pin_on);
                         mToggleButton.setFocusable(false);
+                        mSignoutResource = R.color.white;
                     } else {
                         /*
                         for some reason that i don't understand yet, the setFocusable has to be last
                         else the other instructions in the if won't get executed.
                         */
-                        PIN.setPINActive(false);
+                        AppModel.getInstance().deactivatePIN();
+                        //PIN.setPINActive(false);
                         mDescriptionView.setText(R.string.pin_off);
                         mToggleButton.setFocusable(true);
+                        mSignoutResource = R.color.gray;
                     }
                     // reset the views
                     notifyDataSetChanged();
@@ -108,6 +113,17 @@ public class MenuAdapter extends ArrayAdapter<String> {
           */
         TextView titleView = (TextView) convertView.findViewById(R.id.menuTitle);
         titleView.setText(mTitles[position]);
+
+        // treat sign out text color different
+        if(!PIN.isInternalPINValid()){
+            mSignoutResource = R.color.gray;
+        }else {
+            mSignoutResource = R.color.white;
+        }
+
+        if(position == 1 ){
+            titleView.setTextColor(getContext().getResources().getColor(mSignoutResource));
+        }
 
         return convertView;
     }
@@ -133,6 +149,9 @@ public class MenuAdapter extends ArrayAdapter<String> {
      */
     @Override
     public boolean isEnabled(int position) {
-        return mRowType[position] != 1;
+        /*
+         special check for the Sign Out tab because it's enabled property is dynamically calculated
+         */
+        return !(!PIN.isInternalPINValid() && position == 1) && mRowType[position] != 1;
     }
 }
