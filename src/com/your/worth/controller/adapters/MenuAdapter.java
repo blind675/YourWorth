@@ -18,9 +18,9 @@ import com.your.worth.model.PIN;
  */
 public class MenuAdapter extends ArrayAdapter<String> {
 
-    private String[] mTitles;
-    private String[] mDescriptions;
-    private int[] mRowType;
+    private final String[] mTitles;
+    private final String[] mDescriptions;
+    private final int[] mRowType;
     private final TypedArray mIconNames;
     private final LayoutInflater mInflated;
     private final int mSwitchPosition;

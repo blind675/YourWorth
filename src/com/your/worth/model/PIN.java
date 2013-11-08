@@ -7,7 +7,7 @@ package com.your.worth.model;
  * Time: 1:05 PM
  */
 public class PIN {
-    private static Character[] mPIN = new Character[4];
+    private static final Character[] mPIN = new Character[4];
     private static boolean mPINActive = false;
 
     public static boolean isPINActive() {
@@ -17,7 +17,7 @@ public class PIN {
     public static void setPINActive(boolean state) {
         mPINActive = state;
         // IF YOU DEACTIVATE THE PIN IT ALSO GETS RESET
-        if(state == false){
+        if(!state){
             mPIN[0] = null;
             mPIN[1] = null;
             mPIN[2] = null;

@@ -25,13 +25,13 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
 
     private ArrayAdapter<String> mAdapter = null;
     // The tag to determent if it's income or spending fragment
-    protected int mTag = 0;
+    int mTag = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // The ListView
-        ListView mListView = null;
+        ListView mListView;
 
         // Inflate the layout for this fragment
         View incomeView = inflater.inflate(R.layout.part_adddata, container, false);
@@ -132,7 +132,7 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
     }
 
     /** Called when the user clicks the Add button*/
-    public void executeAdd() {
+    void executeAdd() {
 
         int value=0;
         String description;
@@ -163,7 +163,7 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
      * @param value the value from the Amount field
      * @param description the description from the Description field
      */
-    public void addRecord(int value, String description) {
+    void addRecord(int value, String description) {
 
         AppModel.getInstance().addRecordValueAndDescriptionByTag(value,description,mTag);
 

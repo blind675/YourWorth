@@ -19,9 +19,9 @@ import java.util.List;
   */
 public class IncSpdAdapter extends ArrayAdapter<String> {
 
-    private List<String> mValues;
-    private List<Date> mDates;
-    private LayoutInflater mInflater;
+    private final List<String> mValues;
+    private final List<Date> mDates;
+    private final LayoutInflater mInflater;
 
     public IncSpdAdapter(Context context, List<String> vales, List<Date> dates) {
         super(context, R.layout.row, vales);

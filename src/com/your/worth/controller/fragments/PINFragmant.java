@@ -25,9 +25,9 @@ public class PINFragmant extends Fragment {
     private ImageView mOKIconConf = null;
     private TextView mOldPIN = null;
 
-    private Character[] mPINold = new Character[4];
-    private Character[] mPINnew = new Character[4];
-    private Character[] mPINconfirm = new Character[4];
+    private final Character[] mPINold = new Character[4];
+    private final Character[] mPINnew = new Character[4];
+    private final Character[] mPINconfirm = new Character[4];
 
     private EditText mPINold1 = null;
     private EditText mPINold2 = null;

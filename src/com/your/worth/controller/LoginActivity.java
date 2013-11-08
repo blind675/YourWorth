@@ -23,7 +23,7 @@ public class LoginActivity extends Activity {
 
     private ImageView mOKIcon = null;
     private Button mSignIn = null;
-    private Character[] mPIN = new Character[4];
+    private final Character[] mPIN = new Character[4];
     private EditText mText1 = null;
     private EditText mText2 = null;
     private EditText mText3 = null;
