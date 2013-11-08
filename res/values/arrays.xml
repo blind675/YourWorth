@@ -5,12 +5,12 @@
         <item>User</item>
         <item>Sign Out</item>
         <item>General</item>
-        <item>Home</item>
-        <item>Income</item>
-        <item>Expenses</item>
+        <item>@string/homeButtonText</item>
+        <item>@string/incomeButtonText</item>
+        <item>@string/spendingButtonText</item>
         <item>Extra</item>
-        <item>PIN</item>
-        <item>About</item>
+        <item>@string/pin</item>
+        <item>@string/about</item>
     </string-array>
 
     <string-array name="menu_images">

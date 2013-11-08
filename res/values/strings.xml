@@ -10,7 +10,6 @@
     <string name="per_day">/ day</string>
     <string name="per_month">/ month</string>
     <string name="homeButtonText">Home</string>
-    <string name="optionsButtonText">Options</string>
     <string name="incomeButtonText">Incomes</string>
     <string name="spendingButtonText">Expenses</string>
     <string name="income">Income:</string>
@@ -21,7 +20,8 @@
     <string name="zero">0</string>
     <string name="per_year">/ year</string>
     <string name="remove">Remove</string>
-
+    <string name="pin">PIN</string>
+    <string name="change">Change</string>
 
     <string name="drawer_open">Open menu</string>
     <string name="drawer_close">Close menu</string>
@@ -34,4 +34,8 @@
     <string name="added_on">Added on:</string>
     <string name="pin_status">PIN status</string>
     <string name="sign_in">Sign In</string>
+    <string name="old_pin">Old PIN:</string>
+    <string name="new_pin">New PIN:</string>
+    <string name="confirm_pin">Confirm PIN:</string>
+    <string name="pin_changed">The PIN has changed.</string>
 </resources>

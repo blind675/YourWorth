@@ -20,6 +20,7 @@ import com.your.worth.R;
 import com.your.worth.controller.adapters.MenuAdapter;
 import com.your.worth.controller.fragments.HomeFragment;
 import com.your.worth.controller.fragments.IncomeFragment;
+import com.your.worth.controller.fragments.PINFragmant;
 import com.your.worth.controller.fragments.SpendingFragment;
 import com.your.worth.model.AppModel;
 import com.your.worth.model.PIN;
@@ -121,15 +122,18 @@ public class MainActivity extends FragmentActivity {
                     break;
             case 4: /** Called when the user clicks the Incomes tab */
                     setTitle(R.string.incomeButtonText);
-                    // get the fragment for the home
+                    // get the fragment for income
                     fragment = new IncomeFragment();
                     break;
             case 5: /** Called when the user clicks the Expenses tab */
                     setTitle(R.string.spendingButtonText);
-                    // get the fragment for the home
+                    // get the fragment for spending
                     fragment = new SpendingFragment();
                     break;
             case 7: /** Called when the user clicks the PIN tab */
+                    setTitle(R.string.pin);
+                    // get the fragment for spending
+                    fragment = new PINFragmant();
                     break;
             case 8: /** Called when the user clicks the About tab */
                     // the url for the web page of the application

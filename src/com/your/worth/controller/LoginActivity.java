@@ -107,7 +107,12 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
-    public void validatePIN(Character value, int place) {
+    /**
+     * Validate the PIN entry
+     * @param value the digit in a specific position
+     * @param place the position of the value
+     */
+    private void validatePIN(Character value, int place) {
         mPIN[place]=value;
         if(PIN.isPINComplete(mPIN)){
             if(PIN.isPINOk(mPIN)){

@@ -7,8 +7,18 @@ package com.your.worth.model;
  * Time: 1:05 PM
  */
 public class PIN {
-    private static Character[] mPIN = {'0','2','0','6'};
-    private static boolean mPINActive = true;
+    private static Character[] mPIN = new Character[4];
+    private static boolean mPINActive = false;
+    private static boolean mPINSet = false;
+
+    public static boolean isPINSet(){
+        return mPINSet;
+    }
+
+    public static void setPINSet(boolean on){
+        mPINSet = on;
+        mPINActive = on;
+    }
 
     public static boolean isPINActive() {
         return mPINActive;
