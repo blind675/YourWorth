@@ -22,6 +22,7 @@ import com.your.worth.controller.fragments.HomeFragment;
 import com.your.worth.controller.fragments.IncomeFragment;
 import com.your.worth.controller.fragments.SpendingFragment;
 import com.your.worth.model.AppModel;
+import com.your.worth.model.PIN;
 
 
 public class MainActivity extends FragmentActivity {
@@ -36,6 +37,11 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // load the data of the DB in the AppModel first
+        // the AppModel works like a cache (I overcomplicated a little)
+        AppModel.getInstance().loadDataBase(this);
+
         setContentView(R.layout.activity_home);
 
         String[] menuItemsTitles = getResources().getStringArray(R.array.menu_items);
@@ -46,10 +52,6 @@ public class MainActivity extends FragmentActivity {
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // load the data of the DB in the AppModel first
-        // the AppModel works like a cache (I overcomplicated a little)
-        AppModel.getInstance().loadDataBase(this);
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -88,6 +90,12 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        selectItem(3);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
         // ActionBarDrawerToggle will take care of this.
@@ -104,9 +112,12 @@ public class MainActivity extends FragmentActivity {
         // get the frame manager
         FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment = null;
+        Intent intent;
 
         switch(position){
             case 1: /** Called when the user clicks the Sign Out tab */
+                    intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
                     break;
             case 4: /** Called when the user clicks the Incomes tab */
                     setTitle(R.string.incomeButtonText);
@@ -123,7 +134,7 @@ public class MainActivity extends FragmentActivity {
             case 8: /** Called when the user clicks the About tab */
                     // the url for the web page of the application
                     String aboutURL = "http://yourworth.herokuapp.com/";
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(aboutURL));
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(aboutURL));
 
                     // Start the activity
                     startActivity(intent);
@@ -166,6 +177,13 @@ public class MainActivity extends FragmentActivity {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
+
+        if(PIN.isPINActive()) {
+            /* Since this is the first activity i must revert to the login screen if PIN is deactivated */
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        }
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
