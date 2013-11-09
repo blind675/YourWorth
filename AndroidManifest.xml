@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.your.worth"
           android:versionCode="2"
-          android:versionName="2.0.0">
+          android:versionName="2.1.1">
 
     <uses-sdk android:minSdkVersion="12"
               android:targetSdkVersion="17"/>
@@ -31,10 +31,6 @@
                 android:screenOrientation="portrait"
                 android:configChanges="keyboardHidden|orientation"
                 android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
     </application>
