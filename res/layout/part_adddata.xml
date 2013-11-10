@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#ffffff">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/header_field"
               android:orientation="horizontal"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="0dp"
+              android:layout_alignParentTop="true"
+              android:layout_marginTop="0dp">
     <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -22,26 +27,15 @@
             android:textColor="@color/gray"/>
 
 </LinearLayout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-    <ListView
-            android:id="@+id/listView1"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#F9F9F9"
-            android:cacheColorHint="#F9F9F9"/>
-
-</LinearLayout>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/description_field"
               android:orientation="horizontal"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="0dp"
+              android:layout_above="@+id/add_field">
 
     <TextView
             android:id="@+id/textView2"
@@ -65,9 +59,14 @@
 </LinearLayout>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/add_field"
               android:orientation="horizontal"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="0dp"
+              android:layout_alignParentBottom="true"
+              android:layout_marginBottom="5dp">
     <EditText
             android:id="@+id/value"
             android:layout_width="wrap_content"
@@ -79,7 +78,8 @@
             android:maxLength="6"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="1dp"
-            android:cursorVisible="true">
+            android:cursorVisible="true"
+            android:imeOptions="actionNext">
 
     </EditText>
     <EditText
@@ -92,7 +92,8 @@
             android:inputType="text"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="1dp"
-            android:cursorVisible="true"/>
+            android:cursorVisible="true"
+            android:imeOptions="actionDone"/>
     <Button
             android:id="@+id/button1"
             style="?android:attr/buttonStyleSmall"
@@ -103,4 +104,24 @@
             android:layout_marginLeft="1dp"/>
 </LinearLayout>
 
-</LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="0dp"
+                  android:layout_below="@id/header_field"
+                  android:layout_above="@id/description_field">
+        <ListView
+                android:id="@+id/listView1"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#F9F9F9"
+                android:cacheColorHint="#F9F9F9"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
