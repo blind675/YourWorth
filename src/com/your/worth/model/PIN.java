@@ -42,19 +42,33 @@ public class PIN {
         return true;
     }
 
+    /**
+     * Compare a given PIN with the one stored locally. Uses samePINs().
+     * @param PIN
+     * @return
+     */
     public static boolean isPINOk(Character[] PIN){
+        return samePINs(PIN,mPIN);
+    }
 
+    public static boolean isPINComplete(Character[] PIN){
         for (int i=0; i<4; i++) {
-            if(PIN[i] != mPIN[i]){
+            if(PIN[i] == null){
                 return false;
             }
         }
         return true;
     }
 
-    public static boolean isPINComplete(Character[] PIN){
+    /**
+     * Helper methode to compare 2 given PINs
+     * @param mPINnew first PIN
+     * @param mPINconfirm second PIN
+     * @return if they match or not
+     */
+    public  static boolean samePINs(Character[] mPINnew, Character[] mPINconfirm) {
         for (int i=0; i<4; i++) {
-            if(PIN[i] == null){
+            if(mPINnew[i] != mPINconfirm[i]){
                 return false;
             }
         }

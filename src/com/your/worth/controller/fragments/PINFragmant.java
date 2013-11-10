@@ -2,12 +2,13 @@ package com.your.worth.controller.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.your.worth.R;
-import com.your.worth.controller.listeners.TextChangeListener;
 import com.your.worth.model.AppModel;
 import com.your.worth.model.PIN;
 
@@ -63,7 +64,6 @@ public class PINFragmant extends Fragment {
         mChange = (Button) thePINView.findViewById(R.id.loginButton);
         mOldPIN = (TextView) thePINView.findViewById(R.id.oldPINLable);
 
-        // TODO:seriously must find a better solution for this
         // get the text fields
         mPINold1 = (EditText) thePINView.findViewById(R.id.digit_one);
         mPINold2 = (EditText) thePINView.findViewById(R.id.digit_two);
@@ -81,141 +81,21 @@ public class PINFragmant extends Fragment {
         mPINconfirm4 = (EditText) thePINView.findViewById(R.id.digit_four_conf);
 
         // set event listeners on all the fields - for the old text boxes first
-        mPINold1.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 0);
-                } else {
-                    validatePIN(null, 0);
-                }
-                mPINold1.selectAll();
-            }
-        });
-        mPINold2.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 1);
-                } else {
-                    validatePIN(null, 1);
-                }
-                mPINold2.selectAll();
-            }
-        });
-        mPINold3.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 2);
-                } else {
-                    validatePIN(null, 2);
-                }
-                mPINold3.selectAll();
-            }
-        });
-        mPINold4.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 3);
-                } else {
-                    validatePIN(null, 3);
-                }
-                mPINold4.selectAll();
-            }
-        });
+        mPINold1.addTextChangedListener(new TextChangeListener(0,false,true,mPINold2));
+        mPINold2.addTextChangedListener(new TextChangeListener(1,false,true,mPINold3));
+        mPINold3.addTextChangedListener(new TextChangeListener(2,false,true,mPINold4));
+        mPINold4.addTextChangedListener(new TextChangeListener(3,false,true,mPINold4));
 
         // now set event listeners for the new PIN fields
-        mPINnew1.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 0, true);
-                } else {
-                    validateNewPIN(null, 0, true);
-                }
-                mPINnew1.selectAll();
-            }
-        });
-        mPINnew2.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 1, true);
-                } else {
-                    validateNewPIN(null, 1, true);
-                }
-                mPINnew2.selectAll();
-            }
-        });
-        mPINnew3.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 2, true);
-                } else {
-                    validateNewPIN(null, 2, true);
-                }
-                mPINnew3.selectAll();
-            }
-        });
-        mPINnew4.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 3, true);
-                } else {
-                    validateNewPIN(null, 3, true);
-                }
-                mPINnew4.selectAll();
-            }
-        });
+        mPINnew1.addTextChangedListener(new TextChangeListener(0,true,false,mPINnew2));
+        mPINnew2.addTextChangedListener(new TextChangeListener(1,true,false,mPINnew3));
+        mPINnew3.addTextChangedListener(new TextChangeListener(2,true,false,mPINnew4));
+        mPINnew4.addTextChangedListener(new TextChangeListener(3,true,false,mPINconfirm1));
 
-        mPINconfirm1.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 0, false);
-                } else {
-                    validateNewPIN(null, 0, false);
-                }
-                mPINconfirm1.selectAll();
-            }
-        });
-        mPINconfirm2.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 1, false);
-                } else {
-                    validateNewPIN(null, 1, false);
-                }
-                mPINconfirm2.selectAll();
-            }
-        });
-        mPINconfirm3.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 2, false);
-                } else {
-                    validateNewPIN(null, 2, false);
-                }
-                mPINconfirm3.selectAll();
-            }
-        });
-        mPINconfirm4.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    validateNewPIN(s.charAt(0), 3, false);
-                } else {
-                    validateNewPIN(null, 3, false);
-                }
-                mPINconfirm4.selectAll();
-            }
-        });
+        mPINconfirm1.addTextChangedListener(new TextChangeListener(0,false,false,mPINconfirm2));
+        mPINconfirm2.addTextChangedListener(new TextChangeListener(1,false,false,mPINconfirm3));
+        mPINconfirm3.addTextChangedListener(new TextChangeListener(2,false,false,mPINconfirm4));
+        mPINconfirm4.addTextChangedListener(new TextChangeListener(3,false,false,mPINnew1));
 
         mChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,6 +125,28 @@ public class PINFragmant extends Fragment {
         clearFields();
     }
 
+    /**
+     * Selects if the PIN is checked with the one stored in PIN static class or the one entered before.
+     * Something like a dispatcher.
+     * @param value the digit in a specific position
+     * @param place the position of the value
+     * @param firstPINField if the digit belongs to the first or second PIN array
+     * @param compareWithOldPIN compare with one stored or not
+     */
+    private void selectPINChecker(Character value, int place, boolean firstPINField, boolean compareWithOldPIN){
+        if(compareWithOldPIN){
+            validatePIN(value,place);
+        } else {
+            validateNewPIN(value,place,firstPINField);
+        }
+    }
+
+    /**
+     * Validate the new PINs (compare one with each other)
+     * @param value the digit in a specific position
+     * @param place the position of the value
+     * @param firstPINField if the digit belongs to the first or second array
+     */
     private void validateNewPIN(Character value, int place, boolean firstPINField) {
         if(firstPINField) {
             mPINnew[place]=value;
@@ -255,7 +157,7 @@ public class PINFragmant extends Fragment {
         if(PIN.isPINComplete(mPINnew) && PIN.isPINComplete(mPINconfirm) ){
             mOKIconNew.setVisibility(View.VISIBLE);
             mOKIconConf.setVisibility(View.VISIBLE);
-            if(samePINs(mPINnew,mPINconfirm)){
+            if(PIN.samePINs(mPINnew,mPINconfirm)){
                 mOKIconNew.setImageResource(R.drawable.pin_good);
                 mOKIconConf.setImageResource(R.drawable.pin_good);
                 mNewPINOk = true;
@@ -275,15 +177,6 @@ public class PINFragmant extends Fragment {
         } else {
             mChange.setEnabled(false);
         }
-    }
-
-    private boolean samePINs(Character[] mPINnew, Character[] mPINconfirm) {
-        for (int i=0; i<4; i++) {
-            if(mPINnew[i] != mPINconfirm[i]){
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -354,7 +247,42 @@ public class PINFragmant extends Fragment {
             mPINold4.setEnabled(false);
             mOldPINOk = true;
         }
+    }
 
+    /**
+     * Listener for all the text fields
+     */
+    public class TextChangeListener implements TextWatcher {
 
+        private int mPos;
+        private boolean mFirstPINField;
+        private boolean mCompareWithOldPIN;
+        private EditText mText;
+
+        private TextChangeListener(int pos, boolean firstPINField, boolean compareWithOldPIN, EditText textToSelectNext){
+            mPos = pos;
+            mCompareWithOldPIN = compareWithOldPIN;
+            mFirstPINField = firstPINField;
+            mText = textToSelectNext;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            if(charSequence.length()!=0){
+                selectPINChecker(charSequence.charAt(0),mPos,mFirstPINField,mCompareWithOldPIN);
+                mText.requestFocus();
+                mText.selectAll();
+            } else {
+                selectPINChecker(null,mPos,mFirstPINField,mCompareWithOldPIN);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
     }
 }

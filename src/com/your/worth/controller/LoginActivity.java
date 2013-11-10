@@ -3,6 +3,8 @@ package com.your.worth.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -10,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.your.worth.R;
-import com.your.worth.controller.listeners.TextChangeListener;
 import com.your.worth.model.PIN;
 
 /**
@@ -24,10 +25,6 @@ public class LoginActivity extends Activity {
     private ImageView mOKIcon = null;
     private Button mSignIn = null;
     private final Character[] mPIN = new Character[4];
-    private EditText mText1 = null;
-    private EditText mText2 = null;
-    private EditText mText3 = null;
-    private EditText mText4 = null;
 
 
     @Override
@@ -42,56 +39,15 @@ public class LoginActivity extends Activity {
         final ImageView imageBig = (ImageView) findViewById(R.id.icon_image);
         imageBig.startAnimation(animationFadeIn);
 
-        mText1 = (EditText) findViewById(R.id.digit_one);
-        mText1.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 0);
-                } else {
-                    validatePIN(null, 0);
-                }
-                mText1.selectAll();
-            }
-        });
+        EditText mText1 = (EditText) findViewById(R.id.digit_one);
+        EditText mText2 = (EditText) findViewById(R.id.digit_two);
+        EditText mText3 = (EditText) findViewById(R.id.digit_tree);
+        EditText mText4 = (EditText) findViewById(R.id.digit_four);
 
-        mText2 = (EditText) findViewById(R.id.digit_two);
-        mText2.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 1);
-                } else {
-                    validatePIN(null, 1);
-                }
-                mText2.selectAll();
-            }
-        });
-
-        mText3 = (EditText) findViewById(R.id.digit_tree);
-        mText3.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 2);
-                } else {
-                    validatePIN(null, 2);
-                }
-                mText3.selectAll();
-            }
-        });
-        mText4 = (EditText) findViewById(R.id.digit_four);
-        mText4.addTextChangedListener(new TextChangeListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
-                    validatePIN(s.charAt(0), 3);
-                } else {
-                    validatePIN(null, 3);
-                }
-                mText4.selectAll();
-            }
-        });
+        mText1.addTextChangedListener(new TextChangeListener(0,mText2));
+        mText2.addTextChangedListener(new TextChangeListener(1,mText3));
+        mText3.addTextChangedListener(new TextChangeListener(2,mText4));
+        mText4.addTextChangedListener(new TextChangeListener(3,mText4));
     }
 
     /**
@@ -128,6 +84,43 @@ public class LoginActivity extends Activity {
             mOKIcon.setVisibility(View.GONE);
             mSignIn.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Listener for all the text fields
+     */
+    public class TextChangeListener implements TextWatcher {
+
+        private int mPos;
+        private EditText mNextText;
+
+        private TextChangeListener(int pos,EditText textToSelectNext){
+            mPos = pos;
+            mNextText = textToSelectNext;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            if(charSequence.length()!=0){
+                validatePIN(charSequence.charAt(0), mPos);
+                mNextText.requestFocus();
+                mNextText.selectAll();
+            } else {
+                validatePIN(null, mPos);
+            }
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
+
 
     }
 }
