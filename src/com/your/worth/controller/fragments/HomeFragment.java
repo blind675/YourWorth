@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.your.worth.R;
 import com.your.worth.model.AppModel;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Catalin BORA
@@ -17,6 +20,8 @@ import com.your.worth.model.AppModel;
  */
 public class HomeFragment extends Fragment {
 
+    // Formatter
+    private final NumberFormat mFormatter = new DecimalFormat("#0.00");
 
     // all the labels on the first view (main activity)
     private TextView mMinuteTextView = null;
@@ -70,12 +75,14 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Method that returns the values of the displayed fields based on values from the AppModel
+     * Method that returns the values of the displayed fields based on values from the AppModel.
+     * Also formats with 2 decimal places.
      * @param granularity the label to display
      * @return value to display as string
      */
     String refreshTheDisplay(AppModel.Granularity granularity){
-        return ""+AppModel.getInstance().getTheWorthBasedOn(granularity);
+
+        return mFormatter.format(AppModel.getInstance().getTheWorthBasedOn(granularity));
     }
 
 
