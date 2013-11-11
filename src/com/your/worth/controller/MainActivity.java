@@ -32,6 +32,7 @@ public class MainActivity extends FragmentActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private MenuAdapter mAdapter;
+    private boolean mHomeFragmentActive;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -117,6 +118,7 @@ public class MainActivity extends FragmentActivity {
         FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment = null;
         Intent intent;
+        mHomeFragmentActive = false;
 
         switch(position){
             case 1: /** Called when the user clicks the Sign Out tab */
@@ -154,6 +156,7 @@ public class MainActivity extends FragmentActivity {
                     setTitle(R.string.homeButtonText);
                     // get the fragment for the home
                     fragment = new HomeFragment();
+                    mHomeFragmentActive = true;
                     break;
         }
 
@@ -208,4 +211,20 @@ public class MainActivity extends FragmentActivity {
             selectItem(position);
         }
     }
+
+    /**
+     * Called when you press the Back button.
+     * First go to the home fragment, after suspend the application.
+     */
+    @Override
+    public void onBackPressed() {
+        if(!mHomeFragmentActive) {
+            // change to Home screen
+            selectItem(3);
+        } else {
+            super.onBackPressed();
+            // dispatch the event
+        }
+    }
+
 }
