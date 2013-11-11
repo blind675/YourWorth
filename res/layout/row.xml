@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="#F0F0F0"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
@@ -13,8 +13,8 @@
     <TextView
         android:id="@android:id/text1"
           android:layout_width="fill_parent"
-          android:layout_height="20dp"
-          android:textSize="18sp"
+          android:layout_height="28dp"
+          android:textSize="20sp"
           android:gravity="top|left"
           android:minHeight="?android:attr/listPreferredItemHeightSmall"
           android:textColor="#000000"
@@ -22,11 +22,11 @@
     <TextView
         android:id="@android:id/text2"
         android:layout_width="match_parent"
-        android:layout_height="14dp"
+        android:layout_height="16dp"
         android:textColor="@color/gray"
         android:gravity="bottom|left"
         android:paddingLeft="20dp"
-        android:textSize="10sp"/>
+        android:textSize="12sp"/>
     <View
         android:id="@+id/separator"
         android:layout_width="fill_parent"

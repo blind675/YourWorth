@@ -26,6 +26,9 @@ public class AppModel {
     // preferences identifiers
     private static SharedPreferences mSettings;
 
+    // check if SQL data was loaded
+    private static boolean mDataAlreadyLoaded = false;
+
 	// list of the income records
 	private List<Record> mIncomeList = null;
 
@@ -69,40 +72,44 @@ public class AppModel {
      * @param context the context of the caller
      */
     public void loadDataBase(Context context) {
-        if (mDbHelper == null) {
-            mDbHelper = new SQLiteHelper(context);
-            mDatabase = mDbHelper.getWritableDatabase();
-        }
 
-        Cursor cursor = mDatabase.query(SQLiteHelper.TABLE_WORTH,
-                mAllColumns, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-
-            // get the description of the record
-            String description = cursor.getString(2);
-            // get the value of the record
-            int value = cursor.getInt(1);
-            // get the type of the record
-            String type = cursor.getString(3);
-            // get the ID of the record ( don't need here .. or do i)
-            cursor.getString(0);
-            // create a record
-            Record record = new Record(value,description);
-
-            // test the type of the record and store it accordingly
-            if(type.equals("IN")) {
-                // add the to the income array since type is IN
-                mIncomeList.add(record);
-            } else if(type.equals("SP")) {
-                // add the to the income array since type is SP
-                mSpendingList.add(record);
+        // only load the data once
+        if(!mDataAlreadyLoaded) {
+            if (mDbHelper == null) {
+                mDbHelper = new SQLiteHelper(context);
+                mDatabase = mDbHelper.getWritableDatabase();
             }
-            cursor.moveToNext();
+
+            Cursor cursor = mDatabase.query(SQLiteHelper.TABLE_WORTH,
+                    mAllColumns, null, null, null, null, null);
+
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+
+                // get the description of the record
+                String description = cursor.getString(2);
+                // get the value of the record
+                int value = cursor.getInt(1);
+                // get the type of the record
+                String type = cursor.getString(3);
+                // get the ID of the record ( don't need here .. or do i)
+                cursor.getString(0);
+                // create a record
+                Record record = new Record(value,description);
+
+                // test the type of the record and store it accordingly
+                if(type.equals("IN")) {
+                    // add the to the income array since type is IN
+                    mIncomeList.add(record);
+                } else if(type.equals("SP")) {
+                    // add the to the income array since type is SP
+                    mSpendingList.add(record);
+                }
+                cursor.moveToNext();
+            }
+            // make sure to close the cursor
+            cursor.close();
         }
-        // make sure to close the cursor
-        cursor.close();
 
         // now get the PIN
         // Restore preferences
