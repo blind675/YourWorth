@@ -184,7 +184,7 @@ public class AppModel {
             //Add an <B>Income</B> record to the income list of the model
             if(value!=0){
                 Record record = new Record(value,description);
-                mIncomeList.add(record);
+                mIncomeList.add(0,record);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
@@ -199,7 +199,7 @@ public class AppModel {
              //Add an <B>Spending</B> record to the spending list of the model
             if(value != 0) {
                 Record record = new Record(value,description);
-                mSpendingList.add(record);
+                mSpendingList.add(0,record);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
