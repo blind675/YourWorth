@@ -32,6 +32,7 @@
     <string name="pin_off">PIN protection is inactive</string>
     <string name="pin_on">Change your PIN</string>
     <string name="added_on">Added on:</string>
+    <string name="modified_on">Modified on:</string>
     <string name="pin_status">PIN status</string>
     <string name="sign_in">Sign In</string>
     <string name="old_pin">Old PIN:</string>
