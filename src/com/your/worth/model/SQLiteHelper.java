@@ -18,7 +18,10 @@ class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_VALUE = "value";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_TYPE = "type";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_MODIFIED = "modified";
     public static final String TABLE_WORTH = "worth";
+
 
     private static final String DATABASE_NAME = "worth.db";
 
@@ -28,7 +31,9 @@ class SQLiteHelper extends SQLiteOpenHelper {
             COLUMN_ID + " text primary key not null , " +
             COLUMN_VALUE + " integer not null ," +
             COLUMN_DESCRIPTION + " text ,"+
-            COLUMN_TYPE + " text not null );";
+            COLUMN_TYPE + " text not null,"+
+            COLUMN_DATE + "  text, " +
+            COLUMN_MODIFIED + " integer );";
 
     private static final int DATABASE_VERSION = 1;
 

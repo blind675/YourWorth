@@ -2,13 +2,16 @@ package com.your.worth.controller.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.your.worth.R;
 import com.your.worth.controller.adapters.IncSpdAdapter;
 import com.your.worth.model.AppModel;
+import com.your.worth.model.Record;
 import com.your.worth.controller.listeners.SwipeDismissListViewTouchListener;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public abstract class AbstractIncmSpndFragment extends Fragment {
 
-    private ArrayAdapter<String> mAdapter = null;
+    private ArrayAdapter<Record> mAdapter = null;
     // The tag to determent if it's income or spending fragment
     int mTag = 0;
     @Override
@@ -50,7 +53,7 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
         // I used the SwipeDismissListViewTouchListener from Roman Nurik
         // Gist: https://github.com/romannurik/android-swipetodismiss
         // Google+: https://plus.google.com/113735310430199015092/posts/Fgo1p5uWZLu
-        mAdapter = new IncSpdAdapter(getActivity().getApplicationContext(),getDataFromModel(),null);
+        mAdapter = new IncSpdAdapter(getActivity().getApplicationContext(),getDataFromModel());
         mListView.setAdapter(mAdapter);
 
         // Create a ListView-specific touch listener. ListViews are given special treatment because
@@ -79,9 +82,20 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
         // we don't look for swipes.
         mListView.setOnScrollListener(touchListener.makeScrollListener());
 
-
         // load or reload the listView
         reloadListView();
+
+        // put an event listener on the done keyboard button
+        EditText descriptionBox = (EditText) incomeView.findViewById(R.id.description);
+        descriptionBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE){
+                    executeAdd();
+                }
+                return false;
+            }
+        });
 
         // Get the add button and set an action listener
         Button addGoalButton = (Button) incomeView.findViewById(R.id.button1);
@@ -100,17 +114,15 @@ public abstract class AbstractIncmSpndFragment extends Fragment {
      * Get the list of string 'value - description' from te model
      * @return the list of strings
      */
-    List<String> getDataFromModel(){
+    List<Record> getDataFromModel(){
 
         // get the values from the AppModel
         // exclude 0 value
-        final ArrayList<String> list = new ArrayList<String>();
+        final ArrayList<Record> list = new ArrayList<Record>();
 
         for (int i=0; i< AppModel.getInstance().getRecordSize(mTag); i++) {
-            if (AppModel.getInstance().getRecordValue(i,mTag) != 0 ) {
-                list.add(
-                        AppModel.getInstance().getRecordValue(i,mTag)+" - "+
-                                AppModel.getInstance().getRecordDescription(i,mTag));
+            if (AppModel.getInstance().getRecord(i,mTag).getValue() != 0 ) {
+                list.add(AppModel.getInstance().getRecord(i,mTag));
             }
         }
 

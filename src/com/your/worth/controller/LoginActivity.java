@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.your.worth.R;
 import com.your.worth.model.PIN;
 
@@ -48,6 +51,16 @@ public class LoginActivity extends Activity {
         mText2.addTextChangedListener(new TextChangeListener(1,mText3));
         mText3.addTextChangedListener(new TextChangeListener(2,mText4));
         mText4.addTextChangedListener(new TextChangeListener(3,mText4));
+
+        mText4.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE){
+                    signIn(view);
+                }
+                return false;
+            }
+        });
     }
 
     /**

@@ -7,7 +7,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /** 
@@ -43,7 +46,9 @@ public class AppModel {
         SQLiteHelper.COLUMN_ID,
         SQLiteHelper.COLUMN_VALUE,
         SQLiteHelper.COLUMN_DESCRIPTION,
-        SQLiteHelper.COLUMN_TYPE};
+        SQLiteHelper.COLUMN_TYPE,
+        SQLiteHelper.COLUMN_DATE,
+        SQLiteHelper.COLUMN_MODIFIED};
 
     /**
      *   public constants for income and spending
@@ -85,31 +90,35 @@ public class AppModel {
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
+            // get the description of the record
+            String description = cursor.getString(2);
+            // get the value of the record
+            int value = cursor.getInt(1);
+            // get the type of the record
+            String type = cursor.getString(3);
+            // get the date of the record as string
+            String date = cursor.getString(4);
+            // get the modified field
+            boolean modified = (cursor.getInt(5) == 1);
 
-                // get the description of the record
-                String description = cursor.getString(2);
-                // get the value of the record
-                int value = cursor.getInt(1);
-                // get the type of the record
-                String type = cursor.getString(3);
-                // get the ID of the record ( don't need here .. or do i)
-                cursor.getString(0);
-                // create a record
-                Record record = new Record(value,description);
+            // get the ID of the record ( don't need here .. or do i)
+            cursor.getString(0);
+            // create a record
+            Record record = new Record(value,description,date,modified);
 
-                // test the type of the record and store it accordingly
-                if(type.equals("IN")) {
-                    // add the to the income array since type is IN
-                    mIncomeList.add(record);
-                } else if(type.equals("SP")) {
-                    // add the to the income array since type is SP
-                    mSpendingList.add(record);
-                }
-                cursor.moveToNext();
+            // test the type of the record and store it accordingly
+            if(type.equals("IN")) {
+                // add the to the income array since type is IN
+                mIncomeList.add(record);
+            } else if(type.equals("SP")) {
+                // add the to the income array since type is SP
+                mSpendingList.add(record);
             }
             // make sure to close the cursor
             cursor.close();
         }
+        // make sure to close the cursor
+        cursor.close();
 
         // now get the PIN
         // Restore preferences
@@ -180,17 +189,24 @@ public class AppModel {
      * @param tag 1=INCOME or 2=SPENDING
      */
     public void addRecordValueAndDescriptionByTag(int value, String description, int tag){
+        Date today = new Date();
+
+        // the string representation of date (month/day/year)
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
         if(tag == INCOME){
             //Add an <B>Income</B> record to the income list of the model
             if(value!=0){
-                Record record = new Record(value,description);
-                mIncomeList.add(0,record);
+                Record record = new Record(value,description,dateFormat.format(today),false);
+                mIncomeList.add(record);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
                     values.put(SQLiteHelper.COLUMN_ID,value+description+"IN");
                     values.put(SQLiteHelper.COLUMN_VALUE,value);
                     values.put(SQLiteHelper.COLUMN_DESCRIPTION,description);
+                    values.put(SQLiteHelper.COLUMN_DATE,dateFormat.format(today));
+                    values.put(SQLiteHelper.COLUMN_MODIFIED,false);
                     values.put(SQLiteHelper.COLUMN_TYPE,"IN");
                     mDatabase.insert(SQLiteHelper.TABLE_WORTH, null, values);
                 }
@@ -198,14 +214,16 @@ public class AppModel {
         } else if(tag == SPENDING) {
              //Add an <B>Spending</B> record to the spending list of the model
             if(value != 0) {
-                Record record = new Record(value,description);
-                mSpendingList.add(0,record);
+                Record record = new Record(value,description,dateFormat.format(today),false);
+                mSpendingList.add(record);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
                     values.put(SQLiteHelper.COLUMN_ID,value+description+"SP" );
                     values.put(SQLiteHelper.COLUMN_VALUE,value);
                     values.put(SQLiteHelper.COLUMN_DESCRIPTION,description);
+                    values.put(SQLiteHelper.COLUMN_DATE,dateFormat.format(today));
+                    values.put(SQLiteHelper.COLUMN_MODIFIED,false);
                     values.put(SQLiteHelper.COLUMN_TYPE,"SP");
                     mDatabase.insert(SQLiteHelper.TABLE_WORTH, null, values);
                 }
@@ -250,56 +268,128 @@ public class AppModel {
         }
     }
 
-    /**
-     * Method that gets value of a record from the list. It determines the list type based on the tag property.
-     * @param index index of the record to be removed
-     * @param tag 1=INCOME or 2=SPENDING
-     * @return the value of the record
-     */
-    public int getRecordValue(int index, int tag){
-        if(tag == INCOME){
-            // Returns the value of an income record given by an index
-            /* this method will never fail :D ( throw exception )
-            * 0 values are not relevant therefore ignored  */
-            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
-                return mIncomeList.get(index).getValue();
-            }
-            return 0;
-        } else if(tag == SPENDING) {
-            // Returns the value of an spending record given by an index
-            /* this method will never fail :D ( throw exception )
-            * 0 values are not relevant therefore ignored  */
-            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
-                return mSpendingList.get(index).getValue();
-            }
-            return 0;
-        }
-        return 0;
-    }
+//    /**
+//     * Method that gets value of a record from the list. It determines the list type based on the tag property.
+//     * @param index index of the record to be removed
+//     * @param tag 1=INCOME or 2=SPENDING
+//     * @return the value of the record
+//     */
+//    public int getRecordValue(int index, int tag){
+//        if(tag == INCOME){
+//            // Returns the value of an income record given by an index
+//            /* this method will never fail :D ( throw exception )
+//            * 0 values are not relevant therefore ignored  */
+//            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
+//                return mIncomeList.get(index).getValue();
+//            }
+//            return 0;
+//        } else if(tag == SPENDING) {
+//            // Returns the value of an spending record given by an index
+//            /* this method will never fail :D ( throw exception )
+//            * 0 values are not relevant therefore ignored  */
+//            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
+//                return mSpendingList.get(index).getValue();
+//            }
+//            return 0;
+//        }
+//        return 0;
+//    }
+//
+//    /**
+//     * Method that gets description of a record from the list. It determines the list type based on the tag property.
+//     * @param index index of the record to be removed
+//     * @param tag 1=INCOME or 2=SPENDING
+//     * @return the description of the record
+//     */
+//    public String getRecordDescription(int index, int tag) {
+//        if(tag == INCOME){
+//            // Returns the description of an income record given by an index
+//            /* this method will never fail :D ( throw exception ) */
+//            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
+//                return mIncomeList.get(index).getDescription();
+//            }
+//            return null;
+//        } else if(tag == SPENDING) {
+//            // Returns the description of an spending record given by an index
+//            /* this method will never fail :D ( throw exception ) */
+//            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
+//                return mSpendingList.get(index).getDescription();
+//            }
+//            return null;
+//        }
+//        return null;
+//    }
+//
+//    /**
+//     * Method that returns value of modified field of a record from the list.
+//     * It determines the list type based on the tag property.
+//     * @param index index of the record to be removed
+//     * @param tag 1=INCOME or 2=SPENDING
+//     * @return the value of modified field
+//     */
+//    public boolean isRecordModified(int index, int tag){
+//        if(tag == INCOME){
+//            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
+//                return mIncomeList.get(index).isModified();
+//            }
+//            return false;
+//        } else if(tag == SPENDING) {
+//            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
+//                return mSpendingList.get(index).isModified();
+//            }
+//            return false;
+//        }
+//        return false;
+//    }
+//
+//    /**
+//     * Method that gets the date of a record from the list. It determines the list type based on the tag property.
+//     * @param index index of the record to be removed
+//     * @param tag 1=INCOME or 2=SPENDING
+//     * @return the date of the record
+//     */
+//    public String getRecordDate(int index, int tag) {
+//        if(tag == INCOME){
+//            // Returns the date of an income record given by an index
+//            /* this method will never fail :D ( throw exception ) */
+//            if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
+//                return mIncomeList.get(index).getDate();
+//            }
+//            return null;
+//        } else if(tag == SPENDING) {
+//            // Returns the date of an spending record given by an index
+//            /* this method will never fail :D ( throw exception ) */
+//            if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
+//                return mSpendingList.get(index).getDate();
+//            }
+//            return null;
+//        }
+//        return null;
+//    }
 
     /**
-     * Method that gets description of a record from the list. It determines the list type based on the tag property.
+     * Method that gets the record from the list. It determines the list type based on the tag property.
      * @param index index of the record to be removed
      * @param tag 1=INCOME or 2=SPENDING
-     * @return the description of the record
+     * @return the record
      */
-    public String getRecordDescription(int index, int tag) {
+    public Record getRecord(int index, int tag) {
         if(tag == INCOME){
             // Returns the description of an income record given by an index
             /* this method will never fail :D ( throw exception ) */
             if ( !mIncomeList.isEmpty() && index < mIncomeList.size()) {
-                return mIncomeList.get(index).getDescription();
+                return mIncomeList.get(index);
             }
-            return null;
+            return new Record();
         } else if(tag == SPENDING) {
             // Returns the description of an spending record given by an index
             /* this method will never fail :D ( throw exception ) */
             if ( !mSpendingList.isEmpty() && index < mSpendingList.size()) {
-                return mSpendingList.get(index).getDescription();
+                return mSpendingList.get(index);
             }
-            return null;
+            return new Record();
         }
-        return null;
+        return new Record();
     }
 
     /**
