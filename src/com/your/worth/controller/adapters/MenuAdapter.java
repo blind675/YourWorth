@@ -26,7 +26,7 @@ public class MenuAdapter extends ArrayAdapter<String> {
     private final int mSwitchPosition;
     private ToggleButton mToggleButton = null;
     private TextView mDescriptionView = null;
-    private int mSignoutResource = R.color.white;
+    private int mSignoutResource = R.color.black;
 
     // create a constructor for my menu adapter
     public MenuAdapter(Context context, String[] titles, String[] descriptions, TypedArray iconNames ,int[] rowType,int switchPosition) {
@@ -90,7 +90,7 @@ public class MenuAdapter extends ArrayAdapter<String> {
                         PIN.setPINActive(true);
                         mDescriptionView.setText(R.string.pin_on);
                         mToggleButton.setFocusable(false);
-                        mSignoutResource = R.color.white;
+                        mSignoutResource = R.color.black;
                     } else {
                         /*
                         for some reason that i don't understand yet, the setFocusable has to be last
@@ -118,7 +118,7 @@ public class MenuAdapter extends ArrayAdapter<String> {
         if(!PIN.isInternalPINValid()){
             mSignoutResource = R.color.gray;
         }else {
-            mSignoutResource = R.color.white;
+            mSignoutResource = R.color.black;
         }
 
         if(position == 1 ){

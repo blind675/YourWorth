@@ -410,7 +410,7 @@ public class AppModel {
     }
 
     /**
-     * Method that erases the lists (used for test, for now needed because it's a singleton)
+     * Method that erases the lists
      *@param context the context of the caller
      */
     public void clearLists(Context context) {

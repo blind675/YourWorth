@@ -95,7 +95,7 @@ public class PINFragmant extends Fragment {
         mPINconfirm1.addTextChangedListener(new TextChangeListener(0,false,false,mPINconfirm2));
         mPINconfirm2.addTextChangedListener(new TextChangeListener(1,false,false,mPINconfirm3));
         mPINconfirm3.addTextChangedListener(new TextChangeListener(2,false,false,mPINconfirm4));
-        mPINconfirm4.addTextChangedListener(new TextChangeListener(3,false,false,mPINnew1));
+        mPINconfirm4.addTextChangedListener(new TextChangeListener(3,false,false,null));
 
         mChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,8 +274,10 @@ public class PINFragmant extends Fragment {
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             if(charSequence.length()!=0){
                 selectPINChecker(charSequence.charAt(0),mPos,mFirstPINField,mCompareWithOldPIN);
-                mText.requestFocus();
-                mText.selectAll();
+                if(mText != null) {
+                    mText.requestFocus();
+                    mText.selectAll();
+                }
             } else {
                 selectPINChecker(null,mPos,mFirstPINField,mCompareWithOldPIN);
             }

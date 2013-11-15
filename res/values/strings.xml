@@ -39,4 +39,5 @@
     <string name="new_pin">New PIN:</string>
     <string name="confirm_pin">Confirm PIN:</string>
     <string name="pin_changed">The PIN has changed.</string>
+    <string name="forgot_pin">Forgot your PIN?</string>
 </resources>

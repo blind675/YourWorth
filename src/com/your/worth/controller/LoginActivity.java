@@ -1,6 +1,8 @@
 package com.your.worth.controller;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.your.worth.R;
+import com.your.worth.model.AppModel;
 import com.your.worth.model.PIN;
 
 /**
@@ -28,7 +31,7 @@ public class LoginActivity extends Activity {
     private ImageView mOKIcon = null;
     private Button mSignIn = null;
     private final Character[] mPIN = new Character[4];
-
+    private AlertDialog mAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,40 @@ public class LoginActivity extends Activity {
         mText4.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     signIn(view);
                 }
                 return false;
             }
         });
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setIcon(R.drawable.worth);
+        alertBuilder.setTitle(R.string.forgot_pin);
+        alertBuilder.setMessage("This will ERASE your data. Are you sure?");
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                mAlertDialog.hide();
+            }
+        });
+
+        alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // reset PIN
+                AppModel.getInstance().deactivatePIN();
+                // reset Data
+                AppModel.getInstance().clearLists(getApplicationContext());
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
+                mAlertDialog.hide();
+
+
+            }
+        });
+        mAlertDialog = alertBuilder.create();
     }
 
     /**
@@ -69,6 +100,10 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
        // do nothing
+    }
+
+    public void showPopup(View view) {
+        mAlertDialog.show();
     }
 
     public void signIn(View view) {
