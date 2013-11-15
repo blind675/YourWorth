@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/** 
+/**
  * @author catalinbora
  *
  *	singleton class that holds the data of the application
@@ -22,33 +22,33 @@ import java.util.List;
 
 public class AppModel {
 
-	/**
-	 * singleton instance
-	 */
-	private static final AppModel INSTANCE = new AppModel();
+    /**
+     * singleton instance
+     */
+    private static final AppModel INSTANCE = new AppModel();
     // preferences identifiers
     private static SharedPreferences mSettings;
 
     // check if SQL data was loaded
     private static boolean mDataAlreadyLoaded = false;
 
-	// list of the income records
-	private List<Record> mIncomeList = null;
+    // list of the income records
+    private List<Record> mIncomeList = null;
 
-	// list of the spending records
-	private List<Record> mSpendingList = null;
+    // list of the spending records
+    private List<Record> mSpendingList = null;
 
     // Database fields
     private SQLiteDatabase mDatabase;
     private SQLiteHelper mDbHelper;
 
     private final String[] mAllColumns = {
-        SQLiteHelper.COLUMN_ID,
-        SQLiteHelper.COLUMN_VALUE,
-        SQLiteHelper.COLUMN_DESCRIPTION,
-        SQLiteHelper.COLUMN_TYPE,
-        SQLiteHelper.COLUMN_DATE,
-        SQLiteHelper.COLUMN_MODIFIED};
+            SQLiteHelper.COLUMN_ID,
+            SQLiteHelper.COLUMN_VALUE,
+            SQLiteHelper.COLUMN_DESCRIPTION,
+            SQLiteHelper.COLUMN_TYPE,
+            SQLiteHelper.COLUMN_DATE,
+            SQLiteHelper.COLUMN_MODIFIED};
 
     /**
      *   public constants for income and spending
@@ -59,17 +59,17 @@ public class AppModel {
 
     public enum Granularity{HOUR,MINUTE,DAY,MONTH,YEAR}
 
-	/**
-	 * just initialize the 2 lists
-	 */
-	private AppModel() {
-		mIncomeList = new ArrayList<Record>();
-		mSpendingList = new ArrayList<Record>();
-	}
-	
-	public static AppModel getInstance() {
+    /**
+     * just initialize the 2 lists
+     */
+    private AppModel() {
+        mIncomeList = new ArrayList<Record>();
+        mSpendingList = new ArrayList<Record>();
+    }
+
+    public static AppModel getInstance() {
         return INSTANCE;
-	}
+    }
 
     /**
      * Method that initializes the database and loads all its records in the AppModel internal arrays.
@@ -90,35 +90,36 @@ public class AppModel {
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-            // get the description of the record
-            String description = cursor.getString(2);
-            // get the value of the record
-            int value = cursor.getInt(1);
-            // get the type of the record
-            String type = cursor.getString(3);
-            // get the date of the record as string
-            String date = cursor.getString(4);
-            // get the modified field
-            boolean modified = (cursor.getInt(5) == 1);
 
-            // get the ID of the record ( don't need here .. or do i)
-            cursor.getString(0);
-            // create a record
-            Record record = new Record(value,description,date,modified);
+                // get the description of the record
+                String description = cursor.getString(2);
+                // get the value of the record
+                int value = cursor.getInt(1);
+                // get the type of the record
+                String type = cursor.getString(3);
+                // get the date of the record as string
+                String date = cursor.getString(4);
+                // get the modified field
+                boolean modified = (cursor.getInt(5) == 1);
 
-            // test the type of the record and store it accordingly
-            if(type.equals("IN")) {
-                // add the to the income array since type is IN
-                mIncomeList.add(record);
-            } else if(type.equals("SP")) {
-                // add the to the income array since type is SP
-                mSpendingList.add(record);
+                // get the ID of the record ( don't need here .. or do i)
+                cursor.getString(0);
+                // create a record
+                Record record = new Record(value,description,date,modified);
+
+                // test the type of the record and store it accordingly
+                if(type.equals("IN")) {
+                    // add the to the income array since type is IN
+                    mIncomeList.add(record);
+                } else if(type.equals("SP")) {
+                    // add the to the income array since type is SP
+                    mSpendingList.add(record);
+                }
+                cursor.moveToNext();
             }
             // make sure to close the cursor
             cursor.close();
         }
-        // make sure to close the cursor
-        cursor.close();
 
         // now get the PIN
         // Restore preferences
@@ -127,10 +128,10 @@ public class AppModel {
 
         Character[] pin = new Character[4];
         for (int i=0;i<4;i++) {
-           digit = mSettings.getInt("digit"+(i+1), -1);
-           if(digit != -1){
-               pin[i] = Character.forDigit(digit, 10);
-           }
+            digit = mSettings.getInt("digit"+(i+1), -1);
+            if(digit != -1){
+                pin[i] = Character.forDigit(digit, 10);
+            }
         }
 
         if(PIN.isPINComplete(pin)){
@@ -198,7 +199,7 @@ public class AppModel {
             //Add an <B>Income</B> record to the income list of the model
             if(value!=0){
                 Record record = new Record(value,description,dateFormat.format(today),false);
-                mIncomeList.add(record);
+                mIncomeList.add(0,record);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
@@ -212,10 +213,10 @@ public class AppModel {
                 }
             }
         } else if(tag == SPENDING) {
-             //Add an <B>Spending</B> record to the spending list of the model
+            //Add an <B>Spending</B> record to the spending list of the model
             if(value != 0) {
                 Record record = new Record(value,description,dateFormat.format(today),false);
-                mSpendingList.add(record);
+                mSpendingList.add(0,record);
                 // now add the values to the DB
                 if(mDatabase != null) {
                     ContentValues values = new ContentValues();
@@ -244,10 +245,10 @@ public class AppModel {
                 // first add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
-                        SQLiteHelper.COLUMN_ID + " = \'" +
-                            mIncomeList.get(index).getValue()+
-                            mIncomeList.get(index).getDescription()+
-                            "IN\'", null);
+                            SQLiteHelper.COLUMN_ID + " = \'" +
+                                    mIncomeList.get(index).getValue()+
+                                    mIncomeList.get(index).getDescription()+
+                                    "IN\'", null);
                 }
                 mIncomeList.remove(index);
             }
@@ -258,10 +259,10 @@ public class AppModel {
                 // now add the values to the DB
                 if(mDatabase != null) {
                     mDatabase.delete(SQLiteHelper.TABLE_WORTH,
-                        SQLiteHelper.COLUMN_ID + " = \'" +
-                            mSpendingList.get(index).getValue()+
-                            mSpendingList.get(index).getDescription()+
-                            "SP\'", null);
+                            SQLiteHelper.COLUMN_ID + " = \'" +
+                                    mSpendingList.get(index).getValue()+
+                                    mSpendingList.get(index).getDescription()+
+                                    "SP\'", null);
                 }
                 mSpendingList.remove(index);
             }
@@ -409,7 +410,7 @@ public class AppModel {
     }
 
     /**
-    * Method that erases the lists (used for test, for now needed because it's a singleton)
+     * Method that erases the lists (used for test, for now needed because it's a singleton)
      *@param context the context of the caller
      */
     public void clearLists(Context context) {
@@ -456,27 +457,27 @@ public class AppModel {
 
         switch (granularity){
             case YEAR:      returnValue = monthWorth * 12;
-                            break;
+                break;
             case MONTH:     returnValue = monthWorth;
-                            break;
+                break;
             case DAY:       bigDecimal = new BigDecimal(Float.toString((float)monthWorth/30));
-                            // for simplicity there are 30 days in a month
-                            bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
-                            // round down so it motivates users, a little
-                            returnValue = bigDecimal.floatValue();
-                            break;
+                // for simplicity there are 30 days in a month
+                bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                // round down so it motivates users, a little
+                returnValue = bigDecimal.floatValue();
+                break;
             case HOUR:      bigDecimal = new BigDecimal(Float.toString(((float)monthWorth/30)/24));
-                            // for simplicity there are 30 days in a month and 24 hours in a day
-                            bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
-                            // round down so it motivates users, a little
-                            returnValue = bigDecimal.floatValue();
-                            break;
+                // for simplicity there are 30 days in a month and 24 hours in a day
+                bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                // round down so it motivates users, a little
+                returnValue = bigDecimal.floatValue();
+                break;
             case MINUTE:    bigDecimal = new BigDecimal(Float.toString((((float)monthWorth/30)/24)/60));
-                            // for simplicity there are 30 days in a month , 24 hours in a day and 60 minutes in an hour
-                            bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
-                            // round down so it motivates users, a little
-                            returnValue = bigDecimal.floatValue();
-                            break;
+                // for simplicity there are 30 days in a month , 24 hours in a day and 60 minutes in an hour
+                bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN);
+                // round down so it motivates users, a little
+                returnValue = bigDecimal.floatValue();
+                break;
             default:        returnValue =  0;
         }
         return returnValue;
