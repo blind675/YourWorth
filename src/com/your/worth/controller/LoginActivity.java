@@ -107,8 +107,10 @@ public class LoginActivity extends Activity {
     }
 
     public void signIn(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if(PIN.isPINComplete(mPIN) && (PIN.isPINOk(mPIN))) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**

@@ -96,7 +96,7 @@
         android:text="@string/sign_in"
         android:textSize="12sp"
         android:onClick="signIn"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_below="@+id/PINfields"
         android:layout_marginTop="2dp"
         android:layout_centerHorizontal="true"/>
