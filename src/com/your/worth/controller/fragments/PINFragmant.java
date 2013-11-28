@@ -122,6 +122,11 @@ public class PINFragmant extends Fragment {
         mPINold3.setEnabled(true);
         mPINold4.setEnabled(true);
 
+        mPINold1.setBackgroundResource(R.drawable.back);
+        mPINold2.setBackgroundResource(R.drawable.back);
+        mPINold3.setBackgroundResource(R.drawable.back);
+        mPINold4.setBackgroundResource(R.drawable.back);
+
         clearFields();
     }
 
@@ -239,12 +244,16 @@ public class PINFragmant extends Fragment {
         mChange.setEnabled(false);
 
         if(!PIN.isInternalPINValid()) {
-            mOldPIN.setTextColor(getResources().getColor(R.color.gray));
+            mOldPIN.setTextColor(getResources().getColor(R.color.lightGray));
 
             mPINold1.setEnabled(false);
+            mPINold1.setBackgroundResource(R.drawable.grayback);
             mPINold2.setEnabled(false);
+            mPINold2.setBackgroundResource(R.drawable.grayback);
             mPINold3.setEnabled(false);
+            mPINold3.setBackgroundResource(R.drawable.grayback);
             mPINold4.setEnabled(false);
+            mPINold4.setBackgroundResource(R.drawable.grayback);
             mOldPINOk = true;
         }
     }

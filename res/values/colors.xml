@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <color name="gray">#606060</color>
+<color name="lightGray">#C4C4C4</color>
 <color name="select_gray">#2C2C2C</color>
 <color name="select_blue">#0051AE</color>
 <color name="blue">#0049A0</color>
